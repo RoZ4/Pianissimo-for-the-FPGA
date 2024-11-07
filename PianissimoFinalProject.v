@@ -1,3 +1,7 @@
+`define STARTSCREEN 5'd0
+`define RECORD 5'd1
+`define PLAY 5'd2
+
 module FinalProject (CLOCK_50,
                 	VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK
 					PS2_CLK, PS2_DAT
@@ -36,7 +40,7 @@ module FinalProject (CLOCK_50,
 	integer i;
 	always @(posedge recievedDataEnable) begin: PS2Controller
 		if (recievedData == 8'hf0) begin
-			for (i = 0; i < 28; i = i+1) begin
+			for (i = 0; i < 29; i = i+1) begin
 				inputStateStorage[i] = 0'b0;
 			end
 		end
@@ -77,20 +81,16 @@ module FinalProject (CLOCK_50,
 	//-----------------------------------------------------
 
 	// -------------------- STATES ------------------------
-	localparam STARTSCREEN = 5'd0, RECORD = 5'd1, PLAY = 5'd2;
-
 	wire [4:0] currentState; // Connects to current state in MasterFSM.v
 	// ----------------------------------------------------
 
 
-
-	
-    reg [2:0] colour;
+    reg [23:0] colour;
     reg [8:0] screenX, screenY;
 	reg plotWriteEnable; 					// Feeds .plot() on the VGA adapter; tells when to draw pixels to screen
 	wire [8:0] backgroundX, backgroundY; 	// Coordinates on .mif background texture
-	reg [16:0] rdAddress;			 		// Pointer to address for individual pixels in memory
-	wire [16:0] nextAddress;				// Connected to the drawing module; stores the next address with the next pixel colour
+	reg [14:0] rdAddress;			 		// Pointer to address for individual pixels in memory
+	wire [14:0] nextAddress;				// Connected to the drawing module; stores the next address with the next pixel colour
 	wire masterResetAddress;				// Signal to reset address pointer to 0
 	wire masterClearScreen;
 
@@ -112,15 +112,18 @@ module FinalProject (CLOCK_50,
         .VGA_BLANK_N(VGA_BLANK_N),
         .VGA_SYNC_N(VGA_SYNC_N),
         .VGA_CLK(VGA_CLK));
-        defparam VGA.RESOLUTION = "320x240";
+        defparam VGA.RESOLUTION = "160x120";
         defparam VGA.MONOCHROME = "FALSE";
-        defparam VGA.BITS_PER_COLOUR_CHANNEL = 1;
-        defparam VGA.BACKGROUND_IMAGE = "./images/start_screen.mif";
+        defparam VGA.BITS_PER_COLOUR_CHANNEL = 8;
+        defparam VGA.BACKGROUND_IMAGE = "./images/StartScreen.mif";
 	
 	
-	drawPixels drawScanner(CLOCK_50, nextAddress, doneDrawing, backgroundX, backgroundY);
+	drawToScreen drawScanner(CLOCK_50, nextAddress, doneDrawing, backgroundX, backgroundY);
 	MasterFSM masterFSM(CLOCK_50, resetn, keyEnter, keySpacebar, currentState);
-	
+
+	wire [23:0] startScreenColour;
+	startScreenHandler startScreenController(CLOCK_50, nextAddress, startScreenColour);
+
 	always @* begin
 		if (masterResetAddress) begin
 			rdAddress <= 0;
@@ -130,6 +133,7 @@ module FinalProject (CLOCK_50,
 
 			if (currentState == STARTSCREEN) begin
 				plotWriteEnable <= 1;
+				colour <= startScreenColour;
 				screenX <= backgroundX;
 				screenY <= backgroundY;
 			end
