@@ -27,25 +27,57 @@ module FinalProject (CLOCK_50,
 	wire [7:0] recievedData;				// Data recieved from PS2 Device
 	wire recievedNewData;					// Driven high for one clock cycle when new data is recieved
 
-	// Define storage elements for state of keys
-	reg keySpacebar, keyEnter;
-
 	//- - - - - - PS2 Take Inputs From Keyboard - - - - - -
+	// Define storage elements for state of keys
+	parameter key0 = 0, key1 = 1, key2 = 2, key3 = 3, key4 = 4, key5 = 5, key6 = 6, key7 = 7, key8 = 8, key9 = 9, keyTilda = 10, keyMinus = 11, keyEquals = 12, keyBackspace = 13, keyTab = 14, keyQ = 15, keyW = 16, keyE = 17, keyR = 18, keyT = 19, keyY = 20, keyU = 21, keyI = 22, keyO = 23, keyP = 24, keyLSquareBracket = 25, keyRSquareBracket = 26, keyBackslash = 27, keySpacebar = 28;
+	reg [28:0] inputStateStorage;
 	PS2_Controller ps2 (CLOCK_50, commandToSend, sendCommand, PS2_CLK, PS2_DAT, commandWasSent, 
 					    errorCommunicationTimedOut, recievedData, recievedNewData);
-
+	integer i;
 	always @(posedge recievedDataEnable) begin: PS2Controller
 		if (recievedData == 8'hf0) begin
-			keyEnter <= 0;
-			keySpacebar <= 0;
+			for (i = 0; i < 28; i = i+1) begin
+				inputStateStorage[i] = 0'b0;
+			end
 		end
-		if (recievedData == 8'h5a) keyEnter <= 1;
-		else if (recievedData == 8'h29) keySpacebar <= 1;
+		case (recievedData)
+			8'h0E: inputStateStorage[keyTilda] <= 1'b1;
+			8'h16: inputStateStorage[key1] <= 1'b1;
+			8'h1E: inputStateStorage[key2] <= 1'b1;
+			8'h26: inputStateStorage[key3] <= 1'b1;
+			8'h25: inputStateStorage[key4] <= 1'b1;
+			8'h2E: inputStateStorage[key5] <= 1'b1;
+			8'h36: inputStateStorage[key6] <= 1'b1;
+			8'h3D: inputStateStorage[key7] <= 1'b1;
+			8'h3E: inputStateStorage[key8] <= 1'b1;
+			8'h46: inputStateStorage[key9] <= 1'b1;
+			8'h45: inputStateStorage[key0] <= 1'b1;
+			8'h4E: inputStateStorage[keyMinus] <= 1'b1;
+			8'h55: inputStateStorage[keyEquals] <= 1'b1;
+			8'h66: inputStateStorage[keyBackspace] <= 1'b1;
+
+			8'h0D: inputStateStorage[keyTab] <= 1'b1;
+			8'h15: inputStateStorage[keyQ] <= 1'b1;
+			8'h1D: inputStateStorage[keyW] <= 1'b1;
+			8'h24: inputStateStorage[keyE] <= 1'b1;
+			8'h2D: inputStateStorage[keyR] <= 1'b1;
+			8'h2C: inputStateStorage[keyT] <= 1'b1;
+			8'h35: inputStateStorage[keyY] <= 1'b1;
+			8'h3C: inputStateStorage[keyU] <= 1'b1;
+			8'h43: inputStateStorage[keyI] <= 1'b1;
+			8'h44: inputStateStorage[keyO] <= 1'b1;
+			8'h4D: inputStateStorage[keyP] <= 1'b1;
+			8'h54: inputStateStorage[keyLSquareBracket] <= 1'b1;
+			8'h5B: inputStateStorage[keyRSquareBracket] <= 1'b1;
+			8'h5D: inputStateStorage[keyBackslash] <= 1'b1;
+
+			8'h29: inputStateStorage[keySpacebar] <= 1'b1;		
+		endcase
 	end
 	//-----------------------------------------------------
 
 	// -------------------- STATES ------------------------
-	localparam STARTSCREEN = 5'd0, PLACE = 5'd1, DRAW = 5'd2, PAUSE = 5'd3; 
+	localparam STARTSCREEN = 5'd0, RECORD = 5'd1, PLAY = 5'd2;
 
 	wire [4:0] currentState; // Connects to current state in MasterFSM.v
 	// ----------------------------------------------------
@@ -57,17 +89,13 @@ module FinalProject (CLOCK_50,
     reg [8:0] screenX, screenY;
 	reg plotWriteEnable; 					// Feeds .plot() on the VGA adapter; tells when to draw pixels to screen
 	wire [8:0] backgroundX, backgroundY; 	// Coordinates on .mif background texture
-	reg [16:0] rdAddress, wrAddress; 		// Pointer to address for individual pixels in memory
+	reg [16:0] rdAddress;			 		// Pointer to address for individual pixels in memory
 	wire [16:0] nextAddress;				// Connected to the drawing module; stores the next address with the next pixel colour
 	wire masterResetAddress;				// Signal to reset address pointer to 0
 	wire masterClearScreen;
-	wire CLOCK_25, doneDrawing; 
-	wire [2:0] VWRData, VRDData;
 
     wire resetn;
 	assign resetn = KEY[3]; // Reset on key 3 downpress
-
-	vga_pll clockHalf50(CLOCK_50, CLOCK_25);
 
 	vga_adapter VGA (
         .resetn(resetn),
@@ -90,30 +118,11 @@ module FinalProject (CLOCK_50,
         defparam VGA.BACKGROUND_IMAGE = "./images/start_screen.mif";
 	
 	
-	// read and write to memory on opposite clock cycles: Write on HIGH, Read on LOW
-	VideoBuffer VBuff (.data(VWRData), .rdaddress(rdAddress), .rdclock(~CLOCK_50), .wraddress(wrAddress), .wrclock(CLOCK_50), .wren(plotWriteEnable), .q(VRDData));
 	drawPixels drawScanner(CLOCK_50, nextAddress, doneDrawing, backgroundX, backgroundY);
-
-	wire blitCircleEnable; // Blit refers to copying data into the video buffer: VBuff
-	reg [8:0] circleCenterX, circleCenterY;
-	initial begin
-		circleCenterX = 9'd160;
-		circleCenterY = 9'd120;
-	end
-	wire [2:0] blankScreenColour;
-	//drawCircle circleDrawer(CLOCK_50, blitCircleEnable, circleCenterX, circleCenterY, nextAddress, VWRData);
-	blank_screen bScreen(rdAddress, CLOCK_50, blankScreenColour);
-
-	wire drawStateHandlerResetAddress, drawStateHandlerClearScreen, drawStateWREnable;
-	assign masterResetAddress = drawStateHandlerResetAddress;
-	assign masterClearScreen = drawStateHandlerClearScreen;
-	wire [2:0] simulateScreenColour;
-	drawStatePartialRegFSM stateHandlerDraw(CLOCK_50, resetn, simulateScreenColour, rdAddress, doneDrawing, circleCenterX, circleCenterY, drawStateHandlerClearScreen, resetAddress, drawStateWREnable);
-
+	MasterFSM masterFSM(CLOCK_50, resetn, keyEnter, keySpacebar, currentState);
 	
 	always @* begin
 		if (masterResetAddress) begin
-			wrAddress <= 0;
 			rdAddress <= 0;
 		end
 		else begin
@@ -125,22 +134,20 @@ module FinalProject (CLOCK_50,
 				screenY <= backgroundY;
 			end
 
-			else if (currentState == PLACE) begin
+			else if (currentState == RECORD) begin
 				if (masterClearScreen && !doneDrawing) begin
 					colour <= blankScreenColour;
 				end
 				plotWriteEnable <= 1;
-				blitCircleEnable <= 1;
 				screenX <= backgroundX;
 				screenY <= backgroundY;
 			end
-			else if (currentState == DRAW) begin
+			else if (currentState == PLAY) begin
 				if (masterClearScreen && !doneDrawing) begin
 					colour <= blankScreenColour;
 				end
 				colour <= simulateScreenColour
-				plotWriteEnable <= drawStateWREnable;
-				blitCircleEnable <= 0;
+				plotWriteEnable <= 1;
 				screenX <= backgroundX;
 				screenY <= backgroundY;
 			end
@@ -149,7 +156,5 @@ module FinalProject (CLOCK_50,
 			end
 		end
 	end
-
-	MasterFSM masterFSM(CLOCK_50, resetn, keyEnter, keySpacebar, currentState);
 	
 endmodule
