@@ -1,11 +1,10 @@
-`define STARTSCREEN 5'd0
-`define RECORD 5'd1
-`define PLAY 5'd2
+`include "DefineMacros.vh"
 
-module FinalProject (CLOCK_50,
-                	VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK
-					PS2_CLK, PS2_DAT
+module PianissimoFinalProject (CLOCK_50,
+                	VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK,
+					PS2_CLK, PS2_DAT, KEY
 					);
+	input [0:0] KEY;
 
 	//--------------------- VGA IO ------------------------
 	input			CLOCK_50;				//	50 MHz	
@@ -33,15 +32,15 @@ module FinalProject (CLOCK_50,
 
 	//- - - - - - PS2 Take Inputs From Keyboard - - - - - -
 	// Define storage elements for state of keys
-	parameter key0 = 0, key1 = 1, key2 = 2, key3 = 3, key4 = 4, key5 = 5, key6 = 6, key7 = 7, key8 = 8, key9 = 9, keyTilda = 10, keyMinus = 11, keyEquals = 12, keyBackspace = 13, keyTab = 14, keyQ = 15, keyW = 16, keyE = 17, keyR = 18, keyT = 19, keyY = 20, keyU = 21, keyI = 22, keyO = 23, keyP = 24, keyLSquareBracket = 25, keyRSquareBracket = 26, keyBackslash = 27, keySpacebar = 28;
-	reg [28:0] inputStateStorage;
+	parameter key0 = 0, key1 = 1, key2 = 2, key3 = 3, key4 = 4, key5 = 5, key6 = 6, key7 = 7, key8 = 8, key9 = 9, keyTilda = 10, keyMinus = 11, keyEquals = 12, keyBackspace = 13, keyTab = 14, keyQ = 15, keyW = 16, keyE = 17, keyR = 18, keyT = 19, keyY = 20, keyU = 21, keyI = 22, keyO = 23, keyP = 24, keyLSquareBracket = 25, keyRSquareBracket = 26, keyBackslash = 27, keySpacebar = 28, noPress = 29;
+	reg [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStorage;
 	PS2_Controller ps2 (CLOCK_50, commandToSend, sendCommand, PS2_CLK, PS2_DAT, commandWasSent, 
 					    errorCommunicationTimedOut, recievedData, recievedNewData);
 	integer i;
-	always @(posedge recievedDataEnable) begin: PS2Controller
+	always @(posedge recievedNewData) begin: PS2Controller
 		if (recievedData == 8'hf0) begin
 			for (i = 0; i < 29; i = i+1) begin
-				inputStateStorage[i] = 0'b0;
+				inputStateStorage[i] = 1'b0;
 			end
 		end
 		case (recievedData)
@@ -86,16 +85,16 @@ module FinalProject (CLOCK_50,
 
 
     reg [23:0] colour;
-    reg [8:0] screenX, screenY;
+    reg [7:0] screenX, screenY;
 	reg plotWriteEnable; 					// Feeds .plot() on the VGA adapter; tells when to draw pixels to screen
-	wire [8:0] backgroundX, backgroundY; 	// Coordinates on .mif background texture
+	wire [7:0] backgroundX, backgroundY; 	// Coordinates on .mif background texture
 	reg [14:0] rdAddress;			 		// Pointer to address for individual pixels in memory
 	wire [14:0] nextAddress;				// Connected to the drawing module; stores the next address with the next pixel colour
 	wire masterResetAddress;				// Signal to reset address pointer to 0
 	wire masterClearScreen;
 
     wire resetn;
-	assign resetn = KEY[3]; // Reset on key 3 downpress
+	assign resetn = KEY[0]; // Reset on key 0 downpress
 
 	vga_adapter VGA (
         .resetn(resetn),
@@ -117,12 +116,20 @@ module FinalProject (CLOCK_50,
         defparam VGA.BITS_PER_COLOUR_CHANNEL = 8;
         defparam VGA.BACKGROUND_IMAGE = "./images/StartScreen.mif";
 	
-	
-	drawToScreen drawScanner(CLOCK_50, nextAddress, doneDrawing, backgroundX, backgroundY);
-	MasterFSM masterFSM(CLOCK_50, resetn, keyEnter, keySpacebar, currentState);
+	wire drawScannerDoneDrawing, noteBlocksDoneDrawing;
+	wire [23:0] resetScreenColour;
+	drawToScreen drawScanner(CLOCK_50, nextAddress, drawScannerDoneDrawing, backgroundX, backgroundY);
+	resetScreen screenReseter(CLOCK_50, noteBlocksDoneDrawing, backgroundX, backgroundY, resetScreenColour);
 
-	wire [23:0] startScreenColour;
+	wire randomTimerEnable;
+	MasterFSM masterFSM(CLOCK_50, resetn, inputStateStorage, currentState, randomTimerEnable);
+
+	wire [23:0] startScreenColour, mainStateColour;
 	startScreenHandler startScreenController(CLOCK_50, nextAddress, startScreenColour);
+
+	wire [7:0] mainStateOutputScreenX, mainStateOutputScreenY;
+	mainStateHandler mainStateController(CLOCK_50, drawScannerDoneDrawing, mainStateOutputScreenX, mainStateOutputScreenY, currentState, inputStateStorage, mainStateColour, noteBlocksDoneDrawing);
+
 
 	always @* begin
 		if (masterResetAddress) begin
@@ -131,32 +138,30 @@ module FinalProject (CLOCK_50,
 		else begin
 			rdAddress <= nextAddress;
 
-			if (currentState == STARTSCREEN) begin
+			if (currentState == `STARTSCREEN) begin
 				plotWriteEnable <= 1;
 				colour <= startScreenColour;
 				screenX <= backgroundX;
 				screenY <= backgroundY;
 			end
 
-			else if (currentState == RECORD) begin
-				if (masterClearScreen && !doneDrawing) begin
-					colour <= blankScreenColour;
-				end
+			else if (currentState == `RECORD) begin
+				if (noteBlocksDoneDrawing)
 				plotWriteEnable <= 1;
 				screenX <= backgroundX;
 				screenY <= backgroundY;
 			end
-			else if (currentState == PLAY) begin
-				if (masterClearScreen && !doneDrawing) begin
-					colour <= blankScreenColour;
+			else if (currentState == `PLAYBACK) begin
+				if (noteBlocksDoneDrawing & !drawScannerDoneDrawing) begin
+					colour <= resetScreenColour;
 				end
-				colour <= simulateScreenColour
+				else begin
+					colour <= mainStateColour;
+				end
+
 				plotWriteEnable <= 1;
-				screenX <= backgroundX;
-				screenY <= backgroundY;
-			end
-			else if (currentState == PAUSE) begin
-				plotWriteEnable <= 0;
+				screenX <= mainStateOutputScreenX;
+				screenY <= mainStateOutputScreenY;
 			end
 		end
 	end

@@ -200,7 +200,7 @@ module vga_adapter(
 	 * the VGA mode).  */
 	vga_pll mypll(clock, clock_25);
 	
-	vga_controller_recoloured controller(
+	vga_controller controller(
 			.vga_clock(clock_25),
 			.resetn(resetn),
 			.pixel_colour(to_ctrl_colour),
