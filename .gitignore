@@ -2,3 +2,5 @@
 *.qpf
 *.psf
 *.qws
+greybox_tmp/
+*.bak

@@ -1,4 +1,4 @@
-`include "DefineMacros.vh"
+`include "../DefineMacros.vh"
 
 module MasterFSM (clk, resetn, inputStateStorage, currentState, timerEnable);
 	parameter key0 = 0, key1 = 1, key2 = 2, key3 = 3, key4 = 4, key5 = 5, key6 = 6, key7 = 7, key8 = 8, key9 = 9, keyTilda = 10, keyMinus = 11, keyEquals = 12, keyBackspace = 13, keyTab = 14, keyQ = 15, keyW = 16, keyE = 17, keyR = 18, keyT = 19, keyY = 20, keyU = 21, keyI = 22, keyO = 23, keyP = 24, keyLSquareBracket = 25, keyRSquareBracket = 26, keyBackslash = 27, keySpacebar = 28, noPress = 29;
@@ -11,7 +11,7 @@ module MasterFSM (clk, resetn, inputStateStorage, currentState, timerEnable);
 
 	always @(*) begin: nextStateLogic
 		case (currentState)
-			`STARTSCREEN: nextState <= inputStateStorage[keySpacebar] ? `RECORD : `STARTSCREEN;
+			`STARTSCREEN: nextState <= inputStateStorage[keyQ] ? `RECORD : `STARTSCREEN;
 			`RECORD: nextState <= inputStateStorage[keySpacebar] ? `PLAYBACK : `RECORD;
 			`PLAYBACK: begin
 				if (inputStateStorage[keyR]) nextState <= `RESTARTPLAYBACK;
@@ -42,7 +42,8 @@ module MasterFSM (clk, resetn, inputStateStorage, currentState, timerEnable);
 	end
 
 	always @(posedge clk) begin
-		currentState <= nextState;
+		if (resetn) currentState <= `STARTSCREEN;
+		else currentState <= nextState;
 	end
 
 endmodule

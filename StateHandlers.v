@@ -36,7 +36,7 @@ module mainStateHandler(clk, inputClearScreenDoneDrawing, outputScreenX, outputS
 	always@(*) begin: subStates
 		case(currentSubState)
 			IDLE: nextSubState <= (currentState == `RECORD ? STARTNOTERECORDING : IDLE);
-			STARTNOTERECORDING: nextSubState <= currentState == `RECORD ? (inputStateStorage[noPress] ? WRITETOMEMORY : STARTNOTERECORDING) : RESETPLAYBACK;
+			STARTNOTERECORDING: nextSubState <= currentState == `RECORD ? (inputStateStorage[`noPress] ? WRITETOMEMORY : STARTNOTERECORDING) : RESETPLAYBACK;
 			WRITETOMEMORY: nextSubState <= STARTNOTERECORDING;
 			RESETPLAYBACK: nextSubState <= DRAWNEWLINEOFNOTEBLOCK;
 			DRAWNEWLINEOFNOTEBLOCK: nextSubState <= (linesDrawn != (retrievedNoteData[57:29] - retrievedNoteData[28:0]) >> 20) ? DRAWNOTEBLOCK : DRAWNEXTNOTEBLOCK; // )[28:20]) ? 

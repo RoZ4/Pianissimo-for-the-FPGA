@@ -42,3 +42,24 @@ module downCounter_9b(clk, resetn, enable, maxCount, regOut);
 		
 	end
 endmodule
+
+module upLoopCounterVariableBits(clk, resetn, enable, maxCount, regOut);
+	parameter outputBits = 29;
+
+	input clk, resetn, enable;
+	input [outputBits-1:0] maxCount;
+	output reg [outputBits-1:0] regOut;
+	
+	always @(posedge clk, posedge resetn) begin
+		if (resetn)
+			regOut <= 29'd0;
+			
+		else if(enable) begin
+			if (regOut == maxCount) // Time for update
+				regOut <= 29'd0;
+			else
+				regOut <= regOut+1;
+		end
+		
+	end
+endmodule

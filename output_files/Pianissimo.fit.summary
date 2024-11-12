@@ -1,16 +1,16 @@
-Fitter Status : Successful - Sun Nov 10 15:03:55 2024
-Quartus Prime Version : 23.1std.1 Build 993 05/14/2024 SC Lite Edition
+Fitter Status : Successful - Tue Nov 12 12:55:15 2024
+Quartus Prime Version : 18.0.0 Build 614 04/24/2018 SJ Standard Edition
 Revision Name : Pianissimo
 Top-level Entity Name : PianissimoFinalProject
 Family : Cyclone V
 Device : 5CSEMA5F31C6
 Timing Models : Final
-Logic utilization (in ALMs) : 149 / 32,070 ( < 1 % )
-Total registers : 163
-Total pins : 33 / 457 ( 7 % )
+Logic utilization (in ALMs) : 364 / 32,070 ( 1 % )
+Total registers : 324
+Total pins : 43 / 457 ( 9 % )
 Total virtual pins : 0
-Total block memory bits : 921,600 / 4,065,280 ( 23 % )
-Total RAM Blocks : 120 / 397 ( 30 % )
+Total block memory bits : 927,800 / 4,065,280 ( 23 % )
+Total RAM Blocks : 122 / 397 ( 31 % )
 Total DSP Blocks : 0 / 87 ( 0 % )
 Total HSSI RX PCSs : 0
 Total HSSI PMA RX Deserializers : 0

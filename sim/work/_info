@@ -1,0 +1,515 @@
+m255
+K4
+z2
+!s12c _opt
+Z0 !s99 nomlopt
+!s11f vlog 2023.3 2023.07, Jul 17 2023
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 dW:/Pianissimo/sim
+T_opt
+!s110 1731430689
+VMWXZecj:KQD[o67zXG0;70
+04 2 4 work tb fast 0
+=1-54bf6471fef3-67338919-1a1-39f4
+R0
+!s12b OEM100
+!s124 OEM10U17 
+o-quiet +acc -auto_acc_if_foreign -work work -Lf 220model -Lf altera_mf_ver -Lf verilog
+Z2 tCvgOpt 0
+n@_opt
+OL;O;2023.3;77
+vAltera_UP_PS2_Command_Out
+Z3 2../PS2_controller/Altera_UP_PS2_Command_Out.v|../PS2_controller/Altera_UP_PS2_Data_In.v|../PS2_controller/PS2_Controller.v
+Z4 !s110 1731430676
+!i10b 1
+!s100 GEWnOfaB_1mE3@6T;RDbI1
+I^Ci>k`mELR;a7Vn12?n4J2
+R1
+Z5 w1731420515
+8../PS2_controller/Altera_UP_PS2_Command_Out.v
+F../PS2_controller/Altera_UP_PS2_Command_Out.v
+!i122 2
+L0 10 293
+Z6 VDg1SIo80bB@j0V0VzS_@n1
+Z7 OL;L;2023.3;77
+r1
+!s85 0
+31
+Z8 !s108 1731430674.000000
+Z9 !s107 ../PS2_controller/PS2_Controller.v|../PS2_controller/Altera_UP_PS2_Data_In.v|../PS2_controller/Altera_UP_PS2_Command_Out.v|
+Z10 !s90 ../PS2_controller/Altera_UP_PS2_Command_Out.v|../PS2_controller/Altera_UP_PS2_Data_In.v|../PS2_controller/PS2_Controller.v|+incdir+../DefineMacros.vh|
+!i113 0
+Z11 o-L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z12 !s92 +incdir+../DefineMacros.vh -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+n@altera_@u@p_@p@s2_@command_@out
+vAltera_UP_PS2_Data_In
+R3
+R4
+!i10b 1
+!s100 Co_411;8bmdEhTjd@kIc`1
+IADT@TGn2nmI0ZfQ;adXiT1
+R1
+R5
+8../PS2_controller/Altera_UP_PS2_Data_In.v
+F../PS2_controller/Altera_UP_PS2_Data_In.v
+!i122 2
+L0 10 188
+R6
+R7
+r1
+!s85 0
+31
+R8
+R9
+R10
+!i113 0
+R11
+R12
+R2
+n@altera_@u@p_@p@s2_@data_@in
+vdownCounter_9b
+Z13 2../DrawToScreen.v|../NoteStorage.v|../PianissimoFinalProject.v|../PianissimoFinalProjectModelsim.v|../PianoROM.v|../StartScreen.v|../StateHandlers.v|../TimeCounter.v|../top.v
+Z14 !s110 1731430674
+!i10b 1
+!s100 BMBi3_S[OG5U^^D_D;oVP2
+IFkh5;BCm16o2^f`Hzb6C:0
+R1
+Z15 w1731430121
+Z16 8../TimeCounter.v
+Z17 F../TimeCounter.v
+Z18 8../StartScreen.v
+Z19 F../StartScreen.v
+!i122 1
+L0 30 15
+R6
+R7
+r1
+!s85 0
+31
+R8
+Z20 !s107 ../DefineMacros.vh|../top.v|../TimeCounter.v|../StateHandlers.v|../StartScreen.v|../PianoROM.v|../PianissimoFinalProjectModelsim.v|../PianissimoFinalProject.v|../NoteStorage.v|../DrawToScreen.v|
+Z21 !s90 ../DrawToScreen.v|../NoteStorage.v|../PianissimoFinalProject.v|../PianissimoFinalProjectModelsim.v|../PianoROM.v|../StartScreen.v|../StateHandlers.v|../TimeCounter.v|../top.v|+incdir+DefineMacros.vh|
+!i113 0
+R11
+Z22 !s92 +incdir+DefineMacros.vh -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+ndown@counter_9b
+vdrawToScreen
+R13
+R14
+!i10b 1
+!s100 _dTU>G6bPTNYnXB1zZjCQ0
+I]V0>2kWW_C30=igF3f1oM3
+R1
+Z23 w1731429432
+Z24 8../DrawToScreen.v
+Z25 F../DrawToScreen.v
+!i122 1
+L0 1 31
+R6
+R7
+r1
+!s85 0
+31
+R8
+R20
+R21
+!i113 0
+R11
+R22
+R2
+ndraw@to@screen
+vmainStateHandler
+R13
+R14
+!i10b 1
+!s100 I8AY@l_AUWLY513LL;:g;2
+I^`EinW3Qh:YV32cPdAZV?3
+R1
+Z26 w1731426846
+Z27 8../StateHandlers.v
+Z28 F../StateHandlers.v
+R18
+R19
+!i122 1
+L0 11 155
+R6
+R7
+r1
+!s85 0
+31
+R8
+R20
+R21
+!i113 0
+R11
+R22
+R2
+nmain@state@handler
+vMasterFSM
+2../FSMs/MasterFSM.v
+R4
+!i10b 1
+!s100 @QSh19<0lSoJ5oj5TcM[E0
+IWQVlhF8RmAJ=?dHoIg?ER3
+R1
+w1731426924
+8../FSMs/MasterFSM.v
+F../FSMs/MasterFSM.v
+!i122 3
+L0 3 46
+R6
+R7
+r1
+!s85 0
+31
+!s108 1731430676.000000
+!s107 ../DefineMacros.vh|../FSMs/MasterFSM.v|
+!s90 ../FSMs/MasterFSM.v|+incdir+DefineMacros.vh|
+!i113 0
+R11
+R22
+R2
+n@master@f@s@m
+vNoteStorage
+R13
+R14
+!i10b 1
+!s100 V3Aelz>4S5U1Skm9<8]DO3
+IaJF;5z4KH4knUdFzRTfnD3
+R1
+R5
+Z29 8../NoteStorage.v
+Z30 F../NoteStorage.v
+!i122 1
+L0 40 73
+R6
+R7
+r1
+!s85 0
+31
+R8
+R20
+R21
+!i113 0
+R11
+R22
+R2
+n@note@storage
+vPianissimoFinalProject
+R13
+R14
+!i10b 1
+!s100 6[l1KF`?A5TnnCW=1IdEb1
+IPR1gn@KUiKTJLZc?S2a;a0
+R1
+w1731430247
+8../PianissimoFinalProject.v
+F../PianissimoFinalProject.v
+R29
+R30
+!i122 1
+L0 3 177
+R6
+R7
+r1
+!s85 0
+31
+R8
+R20
+R21
+!i113 0
+R11
+R22
+R2
+n@pianissimo@final@project
+vPianissimoFinalProjectModelsim
+R13
+R14
+!i10b 1
+!s100 _Q0@Z`S?O8a_0]BZ:i:6k2
+ISAjKg1^dNPEAP]VB?G:Q61
+R1
+w1731428544
+8../PianissimoFinalProjectModelsim.v
+F../PianissimoFinalProjectModelsim.v
+R29
+R30
+!i122 1
+L0 4 155
+R6
+R7
+r1
+!s85 0
+31
+R8
+R20
+R21
+!i113 0
+R11
+R22
+R2
+n@pianissimo@final@project@modelsim
+vPianoROM
+R13
+R14
+!i10b 1
+!s100 @T31jX3:b^T[A@2FUo`U>3
+I?L@A^V2nbQ6Xd[1ac2bJH0
+R1
+R5
+8../PianoROM.v
+F../PianoROM.v
+!i122 1
+Z31 L0 40 61
+R6
+R7
+r1
+!s85 0
+31
+R8
+R20
+R21
+!i113 0
+R11
+R22
+R2
+n@piano@r@o@m
+vPS2_Controller
+R3
+R4
+!i10b 1
+!s100 <C2>noIaM6MnAQekVFN>41
+I_7N9R8QD]S@C:`z_`IZ[a3
+R1
+w1731427011
+8../PS2_controller/PS2_Controller.v
+F../PS2_controller/PS2_Controller.v
+!i122 2
+L0 9 260
+R6
+R7
+r1
+!s85 0
+31
+R8
+R9
+R10
+!i113 0
+R11
+R12
+R2
+n@p@s2_@controller
+vresetScreen
+R13
+R14
+!i10b 1
+!s100 F2F__CTVc>Gj5G^gaz@Sm1
+IiT:Vc1;L4`cZzS^f0@E_>1
+R1
+R23
+R24
+R25
+!i122 1
+L0 33 29
+R6
+R7
+r1
+!s85 0
+31
+R8
+R20
+R21
+!i113 0
+R11
+R22
+R2
+nreset@screen
+vStartScreen
+R13
+R14
+!i10b 1
+!s100 gLKGH9B@4Y:f4PROhbO=z3
+If`jB[5X]Gee7k]aoLQfzC0
+R1
+R5
+R18
+R19
+!i122 1
+R31
+R6
+R7
+r1
+!s85 0
+31
+R8
+R20
+R21
+!i113 0
+R11
+R22
+R2
+n@start@screen
+vstartScreenHandler
+R13
+R14
+!i10b 1
+!s100 EG_2fVoDm9jieWDPJzNA^1
+IzPg;?P4@]RjTQo1lf7lLG1
+R1
+R26
+R27
+R28
+R18
+R19
+!i122 1
+L0 3 7
+R6
+R7
+r1
+!s85 0
+31
+R8
+R20
+R21
+!i113 0
+R11
+R22
+R2
+nstart@screen@handler
+vtb
+2../tb/tb.v
+R14
+!i10b 1
+!s100 :M@:@QJ=CIdiognJlAZU62
+I7HJOTDGgOIE<b^[aAo6a52
+R1
+w1731430502
+8../tb/tb.v
+F../tb/tb.v
+!i122 0
+L0 6 48
+R6
+R7
+r1
+!s85 0
+31
+!s108 1731430670.000000
+!s107 ../tb/tb.v|
+!s90 ../tb/tb.v|
+!i113 0
+R11
+R2
+vtimeCounter
+R13
+R14
+!i10b 1
+!s100 MQ^>We]`[TO9]n]JOAMVk3
+IEFMXCMN:bB^D8b[1S<LIY0
+R1
+R15
+R16
+R17
+R18
+R19
+!i122 1
+L0 1 8
+R6
+R7
+r1
+!s85 0
+31
+R8
+R20
+R21
+!i113 0
+R11
+R22
+R2
+ntime@counter
+vtop
+R13
+R14
+!i10b 1
+!s100 OljcR0CY9dEh46eY?Ae3D2
+IG<;TDYT8RmkU5c9UVRUBS0
+R1
+w1731423162
+8../top.v
+F../top.v
+R18
+R19
+!i122 1
+L0 1 14
+R6
+R7
+r1
+!s85 0
+31
+R8
+R20
+R21
+!i113 0
+R11
+R22
+R2
+vupLoopCounter_29b
+R13
+R14
+!i10b 1
+!s100 X0F09nY[2dLFaW7T5;bYi0
+IL@fS0LCHALWmTT<71K3oT2
+R1
+R15
+R16
+R17
+R18
+R19
+!i122 1
+L0 11 18
+R6
+R7
+r1
+!s85 0
+31
+R8
+R20
+R21
+!i113 0
+R11
+R22
+R2
+nup@loop@counter_29b
+vupLoopCounterVariableBits
+R13
+R14
+!i10b 1
+!s100 SSd974BX3K46[CI4QYiLU0
+I?l^l@7>g1K<cA8z^zTU=20
+R1
+R15
+R16
+R17
+R18
+R19
+!i122 1
+L0 46 20
+R6
+R7
+r1
+!s85 0
+31
+R8
+R20
+R21
+!i113 0
+R11
+R22
+R2
+nup@loop@counter@variable@bits

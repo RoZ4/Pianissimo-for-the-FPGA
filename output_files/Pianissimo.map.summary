@@ -1,13 +1,13 @@
-Analysis & Synthesis Status : Successful - Sun Nov 10 15:02:57 2024
-Quartus Prime Version : 23.1std.1 Build 993 05/14/2024 SC Lite Edition
+Analysis & Synthesis Status : Successful - Tue Nov 12 12:52:48 2024
+Quartus Prime Version : 18.0.0 Build 614 04/24/2018 SJ Standard Edition
 Revision Name : Pianissimo
 Top-level Entity Name : PianissimoFinalProject
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 130
-Total pins : 33
+Total registers : 304
+Total pins : 43
 Total virtual pins : 0
-Total block memory bits : 921,600
+Total block memory bits : 927,800
 Total DSP Blocks : 0
 Total HSSI RX PCSs : 0
 Total HSSI PMA RX Deserializers : 0
