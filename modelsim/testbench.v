@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-
+`include "../DefineMacros.vh"
 module testbench ( );
 
 	parameter CLOCK_PERIOD = 20;
@@ -29,8 +29,18 @@ module testbench ( );
 	// KEY IS OPPOSITE !!!!!!!
 	initial begin
         KEY[0] <= 1'b0; #20 KEY[0] <= 1'b1;
-        #200 KEY[1] <= 1'b0;
-
+	#25000
+	force U1.inputStateStorage[`noPress] = 1'b0;
+	force U1.inputStateStorage[`keySpacebar] = 1'b1;
+	force U1.inputStateStorage[`keyBackslash] = 1'b0;
+	#25000
+	force U1.inputStateStorage[`keySpacebar] = 1'b0;
+	#25000
+	force U1.inputStateStorage[`keyRSquareBracket] = 1'b1;
+	force U1.inputStateStorage[`keySpacebar] = 1'b0;
+	#25000
+	force U1.inputStateStorage[`noPress] = 1'b0;
+	force U1.inputStateStorage[`keyBackslash] = 1'b0;
 
 
 	end // initial

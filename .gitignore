@@ -4,3 +4,11 @@
 *.qws
 greybox_tmp/
 *.bak
+*.out
+
+modelsim/*
+!modelsim/*.v
+!modelsim/*.do
+!modelsim/*.tcl
+
+sim/

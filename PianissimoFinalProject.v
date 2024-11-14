@@ -35,15 +35,19 @@ module PianissimoFinalProject (CLOCK_50,
 	//- - - - - - PS2 Take Inputs From Keyboard - - - - - -
 	// Define storage elements for state of keys
 	reg [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStorage;
+	initial inputStateStorage[`NUMBEROFKEYBOARDINPUTS-1:0] = 1'b0;
 	PS2_Controller ps2 (CLOCK_50, ~KEY[0], commandToSend, sendCommand, PS2_CLK, PS2_DAT, commandWasSent, 
 					    errorCommunicationTimedOut, recievedData, recievedNewData);
 	integer i;
 	always @(posedge recievedNewData) begin: PS2Controller
 		if (recievedData == 8'hf0) begin
-			for (i = 0; i < 29; i = i+1) begin
+			for (i = 0; i < `NUMBEROFKEYBOARDINPUTS-1; i = i+1) begin
 				inputStateStorage[i] = 1'b0;
 			end
+			inputStateStorage[`noPress] <= 1'b1;
 		end
+		else inputStateStorage[`noPress] <= 1'b0;
+
 		case (recievedData)
 			8'h0E: inputStateStorage[`keyTilda] <= 1'b1;
 			8'h16: inputStateStorage[`key1] <= 1'b1;
@@ -172,7 +176,7 @@ module PianissimoFinalProject (CLOCK_50,
 	assign LEDR[2] = currentState == `PLAYBACK;
 
 	wire [20:0] drawScannerCount;
-	upLoopCounterVariableBits drawScannerCounter (CLOCK_50, resetn, drawScannerDoneDrawing, 20'd100, drawScannerCount);
+	upLoopCounterVariableBits drawScannerCounter (CLOCK_50, resetn, drawScannerDoneDrawing, 20'd1000000, drawScannerCount);
 	defparam drawScannerCounter.outputBits = 20;
 	assign LEDR[9] = ~|drawScannerCount;
 	assign LEDR[8] = inputStateStorage[`keySpacebar];

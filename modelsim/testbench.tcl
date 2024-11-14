@@ -6,7 +6,7 @@ vlib work;
 
 # compile the Verilog source code in the parent folder
 vlog ../PianissimoFinalProjectModelsim.v
-vlog ../*.v +incdir+"DefineMacros.vh"
+vlog ../*.v +incdir+"DefineMacros.vh" +define+SIMULATION
 vlog ../PS2_controller/*.v +incdir+"../DefineMacros.vh"
 vlog ../FSMs/*.v +incdir+"DefineMacros.vh"
 
@@ -18,4 +18,4 @@ vsim work.testbench -Lf 220model -Lf altera_mf_ver -Lf verilog
 # show waveforms specified in wave.do
 do wave.do
 # advance the simulation the desired amount of time
-run 100 ns
+run 300 us

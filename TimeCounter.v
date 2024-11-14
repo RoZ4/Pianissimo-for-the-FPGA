@@ -1,17 +1,23 @@
 module timeCounter (clk, reset, timerEnable, microSecondCounter);
+	parameter MAXBITSINCOUNT = 29;
 	input clk, reset, timerEnable;
-	output [28:0] microSecondCounter; // 5 minute == 300,000,000 us
-	wire [28:0] microSecondEnable;
+	output [MAXBITSINCOUNT-1:0] microSecondCounter; // 5 minute == 300,000,000 us
+	wire [MAXBITSINCOUNT-1:0] microSecondEnable;
 
-	upLoopCounter_29b clockCount (clk, reset, timerEnable, 29'd1000000, microSecondEnable);
+	`ifndef SIMULATION
+		upLoopCounter_29b clockCount (clk, reset, timerEnable, 29'd1000000, microSecondEnable);
+	`else
+		upLoopCounter_29b clockCount (clk, reset, timerEnable, 29'd1000, microSecondEnable);
+	`endif
 	upLoopCounter_29b outputCount (clk, reset, ~|microSecondEnable && timerEnable, 29'd300000000, microSecondCounter);
 endmodule
 
 
 module upLoopCounter_29b(clk, resetn, enable, maxCount, regOut);
+	parameter MAXBITSINCOUNT = 29;
 	input clk, resetn, enable;
-	input [28:0] maxCount;
-	output reg [28:0] regOut;
+	input [MAXBITSINCOUNT-1:0] maxCount;
+	output reg [MAXBITSINCOUNT-1:0] regOut;
 	
 	always @(posedge clk, posedge resetn) begin
 		if (resetn)

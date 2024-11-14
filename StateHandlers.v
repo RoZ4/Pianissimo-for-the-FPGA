@@ -15,6 +15,7 @@ module mainStateHandler(clk, inputClearScreenDoneDrawing, outputScreenX, outputS
 	output reg [7:0] outputScreenX, outputScreenY;
 	output reg doneDrawing;
 	output reg [23:0] outputColour;
+	asd;
 
 	reg [61:0] currentNoteData;
 	reg [6:0] noteReadAddress, noteWriteAddress;
@@ -24,13 +25,17 @@ module mainStateHandler(clk, inputClearScreenDoneDrawing, outputScreenX, outputS
 	initial memoryWriteEnable = 0;
 	initial noteReadAddress = 0;
 	initial noteWriteAddress = 0;
+	initial linesDrawn = 0;
 
 	wire [61:0] retrievedNoteData;
-	wire [28:0] microSecondCounter;
+	
 
 
 	NoteStorage noteRamStorage(clk, currentNoteData, noteReadAddress, noteWriteAddress, memoryWriteEnable, retrievedNoteData);
+	wire [28:0] microSecondCounter;
 	timeCounter timecounter(clk, resetTimer, 1'b1, microSecondCounter);
+	defparam timecounter.MAXBITSINCOUNT = 29;
+
 
 	localparam STARTNOTERECORDING = 3'd0, WRITETOMEMORY = 3'd1, RESETPLAYBACK = 3'd2, DRAWNOTEBLOCK = 3'd3, DRAWNEWLINEOFNOTEBLOCK = 3'd4, DRAWNEXTNOTEBLOCK = 3'd5, DONEDRAWING = 3'd6, IDLE = 3'd7;
 	always@(*) begin: subStates
@@ -53,7 +58,7 @@ module mainStateHandler(clk, inputClearScreenDoneDrawing, outputScreenX, outputS
 					nextSubState <= inputClearScreenDoneDrawing ? DRAWNOTEBLOCK : DONEDRAWING;
 				end
 			end
-			default: nextSubState <= STARTNOTERECORDING;
+			default: nextSubState <= IDLE;
 		endcase
 	end
 	

@@ -27,22 +27,26 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 	wire commandWasSent;					// Confirmation of command send
 	wire errorCommunicationTimedOut;		// Unable to communicate with PS2 device
 
-	wire [7:0] recievedData;				// Data recieved from PS2 Device
-	wire recievedNewData;					// Driven high for one clock cycle when new data is recieved
+	reg [7:0] recievedData;				// Data recieved from PS2 Device
+	reg recievedNewData;					// Driven high for one clock cycle when new data is recieved
 
 	//- - - - - - PS2 Take Inputs From Keyboard - - - - - -
 	// Define storage elements for state of keys
 	reg [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStorage;
-    wire [`NUMBEROFKEYBOARDINPUTS-1:0] simInputStateStorage;
-	PS2_Controller ps2 (CLOCK_50, ~KEY[0], commandToSend, sendCommand, PS2_CLK, PS2_DAT, commandWasSent, 
-					    errorCommunicationTimedOut, recievedData, recievedNewData);
+	initial inputStateStorage[`NUMBEROFKEYBOARDINPUTS-1:0] = 1'b0;
+	//PS2_Controller ps2 (CLOCK_50, ~KEY[0], commandToSend, sendCommand, PS2_CLK, PS2_DAT, commandWasSent, 
+	//				    errorCommunicationTimedOut, recievedData, recievedNewData);
+
 	integer i;
 	always @(posedge recievedNewData) begin: PS2Controller
-		if (recievedData == 8'hf0) begin
-			for (i = 0; i < `NUMBEROFKEYBOARDINPUTS; i = i+1) begin
+		if (recievedData == 8'hF0) begin
+			for (i = 0; i < `NUMBEROFKEYBOARDINPUTS-1; i = i+1) begin
 				inputStateStorage[i] = 1'b0;
 			end
+			inputStateStorage[`noPress] <= 1'b1;
 		end
+		else inputStateStorage[`noPress] <= 1'b0;
+		
 		case (recievedData)
 			8'h0E: inputStateStorage[`keyTilda] <= 1'b1;
 			8'h16: inputStateStorage[`key1] <= 1'b1;
@@ -78,9 +82,6 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 		endcase
 	end
 
-    always @(posedge CLOCK_50) begin
-        if (~KEY[1]) inputStateStorage[`keySpacebar] <= 1'b1;
-    end
 
 	//-----------------------------------------------------
 
