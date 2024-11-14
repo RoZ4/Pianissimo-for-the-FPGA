@@ -1,2 +1,2 @@
 Info (10281): Verilog HDL Declaration information at StateHandlers.v(16): object "doneDrawing" differs only in case from object "DONEDRAWING" in the same scope File: W:/Pianissimo/StateHandlers.v Line: 16
-Warning (10268): Verilog HDL information at PianissimoFinalProject.v(41): always construct contains both blocking and non-blocking assignments File: W:/Pianissimo/PianissimoFinalProject.v Line: 41
+Warning (10268): Verilog HDL information at MasterFSM.v(12): always construct contains both blocking and non-blocking assignments File: W:/Pianissimo/FSMs/MasterFSM.v Line: 12

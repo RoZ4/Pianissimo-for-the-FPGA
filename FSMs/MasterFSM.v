@@ -38,6 +38,7 @@ module MasterFSM (clk, resetn, inputStateStorage, currentState, timerEnable);
 			`RESTARTPLAYBACK: begin
 				timerEnable <= 0;
 			end
+			default: timerEnable <= 0;
 		endcase
 	end
 

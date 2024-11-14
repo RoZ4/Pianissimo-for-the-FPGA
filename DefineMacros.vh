@@ -2,6 +2,7 @@
 `define RECORD 5'd1
 `define PLAYBACK 5'd2
 `define RESTARTPLAYBACK 5'd3
+
 `define NUMBEROFKEYBOARDINPUTS 30
 
 
@@ -35,4 +36,4 @@
 `define keyRSquareBracket 26
 `define keyBackslash 27
 `define keySpacebar 28
-`define noPress 29
+`define keyReleasePulse 29

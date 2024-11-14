@@ -2,6 +2,8 @@
 *.psf
 *.qws
 greybox_tmp/
+incremental_db/
+db/
 *.bak
 *.out
 

@@ -1,15 +1,4 @@
 
-State Machine - |PianissimoFinalProject|mainStateHandler:mainStateController|currentSubState
-Name currentSubState.IDLE currentSubState.DONEDRAWING currentSubState.DRAWNEXTNOTEBLOCK currentSubState.DRAWNEWLINEOFNOTEBLOCK currentSubState.DRAWNOTEBLOCK currentSubState.RESETPLAYBACK currentSubState.WRITETOMEMORY currentSubState.STARTNOTERECORDING 
-currentSubState.STARTNOTERECORDING 0 0 0 0 0 0 0 0 
-currentSubState.WRITETOMEMORY 0 0 0 0 0 0 1 1 
-currentSubState.RESETPLAYBACK 0 0 0 0 0 1 0 1 
-currentSubState.DRAWNOTEBLOCK 0 0 0 0 1 0 0 1 
-currentSubState.DRAWNEWLINEOFNOTEBLOCK 0 0 0 1 0 0 0 1 
-currentSubState.DRAWNEXTNOTEBLOCK 0 0 1 0 0 0 0 1 
-currentSubState.DONEDRAWING 0 1 0 0 0 0 0 1 
-currentSubState.IDLE 1 0 0 0 0 0 0 1 
-
 State Machine - |PianissimoFinalProject|PS2_Controller:ps2|s_ps2_transceiver
 Name s_ps2_transceiver.PS2_STATE_3_END_TRANSFER s_ps2_transceiver.PS2_STATE_2_COMMAND_OUT s_ps2_transceiver.PS2_STATE_1_DATA_IN s_ps2_transceiver.PS2_STATE_0_IDLE s_ps2_transceiver.PS2_STATE_4_END_DELAYED 
 s_ps2_transceiver.PS2_STATE_0_IDLE 0 0 0 0 0 

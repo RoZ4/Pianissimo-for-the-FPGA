@@ -26,7 +26,7 @@ wire		[31:0]	right_channel_audio_in;
 wire				read_audio_in;
 
 reg [18:0] delay_cnt;
-wire [18:0] delay;
+reg [18:0] delay;
 reg snd;
 
 //generates wave

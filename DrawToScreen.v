@@ -1,5 +1,8 @@
-module drawToScreen (clk, nextAddress, doneDrawing, outputDrawScreenPosX, outputDrawScreenPosY);
+`include "DefineMacros.vh"
+
+module drawToScreen (clk, nextAddress, doneDrawing, outputDrawScreenPosX, outputDrawScreenPosY, currentState);
 	input clk;
+	input [4:0] currentState;
 	output reg doneDrawing;
 	output reg [14:0] nextAddress;
 	output reg [7:0] outputDrawScreenPosX, outputDrawScreenPosY;
@@ -22,17 +25,27 @@ module drawToScreen (clk, nextAddress, doneDrawing, outputDrawScreenPosX, output
 
 			nextAddress <= nextAddress + 1;
 		end
+		
+		if (currentState == `RECORD) begin
+			if (outputDrawScreenPosX == 8'd159 && outputDrawScreenPosY == 8'd28) begin
+				doneDrawing <= 1;
+				nextAddress <= 0;
+			end
+		end
 
-		if (outputDrawScreenPosX == 8'd159 && outputDrawScreenPosY == 8'd119) begin
-			doneDrawing <= 1;
-			nextAddress <= 0;
+		else begin
+			if (outputDrawScreenPosX == 8'd159 && outputDrawScreenPosY == 8'd119) begin
+				doneDrawing <= 1;
+				nextAddress <= 0;
+			end
 		end
 	end
 endmodule
 
-module resetScreen (clk, noteBlocksDoneDrawing, inputDrawScreenPosX, inputDrawScreenPosY, outputColour);
+module resetScreen (clk, noteBlocksDoneDrawing, currentState, inputDrawScreenPosX, inputDrawScreenPosY, outputColour);
 	input clk, noteBlocksDoneDrawing;
 	input [7:0] inputDrawScreenPosX, inputDrawScreenPosY;
+	input [4:0] currentState;
 	output reg [23:0] outputColour;
 	
 	wire [23:0] pianoColour;
@@ -41,7 +54,7 @@ module resetScreen (clk, noteBlocksDoneDrawing, inputDrawScreenPosX, inputDrawSc
 	PianoROM pianoImage(internalPianoAddress, clk, pianoColour);
 
 	always @(posedge clk) begin
-		if (noteBlocksDoneDrawing) begin
+		if (noteBlocksDoneDrawing || currentState == `RECORD) begin
 			if (internalPianoAddress >= 13'd4480) internalPianoAddress <= 0;
 			else if (inputDrawScreenPosY >= 8'd92) begin
 				internalPianoAddress <= internalPianoAddress + 1;

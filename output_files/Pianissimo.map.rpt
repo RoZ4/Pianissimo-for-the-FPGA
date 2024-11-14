@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Pianissimo
-Tue Nov 12 12:52:48 2024
+Thu Nov 14 17:51:46 2024
 Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Standard Edition
 
 
@@ -14,46 +14,45 @@ Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Standard Edition
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
   8. Analysis & Synthesis RAM Summary
-  9. State Machine - |PianissimoFinalProject|mainStateHandler:mainStateController|currentSubState
- 10. State Machine - |PianissimoFinalProject|PS2_Controller:ps2|s_ps2_transceiver
- 11. State Machine - |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter
- 12. State Machine - |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver
- 13. User-Specified and Inferred Latches
- 14. Registers Removed During Synthesis
- 15. Removed Registers Triggering Further Register Optimizations
- 16. General Register Statistics
- 17. Multiplexer Restructuring Statistics (Restructuring Performed)
- 18. Source assignments for vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_fnn1:auto_generated
- 19. Source assignments for resetScreen:screenReseter|PianoROM:pianoImage|altsyncram:altsyncram_component|altsyncram_m7g1:auto_generated
- 20. Source assignments for startScreenHandler:startScreenController|StartScreen:startScreenMemoryController|altsyncram:altsyncram_component|altsyncram_rtg1:auto_generated
- 21. Source assignments for mainStateHandler:mainStateController|NoteStorage:noteRamStorage|altsyncram:altsyncram_component|altsyncram_kot1:auto_generated
- 22. Parameter Settings for User Entity Instance: PS2_Controller:ps2
- 23. Parameter Settings for User Entity Instance: PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out
- 24. Parameter Settings for User Entity Instance: vga_adapter:VGA
- 25. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_address_translator:user_input_translator
- 26. Parameter Settings for User Entity Instance: vga_adapter:VGA|altsyncram:VideoMemory
- 27. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component
- 28. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_controller:controller
- 29. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_controller:controller|vga_address_translator:controller_translator
- 30. Parameter Settings for User Entity Instance: resetScreen:screenReseter|PianoROM:pianoImage|altsyncram:altsyncram_component
- 31. Parameter Settings for User Entity Instance: MasterFSM:masterFSM
- 32. Parameter Settings for User Entity Instance: startScreenHandler:startScreenController|StartScreen:startScreenMemoryController|altsyncram:altsyncram_component
- 33. Parameter Settings for User Entity Instance: mainStateHandler:mainStateController
- 34. Parameter Settings for User Entity Instance: mainStateHandler:mainStateController|NoteStorage:noteRamStorage|altsyncram:altsyncram_component
- 35. Parameter Settings for User Entity Instance: upLoopCounterVariableBits:drawScannerCounter
- 36. altsyncram Parameter Settings by Entity Instance
- 37. altpll Parameter Settings by Entity Instance
- 38. Port Connectivity Checks: "upLoopCounterVariableBits:drawScannerCounter"
- 39. Port Connectivity Checks: "mainStateHandler:mainStateController|timeCounter:timecounter|upLoopCounter_29b:outputCount"
- 40. Port Connectivity Checks: "mainStateHandler:mainStateController|timeCounter:timecounter|upLoopCounter_29b:clockCount"
- 41. Port Connectivity Checks: "mainStateHandler:mainStateController|timeCounter:timecounter"
- 42. Port Connectivity Checks: "MasterFSM:masterFSM"
- 43. Port Connectivity Checks: "vga_adapter:VGA"
- 44. Port Connectivity Checks: "PS2_Controller:ps2"
- 45. Post-Synthesis Netlist Statistics for Top Partition
- 46. Elapsed Time Per Partition
- 47. Analysis & Synthesis Messages
- 48. Analysis & Synthesis Suppressed Messages
+  9. State Machine - |PianissimoFinalProject|PS2_Controller:ps2|s_ps2_transceiver
+ 10. State Machine - |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter
+ 11. State Machine - |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver
+ 12. User-Specified and Inferred Latches
+ 13. Registers Removed During Synthesis
+ 14. Removed Registers Triggering Further Register Optimizations
+ 15. General Register Statistics
+ 16. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 17. Source assignments for vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_fnn1:auto_generated
+ 18. Source assignments for resetScreen:screenReseter|PianoROM:pianoImage|altsyncram:altsyncram_component|altsyncram_m7g1:auto_generated
+ 19. Source assignments for startScreenHandler:startScreenController|StartScreen:startScreenMemoryController|altsyncram:altsyncram_component|altsyncram_rtg1:auto_generated
+ 20. Source assignments for mainStateHandler:mainStateController|NoteStorage:noteRamStorage|altsyncram:altsyncram_component|altsyncram_kot1:auto_generated
+ 21. Parameter Settings for User Entity Instance: PS2_Controller:ps2
+ 22. Parameter Settings for User Entity Instance: PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out
+ 23. Parameter Settings for User Entity Instance: vga_adapter:VGA
+ 24. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_address_translator:user_input_translator
+ 25. Parameter Settings for User Entity Instance: vga_adapter:VGA|altsyncram:VideoMemory
+ 26. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component
+ 27. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_controller:controller
+ 28. Parameter Settings for User Entity Instance: vga_adapter:VGA|vga_controller:controller|vga_address_translator:controller_translator
+ 29. Parameter Settings for User Entity Instance: resetScreen:screenReseter|PianoROM:pianoImage|altsyncram:altsyncram_component
+ 30. Parameter Settings for User Entity Instance: startScreenHandler:startScreenController|StartScreen:startScreenMemoryController|altsyncram:altsyncram_component
+ 31. Parameter Settings for User Entity Instance: mainStateHandler:mainStateController|NoteStorage:noteRamStorage|altsyncram:altsyncram_component
+ 32. Parameter Settings for User Entity Instance: mainStateHandler:mainStateController|timeCounter:timecounter
+ 33. Parameter Settings for User Entity Instance: mainStateHandler:mainStateController|timeCounter:timecounter|upLoopCounter_29b:clockCount
+ 34. Parameter Settings for User Entity Instance: mainStateHandler:mainStateController|timeCounter:timecounter|upLoopCounter_29b:outputCount
+ 35. altsyncram Parameter Settings by Entity Instance
+ 36. altpll Parameter Settings by Entity Instance
+ 37. Port Connectivity Checks: "mainStateHandler:mainStateController|timeCounter:timecounter|upLoopCounter_29b:outputCount"
+ 38. Port Connectivity Checks: "mainStateHandler:mainStateController|timeCounter:timecounter|upLoopCounter_29b:clockCount"
+ 39. Port Connectivity Checks: "mainStateHandler:mainStateController|timeCounter:timecounter"
+ 40. Port Connectivity Checks: "mainStateHandler:mainStateController"
+ 41. Port Connectivity Checks: "MasterFSM:masterFSM"
+ 42. Port Connectivity Checks: "vga_adapter:VGA"
+ 43. Port Connectivity Checks: "PS2_Controller:ps2"
+ 44. Post-Synthesis Netlist Statistics for Top Partition
+ 45. Elapsed Time Per Partition
+ 46. Analysis & Synthesis Messages
+ 47. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -79,13 +78,13 @@ refer to the applicable agreement for further details.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +---------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Tue Nov 12 12:52:48 2024           ;
+; Analysis & Synthesis Status     ; Successful - Thu Nov 14 17:51:46 2024           ;
 ; Quartus Prime Version           ; 18.0.0 Build 614 04/24/2018 SJ Standard Edition ;
 ; Revision Name                   ; Pianissimo                                      ;
 ; Top-level Entity Name           ; PianissimoFinalProject                          ;
 ; Family                          ; Cyclone V                                       ;
 ; Logic utilization (in ALMs)     ; N/A                                             ;
-; Total registers                 ; 304                                             ;
+; Total registers                 ; 341                                             ;
 ; Total pins                      ; 43                                              ;
 ; Total virtual pins              ; 0                                               ;
 ; Total block memory bits         ; 927,800                                         ;
@@ -191,11 +190,11 @@ refer to the applicable agreement for further details.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 12          ;
-; Maximum allowed            ; 6           ;
+; Number detected on machine ; 28          ;
+; Maximum allowed            ; 16          ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 6           ;
+; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
@@ -204,6 +203,9 @@ refer to the applicable agreement for further details.
 ;     Processor 4            ;   0.0%      ;
 ;     Processor 5            ;   0.0%      ;
 ;     Processor 6            ;   0.0%      ;
+;     Processor 7            ;   0.0%      ;
+;     Processor 8            ;   0.0%      ;
+;     Processors 9-16        ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -238,7 +240,7 @@ refer to the applicable agreement for further details.
 ; altram.inc                                 ; yes             ; Megafunction                           ; c:/desl/quartus18/quartus/libraries/megafunctions/altram.inc            ;         ;
 ; altdpram.inc                               ; yes             ; Megafunction                           ; c:/desl/quartus18/quartus/libraries/megafunctions/altdpram.inc          ;         ;
 ; db/altsyncram_fnn1.tdf                     ; yes             ; Auto-Generated Megafunction            ; W:/Pianissimo/db/altsyncram_fnn1.tdf                                    ;         ;
-; ./images/StartScreen.mif                   ; yes             ; Auto-Found Memory Initialization File  ; W:/Pianissimo/images/StartScreen.mif                                    ;         ;
+; images/startscreen.mif                     ; yes             ; Auto-Found Memory Initialization File  ; W:/Pianissimo/images/startscreen.mif                                    ;         ;
 ; db/decode_7la.tdf                          ; yes             ; Auto-Generated Megafunction            ; W:/Pianissimo/db/decode_7la.tdf                                         ;         ;
 ; db/decode_01a.tdf                          ; yes             ; Auto-Generated Megafunction            ; W:/Pianissimo/db/decode_01a.tdf                                         ;         ;
 ; db/mux_5hb.tdf                             ; yes             ; Auto-Generated Megafunction            ; W:/Pianissimo/db/mux_5hb.tdf                                            ;         ;
@@ -248,7 +250,7 @@ refer to the applicable agreement for further details.
 ; cycloneii_pll.inc                          ; yes             ; Megafunction                           ; c:/desl/quartus18/quartus/libraries/megafunctions/cycloneii_pll.inc     ;         ;
 ; db/altpll_80u.tdf                          ; yes             ; Auto-Generated Megafunction            ; W:/Pianissimo/db/altpll_80u.tdf                                         ;         ;
 ; db/altsyncram_m7g1.tdf                     ; yes             ; Auto-Generated Megafunction            ; W:/Pianissimo/db/altsyncram_m7g1.tdf                                    ;         ;
-; ./images/Piano.mif                         ; yes             ; Auto-Found Memory Initialization File  ; W:/Pianissimo/images/Piano.mif                                          ;         ;
+; images/piano.mif                           ; yes             ; Auto-Found Memory Initialization File  ; W:/Pianissimo/images/piano.mif                                          ;         ;
 ; db/altsyncram_rtg1.tdf                     ; yes             ; Auto-Generated Megafunction            ; W:/Pianissimo/db/altsyncram_rtg1.tdf                                    ;         ;
 ; db/altsyncram_kot1.tdf                     ; yes             ; Auto-Generated Megafunction            ; W:/Pianissimo/db/altsyncram_kot1.tdf                                    ;         ;
 +--------------------------------------------+-----------------+----------------------------------------+-------------------------------------------------------------------------+---------+
@@ -259,16 +261,16 @@ refer to the applicable agreement for further details.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimate of Logic utilization (ALMs needed) ; 380            ;
+; Estimate of Logic utilization (ALMs needed) ; 386            ;
 ;                                             ;                ;
-; Combinational ALUT usage for logic          ; 584            ;
-;     -- 7 input functions                    ; 6              ;
-;     -- 6 input functions                    ; 137            ;
-;     -- 5 input functions                    ; 38             ;
-;     -- 4 input functions                    ; 52             ;
-;     -- <=3 input functions                  ; 351            ;
+; Combinational ALUT usage for logic          ; 579            ;
+;     -- 7 input functions                    ; 0              ;
+;     -- 6 input functions                    ; 132            ;
+;     -- 5 input functions                    ; 47             ;
+;     -- 4 input functions                    ; 34             ;
+;     -- <=3 input functions                  ; 366            ;
 ;                                             ;                ;
-; Dedicated logic registers                   ; 304            ;
+; Dedicated logic registers                   ; 341            ;
 ;                                             ;                ;
 ; I/O pins                                    ; 43             ;
 ; Total MLAB memory bits                      ; 0              ;
@@ -280,9 +282,9 @@ refer to the applicable agreement for further details.
 ;     -- PLLs                                 ; 1              ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 456            ;
-; Total fan-out                               ; 7009           ;
-; Average fan-out                             ; 5.92           ;
+; Maximum fan-out                             ; 490            ;
+; Total fan-out                               ; 7730           ;
+; Average fan-out                             ; 6.36           ;
 +---------------------------------------------+----------------+
 
 
@@ -291,13 +293,13 @@ refer to the applicable agreement for further details.
 +---------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------+--------------+
 ; Compilation Hierarchy Node                              ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                                                            ; Entity Name               ; Library Name ;
 +---------------------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------+--------------+
-; |PianissimoFinalProject                                 ; 584 (122)           ; 304 (25)                  ; 927800            ; 0          ; 43   ; 0            ; |PianissimoFinalProject                                                                                                                                                                        ; PianissimoFinalProject    ; work         ;
+; |PianissimoFinalProject                                 ; 579 (135)           ; 341 (28)                  ; 927800            ; 0          ; 43   ; 0            ; |PianissimoFinalProject                                                                                                                                                                        ; PianissimoFinalProject    ; work         ;
 ;    |MasterFSM:masterFSM|                                ; 2 (2)               ; 2 (2)                     ; 0                 ; 0          ; 0    ; 0            ; |PianissimoFinalProject|MasterFSM:masterFSM                                                                                                                                                    ; MasterFSM                 ; work         ;
-;    |PS2_Controller:ps2|                                 ; 108 (6)             ; 90 (5)                    ; 0                 ; 0          ; 0    ; 0            ; |PianissimoFinalProject|PS2_Controller:ps2                                                                                                                                                     ; PS2_Controller            ; work         ;
+;    |PS2_Controller:ps2|                                 ; 106 (6)             ; 90 (5)                    ; 0                 ; 0          ; 0    ; 0            ; |PianissimoFinalProject|PS2_Controller:ps2                                                                                                                                                     ; PS2_Controller            ; work         ;
 ;       |Altera_UP_PS2_Command_Out:PS2_Command_Out|       ; 86 (86)             ; 60 (60)                   ; 0                 ; 0          ; 0    ; 0            ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out                                                                                                           ; Altera_UP_PS2_Command_Out ; work         ;
-;       |Altera_UP_PS2_Data_In:PS2_Data_In|               ; 16 (16)             ; 25 (25)                   ; 0                 ; 0          ; 0    ; 0            ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In                                                                                                                   ; Altera_UP_PS2_Data_In     ; work         ;
+;       |Altera_UP_PS2_Data_In:PS2_Data_In|               ; 14 (14)             ; 25 (25)                   ; 0                 ; 0          ; 0    ; 0            ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In                                                                                                                   ; Altera_UP_PS2_Data_In     ; work         ;
 ;    |drawToScreen:drawScanner|                           ; 24 (24)             ; 23 (23)                   ; 0                 ; 0          ; 0    ; 0            ; |PianissimoFinalProject|drawToScreen:drawScanner                                                                                                                                               ; drawToScreen              ; work         ;
-;    |mainStateHandler:mainStateController|               ; 240 (168)           ; 130 (72)                  ; 6200              ; 0          ; 0    ; 0            ; |PianissimoFinalProject|mainStateHandler:mainStateController                                                                                                                                   ; mainStateHandler          ; work         ;
+;    |mainStateHandler:mainStateController|               ; 224 (152)           ; 164 (106)                 ; 6200              ; 0          ; 0    ; 0            ; |PianissimoFinalProject|mainStateHandler:mainStateController                                                                                                                                   ; mainStateHandler          ; work         ;
 ;       |NoteStorage:noteRamStorage|                      ; 0 (0)               ; 0 (0)                     ; 6200              ; 0          ; 0    ; 0            ; |PianissimoFinalProject|mainStateHandler:mainStateController|NoteStorage:noteRamStorage                                                                                                        ; NoteStorage               ; work         ;
 ;          |altsyncram:altsyncram_component|              ; 0 (0)               ; 0 (0)                     ; 6200              ; 0          ; 0    ; 0            ; |PianissimoFinalProject|mainStateHandler:mainStateController|NoteStorage:noteRamStorage|altsyncram:altsyncram_component                                                                        ; altsyncram                ; work         ;
 ;             |altsyncram_kot1:auto_generated|            ; 0 (0)               ; 0 (0)                     ; 6200              ; 0          ; 0    ; 0            ; |PianissimoFinalProject|mainStateHandler:mainStateController|NoteStorage:noteRamStorage|altsyncram:altsyncram_component|altsyncram_kot1:auto_generated                                         ; altsyncram_kot1           ; work         ;
@@ -333,23 +335,6 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; startScreenHandler:startScreenController|StartScreen:startScreenMemoryController|altsyncram:altsyncram_component|altsyncram_rtg1:auto_generated|ALTSYNCRAM ; AUTO ; ROM              ; 19200        ; 24           ; --           ; --           ; 460800 ; ./images/StartScreen.mif ;
 ; vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_fnn1:auto_generated|ALTSYNCRAM                                                                           ; AUTO ; Simple Dual Port ; 19200        ; 24           ; 19200        ; 24           ; 460800 ; ./images/StartScreen.mif ;
 +------------------------------------------------------------------------------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------+--------------------------+
-
-
-Encoding Type:  One-Hot
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; State Machine - |PianissimoFinalProject|mainStateHandler:mainStateController|currentSubState                                                                                                                                                                                                                  ;
-+----------------------------------------+----------------------+-----------------------------+-----------------------------------+----------------------------------------+-------------------------------+-------------------------------+-------------------------------+------------------------------------+
-; Name                                   ; currentSubState.IDLE ; currentSubState.DONEDRAWING ; currentSubState.DRAWNEXTNOTEBLOCK ; currentSubState.DRAWNEWLINEOFNOTEBLOCK ; currentSubState.DRAWNOTEBLOCK ; currentSubState.RESETPLAYBACK ; currentSubState.WRITETOMEMORY ; currentSubState.STARTNOTERECORDING ;
-+----------------------------------------+----------------------+-----------------------------+-----------------------------------+----------------------------------------+-------------------------------+-------------------------------+-------------------------------+------------------------------------+
-; currentSubState.STARTNOTERECORDING     ; 0                    ; 0                           ; 0                                 ; 0                                      ; 0                             ; 0                             ; 0                             ; 0                                  ;
-; currentSubState.WRITETOMEMORY          ; 0                    ; 0                           ; 0                                 ; 0                                      ; 0                             ; 0                             ; 1                             ; 1                                  ;
-; currentSubState.RESETPLAYBACK          ; 0                    ; 0                           ; 0                                 ; 0                                      ; 0                             ; 1                             ; 0                             ; 1                                  ;
-; currentSubState.DRAWNOTEBLOCK          ; 0                    ; 0                           ; 0                                 ; 0                                      ; 1                             ; 0                             ; 0                             ; 1                                  ;
-; currentSubState.DRAWNEWLINEOFNOTEBLOCK ; 0                    ; 0                           ; 0                                 ; 1                                      ; 0                             ; 0                             ; 0                             ; 1                                  ;
-; currentSubState.DRAWNEXTNOTEBLOCK      ; 0                    ; 0                           ; 1                                 ; 0                                      ; 0                             ; 0                             ; 0                             ; 1                                  ;
-; currentSubState.DONEDRAWING            ; 0                    ; 1                           ; 0                                 ; 0                                      ; 0                             ; 0                             ; 0                             ; 1                                  ;
-; currentSubState.IDLE                   ; 1                    ; 0                           ; 0                                 ; 0                                      ; 0                             ; 0                             ; 0                             ; 1                                  ;
-+----------------------------------------+----------------------+-----------------------------+-----------------------------------+----------------------------------------+-------------------------------+-------------------------------+-------------------------------+------------------------------------+
 
 
 Encoding Type:  One-Hot
@@ -397,52 +382,52 @@ Encoding Type:  One-Hot
 +------------------------------------------+--------------------------------------+------------------------------------+------------------------------------------+---------------------------------+------------------------------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------+
-; User-Specified and Inferred Latches                                                                                ;
-+-----------------------------------------------------+-------------------------------------+------------------------+
-; Latch Name                                          ; Latch Enable Signal                 ; Free of Timing Hazards ;
-+-----------------------------------------------------+-------------------------------------+------------------------+
-; screenX[7]                                          ; screenX[7]                          ; yes                    ;
-; screenX[6]                                          ; screenX[7]                          ; yes                    ;
-; screenX[5]                                          ; screenX[7]                          ; yes                    ;
-; screenY[6]                                          ; screenX[7]                          ; yes                    ;
-; screenY[5]                                          ; screenX[7]                          ; yes                    ;
-; screenY[4]                                          ; screenX[7]                          ; yes                    ;
-; screenY[3]                                          ; screenX[7]                          ; yes                    ;
-; colour[16]                                          ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; screenX[0]                                          ; screenX[7]                          ; yes                    ;
-; screenX[1]                                          ; screenX[7]                          ; yes                    ;
-; screenX[2]                                          ; screenX[7]                          ; yes                    ;
-; screenX[3]                                          ; screenX[7]                          ; yes                    ;
-; screenX[4]                                          ; screenX[7]                          ; yes                    ;
-; colour[17]                                          ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[18]                                          ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[19]                                          ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[20]                                          ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[21]                                          ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[22]                                          ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[23]                                          ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[8]                                           ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[9]                                           ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[10]                                          ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[11]                                          ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[12]                                          ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[13]                                          ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[14]                                          ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[15]                                          ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[0]                                           ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[1]                                           ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[2]                                           ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[3]                                           ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[4]                                           ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[5]                                           ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[6]                                           ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; colour[7]                                           ; MasterFSM:masterFSM|currentState[0] ; yes                    ;
-; screenY[0]                                          ; screenX[7]                          ; yes                    ;
-; screenY[1]                                          ; screenX[7]                          ; yes                    ;
-; screenY[2]                                          ; screenX[7]                          ; yes                    ;
-; Number of user-specified and inferred latches = 39  ;                                     ;                        ;
-+-----------------------------------------------------+-------------------------------------+------------------------+
++----------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                                ;
++-----------------------------------------------------+---------------------+------------------------+
+; Latch Name                                          ; Latch Enable Signal ; Free of Timing Hazards ;
++-----------------------------------------------------+---------------------+------------------------+
+; screenX[7]                                          ; screenX[0]          ; yes                    ;
+; screenX[5]                                          ; screenX[0]          ; yes                    ;
+; screenX[6]                                          ; screenX[0]          ; yes                    ;
+; screenY[6]                                          ; screenX[0]          ; yes                    ;
+; screenY[5]                                          ; screenX[0]          ; yes                    ;
+; screenY[4]                                          ; screenX[0]          ; yes                    ;
+; screenY[3]                                          ; screenX[0]          ; yes                    ;
+; colour[16]                                          ; screenX[0]          ; yes                    ;
+; screenX[0]                                          ; screenX[0]          ; yes                    ;
+; screenX[1]                                          ; screenX[0]          ; yes                    ;
+; screenX[2]                                          ; screenX[0]          ; yes                    ;
+; screenX[3]                                          ; screenX[0]          ; yes                    ;
+; screenX[4]                                          ; screenX[0]          ; yes                    ;
+; colour[17]                                          ; screenX[0]          ; yes                    ;
+; colour[18]                                          ; screenX[0]          ; yes                    ;
+; colour[19]                                          ; screenX[0]          ; yes                    ;
+; colour[20]                                          ; screenX[0]          ; yes                    ;
+; colour[21]                                          ; screenX[0]          ; yes                    ;
+; colour[22]                                          ; screenX[0]          ; yes                    ;
+; colour[23]                                          ; screenX[0]          ; yes                    ;
+; colour[8]                                           ; screenX[0]          ; yes                    ;
+; colour[9]                                           ; screenX[0]          ; yes                    ;
+; colour[10]                                          ; screenX[0]          ; yes                    ;
+; colour[11]                                          ; screenX[0]          ; yes                    ;
+; colour[12]                                          ; screenX[0]          ; yes                    ;
+; colour[13]                                          ; screenX[0]          ; yes                    ;
+; colour[14]                                          ; screenX[0]          ; yes                    ;
+; colour[15]                                          ; screenX[0]          ; yes                    ;
+; colour[0]                                           ; screenX[0]          ; yes                    ;
+; colour[1]                                           ; screenX[0]          ; yes                    ;
+; colour[2]                                           ; screenX[0]          ; yes                    ;
+; colour[3]                                           ; screenX[0]          ; yes                    ;
+; colour[4]                                           ; screenX[0]          ; yes                    ;
+; colour[5]                                           ; screenX[0]          ; yes                    ;
+; colour[6]                                           ; screenX[0]          ; yes                    ;
+; colour[7]                                           ; screenX[0]          ; yes                    ;
+; screenY[0]                                          ; screenX[0]          ; yes                    ;
+; screenY[1]                                          ; screenX[0]          ; yes                    ;
+; screenY[2]                                          ; screenX[0]          ; yes                    ;
+; Number of user-specified and inferred latches = 39  ;                     ;                        ;
++-----------------------------------------------------+---------------------+------------------------+
 Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
 
 
@@ -459,11 +444,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|ps2_command[0]                                   ; Stuck at GND due to stuck port data_in                                                  ;
 ; drawToScreen:drawScanner|outputDrawScreenPosY[0..7]                                                           ; Stuck at GND due to stuck port clock_enable                                             ;
 ; drawToScreen:drawScanner|doneDrawing                                                                          ; Stuck at GND due to stuck port data_in                                                  ;
-; upLoopCounterVariableBits:drawScannerCounter|regOut[0..19]                                                    ; Stuck at GND due to stuck port clock                                                    ;
 ; resetScreen:screenReseter|internalPianoAddress[0..12]                                                         ; Lost fanout                                                                             ;
-; mainStateHandler:mainStateController|currentSubState~2                                                        ; Lost fanout                                                                             ;
-; mainStateHandler:mainStateController|currentSubState~3                                                        ; Lost fanout                                                                             ;
-; mainStateHandler:mainStateController|currentSubState~4                                                        ; Lost fanout                                                                             ;
 ; PS2_Controller:ps2|s_ps2_transceiver~2                                                                        ; Lost fanout                                                                             ;
 ; PS2_Controller:ps2|s_ps2_transceiver~3                                                                        ; Lost fanout                                                                             ;
 ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter~2                              ; Lost fanout                                                                             ;
@@ -471,101 +452,44 @@ Note: All latches listed above may not be present at the end of synthesis due to
 ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter~4                              ; Lost fanout                                                                             ;
 ; PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver~2                                         ; Lost fanout                                                                             ;
 ; PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver~3                                         ; Lost fanout                                                                             ;
-; mainStateHandler:mainStateController|currentSubState.WRITETOMEMORY                                            ; Stuck at GND due to stuck port data_in                                                  ;
-; mainStateHandler:mainStateController|currentNoteData[0..28]                                                   ; Stuck at GND due to stuck port data_in                                                  ;
-; mainStateHandler:mainStateController|noteWriteAddress[1..6]                                                   ; Merged with mainStateHandler:mainStateController|noteWriteAddress[0]                    ;
-; mainStateHandler:mainStateController|memoryWriteEnable                                                        ; Stuck at GND due to stuck port data_in                                                  ;
-; mainStateHandler:mainStateController|noteWriteAddress[0]                                                      ; Stuck at GND due to stuck port data_in                                                  ;
 ; PS2_Controller:ps2|s_ps2_transceiver.PS2_STATE_2_COMMAND_OUT                                                  ; Stuck at GND due to stuck port data_in                                                  ;
 ; PS2_Controller:ps2|s_ps2_transceiver.PS2_STATE_4_END_DELAYED                                                  ; Stuck at GND due to stuck port data_in                                                  ;
 ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|command_was_sent                                 ; Lost fanout                                                                             ;
 ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|error_communication_timed_out                    ; Lost fanout                                                                             ;
 ; PS2_Controller:ps2|s_ps2_transceiver.PS2_STATE_3_END_TRANSFER                                                 ; Stuck at GND due to stuck port data_in                                                  ;
 ; PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver.PS2_STATE_1_WAIT_FOR_DATA                 ; Stuck at GND due to stuck port data_in                                                  ;
-; mainStateHandler:mainStateController|currentSubState.IDLE                                                     ; Stuck at GND due to stuck port data_in                                                  ;
 ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_0_IDLE               ; Stuck at GND due to stuck port data_in                                                  ;
 ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_6_COMMAND_WAS_SENT   ; Lost fanout                                                                             ;
 ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_7_TRANSMISSION_ERROR ; Lost fanout                                                                             ;
-; Total Number of Removed Registers = 143                                                                       ;                                                                                         ;
+; Total Number of Removed Registers = 81                                                                        ;                                                                                         ;
 +---------------------------------------------------------------------------------------------------------------+-----------------------------------------------------------------------------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                                                                                                                                                         ;
-+--------------------------------------------------------------------+--------------------------------+---------------------------------------------------------------------------------------------------------------+
-; Register name                                                      ; Reason for Removal             ; Registers Removed due to This Register                                                                        ;
-+--------------------------------------------------------------------+--------------------------------+---------------------------------------------------------------------------------------------------------------+
-; mainStateHandler:mainStateController|currentSubState.WRITETOMEMORY ; Stuck at GND                   ; mainStateHandler:mainStateController|currentNoteData[28],                                                     ;
-;                                                                    ; due to stuck port data_in      ; mainStateHandler:mainStateController|currentNoteData[27],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[26],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[25],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[24],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[23],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[22],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[21],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[20],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[19],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[18],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[17],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[16],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[15],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[14],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[13],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[12],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[11],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[10],                                                     ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[9],                                                      ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[8],                                                      ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[7],                                                      ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[6],                                                      ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[5],                                                      ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[4],                                                      ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[3],                                                      ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[2],                                                      ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[1],                                                      ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|currentNoteData[0],                                                      ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|memoryWriteEnable,                                                       ;
-;                                                                    ;                                ; mainStateHandler:mainStateController|noteWriteAddress[0]                                                      ;
-; drawToScreen:drawScanner|outputDrawScreenPosY[0]                   ; Stuck at GND                   ; drawToScreen:drawScanner|doneDrawing,                                                                         ;
-;                                                                    ; due to stuck port clock_enable ; upLoopCounterVariableBits:drawScannerCounter|regOut[12],                                                      ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[11],                                                      ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[1],                                                       ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[2],                                                       ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[10],                                                      ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[3],                                                       ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[4],                                                       ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[5],                                                       ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[6],                                                       ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[7],                                                       ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[8],                                                       ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[9],                                                       ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[0],                                                       ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[19],                                                      ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[18],                                                      ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[17],                                                      ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[16],                                                      ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[15],                                                      ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[14],                                                      ;
-;                                                                    ;                                ; upLoopCounterVariableBits:drawScannerCounter|regOut[13]                                                       ;
-; mainStateHandler:mainStateController|outputColour[0]               ; Stuck at VCC                   ; resetScreen:screenReseter|internalPianoAddress[0],                                                            ;
-;                                                                    ; due to stuck port data_in      ; resetScreen:screenReseter|internalPianoAddress[1],                                                            ;
-;                                                                    ;                                ; resetScreen:screenReseter|internalPianoAddress[2],                                                            ;
-;                                                                    ;                                ; resetScreen:screenReseter|internalPianoAddress[3],                                                            ;
-;                                                                    ;                                ; resetScreen:screenReseter|internalPianoAddress[7],                                                            ;
-;                                                                    ;                                ; resetScreen:screenReseter|internalPianoAddress[8],                                                            ;
-;                                                                    ;                                ; resetScreen:screenReseter|internalPianoAddress[9],                                                            ;
-;                                                                    ;                                ; resetScreen:screenReseter|internalPianoAddress[10],                                                           ;
-;                                                                    ;                                ; resetScreen:screenReseter|internalPianoAddress[11],                                                           ;
-;                                                                    ;                                ; resetScreen:screenReseter|internalPianoAddress[12]                                                            ;
-; PS2_Controller:ps2|idle_counter[3]                                 ; Lost Fanouts                   ; PS2_Controller:ps2|idle_counter[4], PS2_Controller:ps2|idle_counter[5],                                       ;
-;                                                                    ;                                ; PS2_Controller:ps2|idle_counter[6], PS2_Controller:ps2|idle_counter[7]                                        ;
-; PS2_Controller:ps2|s_ps2_transceiver~2                             ; Lost Fanouts                   ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|command_was_sent,                                ;
-;                                                                    ;                                ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|error_communication_timed_out,                   ;
-;                                                                    ;                                ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_6_COMMAND_WAS_SENT,  ;
-;                                                                    ;                                ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_7_TRANSMISSION_ERROR ;
-; PS2_Controller:ps2|s_ps2_transceiver.PS2_STATE_2_COMMAND_OUT       ; Stuck at GND                   ; PS2_Controller:ps2|s_ps2_transceiver.PS2_STATE_3_END_TRANSFER,                                                ;
-;                                                                    ; due to stuck port data_in      ; PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver.PS2_STATE_1_WAIT_FOR_DATA                 ;
-+--------------------------------------------------------------------+--------------------------------+---------------------------------------------------------------------------------------------------------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                                                                                   ;
++--------------------------------------------------------------+--------------------------------+---------------------------------------------------------------------------------------------------------------+
+; Register name                                                ; Reason for Removal             ; Registers Removed due to This Register                                                                        ;
++--------------------------------------------------------------+--------------------------------+---------------------------------------------------------------------------------------------------------------+
+; mainStateHandler:mainStateController|outputColour[0]         ; Stuck at VCC                   ; resetScreen:screenReseter|internalPianoAddress[0],                                                            ;
+;                                                              ; due to stuck port data_in      ; resetScreen:screenReseter|internalPianoAddress[1],                                                            ;
+;                                                              ;                                ; resetScreen:screenReseter|internalPianoAddress[2],                                                            ;
+;                                                              ;                                ; resetScreen:screenReseter|internalPianoAddress[7],                                                            ;
+;                                                              ;                                ; resetScreen:screenReseter|internalPianoAddress[8],                                                            ;
+;                                                              ;                                ; resetScreen:screenReseter|internalPianoAddress[9],                                                            ;
+;                                                              ;                                ; resetScreen:screenReseter|internalPianoAddress[10],                                                           ;
+;                                                              ;                                ; resetScreen:screenReseter|internalPianoAddress[11],                                                           ;
+;                                                              ;                                ; resetScreen:screenReseter|internalPianoAddress[12]                                                            ;
+; PS2_Controller:ps2|idle_counter[3]                           ; Lost Fanouts                   ; PS2_Controller:ps2|idle_counter[4], PS2_Controller:ps2|idle_counter[5],                                       ;
+;                                                              ;                                ; PS2_Controller:ps2|idle_counter[6], PS2_Controller:ps2|idle_counter[7]                                        ;
+; PS2_Controller:ps2|s_ps2_transceiver~2                       ; Lost Fanouts                   ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|command_was_sent,                                ;
+;                                                              ;                                ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|error_communication_timed_out,                   ;
+;                                                              ;                                ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_6_COMMAND_WAS_SENT,  ;
+;                                                              ;                                ; PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|s_ps2_transmitter.PS2_STATE_7_TRANSMISSION_ERROR ;
+; PS2_Controller:ps2|s_ps2_transceiver.PS2_STATE_2_COMMAND_OUT ; Stuck at GND                   ; PS2_Controller:ps2|s_ps2_transceiver.PS2_STATE_3_END_TRANSFER,                                                ;
+;                                                              ; due to stuck port data_in      ; PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In|s_ps2_receiver.PS2_STATE_1_WAIT_FOR_DATA                 ;
+; drawToScreen:drawScanner|outputDrawScreenPosY[2]             ; Stuck at GND                   ; drawToScreen:drawScanner|doneDrawing                                                                          ;
+;                                                              ; due to stuck port clock_enable ;                                                                                                               ;
++--------------------------------------------------------------+--------------------------------+---------------------------------------------------------------------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -573,37 +497,41 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 304   ;
-; Number of registers using Synchronous Clear  ; 168   ;
-; Number of registers using Synchronous Load   ; 0     ;
+; Total registers                              ; 341   ;
+; Number of registers using Synchronous Clear  ; 227   ;
+; Number of registers using Synchronous Load   ; 62    ;
 ; Number of registers using Asynchronous Clear ; 78    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 162   ;
+; Number of registers using Clock Enable       ; 221   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                                                                          ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                                ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------------------------------------+
-; 3:1                ; 8 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In|received_data[6]                             ;
-; 3:1                ; 10 bits   ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |PianissimoFinalProject|vga_adapter:VGA|vga_controller:controller|yCounter[4]                                             ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In|data_shift_reg[0]                            ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |PianissimoFinalProject|drawToScreen:drawScanner|outputDrawScreenPosX[3]                                                  ;
-; 3:1                ; 13 bits   ; 26 LEs        ; 0 LEs                ; 26 LEs                 ; Yes        ; |PianissimoFinalProject|resetScreen:screenReseter|internalPianoAddress[8]                                                 ;
-; 4:1                ; 13 bits   ; 26 LEs        ; 0 LEs                ; 26 LEs                 ; Yes        ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|command_initiate_counter[4]          ;
-; 4:1                ; 20 bits   ; 40 LEs        ; 0 LEs                ; 40 LEs                 ; Yes        ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[18]                  ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|cur_bit[0]                           ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In|data_count[3]                                ;
-; 4:1                ; 17 bits   ; 34 LEs        ; 0 LEs                ; 34 LEs                 ; Yes        ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[7]                  ;
-; 4:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |PianissimoFinalProject|mainStateHandler:mainStateController|outputScreenX[7]                                             ;
-; 4:1                ; 29 bits   ; 58 LEs        ; 0 LEs                ; 58 LEs                 ; Yes        ; |PianissimoFinalProject|mainStateHandler:mainStateController|currentNoteData[38]                                          ;
-; 27:1               ; 33 bits   ; 594 LEs       ; 495 LEs              ; 99 LEs                 ; Yes        ; |PianissimoFinalProject|mainStateHandler:mainStateController|currentNoteData[3]                                           ;
-; 3:1                ; 24 bits   ; 48 LEs        ; 48 LEs               ; 0 LEs                  ; No         ; |PianissimoFinalProject|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_fnn1:auto_generated|mux_5hb:mux3|result_node[3] ;
-; 6:1                ; 24 bits   ; 96 LEs        ; 96 LEs               ; 0 LEs                  ; No         ; |PianissimoFinalProject|colour[12]                                                                                        ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+---------------------------------------------------------------------------------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                                                                           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                                 ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------------------------------------------------------------+
+; 3:1                ; 8 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In|received_data[5]                              ;
+; 3:1                ; 10 bits   ; 20 LEs        ; 0 LEs                ; 20 LEs                 ; Yes        ; |PianissimoFinalProject|vga_adapter:VGA|vga_controller:controller|yCounter[4]                                              ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In|data_shift_reg[1]                             ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |PianissimoFinalProject|drawToScreen:drawScanner|outputDrawScreenPosX[7]                                                   ;
+; 3:1                ; 13 bits   ; 26 LEs        ; 0 LEs                ; 26 LEs                 ; Yes        ; |PianissimoFinalProject|resetScreen:screenReseter|internalPianoAddress[9]                                                  ;
+; 8:1                ; 7 bits    ; 35 LEs        ; 7 LEs                ; 28 LEs                 ; Yes        ; |PianissimoFinalProject|mainStateHandler:mainStateController|noteReadAddress[3]                                            ;
+; 8:1                ; 9 bits    ; 45 LEs        ; 0 LEs                ; 45 LEs                 ; Yes        ; |PianissimoFinalProject|mainStateHandler:mainStateController|linesDrawn[2]                                                 ;
+; 8:1                ; 7 bits    ; 35 LEs        ; 7 LEs                ; 28 LEs                 ; Yes        ; |PianissimoFinalProject|mainStateHandler:mainStateController|outputScreenY[2]                                              ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 8 LEs                ; 32 LEs                 ; Yes        ; |PianissimoFinalProject|mainStateHandler:mainStateController|outputScreenX[0]                                              ;
+; 8:1                ; 7 bits    ; 35 LEs        ; 7 LEs                ; 28 LEs                 ; Yes        ; |PianissimoFinalProject|mainStateHandler:mainStateController|noteWriteAddress[4]                                           ;
+; 4:1                ; 13 bits   ; 26 LEs        ; 0 LEs                ; 26 LEs                 ; Yes        ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|command_initiate_counter[9]           ;
+; 4:1                ; 20 bits   ; 40 LEs        ; 0 LEs                ; 40 LEs                 ; Yes        ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|waiting_counter[9]                    ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|cur_bit[0]                            ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In|data_count[0]                                 ;
+; 4:1                ; 17 bits   ; 34 LEs        ; 0 LEs                ; 34 LEs                 ; Yes        ; |PianissimoFinalProject|PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out|transfer_counter[17]                  ;
+; 6:1                ; 29 bits   ; 116 LEs       ; 0 LEs                ; 116 LEs                ; Yes        ; |PianissimoFinalProject|mainStateHandler:mainStateController|currentNoteData[35]                                           ;
+; 29:1               ; 33 bits   ; 627 LEs       ; 495 LEs              ; 132 LEs                ; Yes        ; |PianissimoFinalProject|mainStateHandler:mainStateController|currentNoteData[10]                                           ;
+; 3:1                ; 24 bits   ; 48 LEs        ; 48 LEs               ; 0 LEs                  ; No         ; |PianissimoFinalProject|vga_adapter:VGA|altsyncram:VideoMemory|altsyncram_fnn1:auto_generated|mux_5hb:mux3|result_node[15] ;
+; 6:1                ; 24 bits   ; 96 LEs        ; 96 LEs               ; 0 LEs                  ; No         ; |PianissimoFinalProject|colour[7]                                                                                          ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------------------------------------------------------------------+
 
 
 +----------------------------------------------------------------------------------------------+
@@ -1227,45 +1155,6 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+------------------------------------------------------------------+
-; Parameter Settings for User Entity Instance: MasterFSM:masterFSM ;
-+-------------------+-------+--------------------------------------+
-; Parameter Name    ; Value ; Type                                 ;
-+-------------------+-------+--------------------------------------+
-; key0              ; 0     ; Signed Integer                       ;
-; key1              ; 1     ; Signed Integer                       ;
-; key2              ; 2     ; Signed Integer                       ;
-; key3              ; 3     ; Signed Integer                       ;
-; key4              ; 4     ; Signed Integer                       ;
-; key5              ; 5     ; Signed Integer                       ;
-; key6              ; 6     ; Signed Integer                       ;
-; key7              ; 7     ; Signed Integer                       ;
-; key8              ; 8     ; Signed Integer                       ;
-; key9              ; 9     ; Signed Integer                       ;
-; keyTilda          ; 10    ; Signed Integer                       ;
-; keyMinus          ; 11    ; Signed Integer                       ;
-; keyEquals         ; 12    ; Signed Integer                       ;
-; keyBackspace      ; 13    ; Signed Integer                       ;
-; keyTab            ; 14    ; Signed Integer                       ;
-; keyQ              ; 15    ; Signed Integer                       ;
-; keyW              ; 16    ; Signed Integer                       ;
-; keyE              ; 17    ; Signed Integer                       ;
-; keyR              ; 18    ; Signed Integer                       ;
-; keyT              ; 19    ; Signed Integer                       ;
-; keyY              ; 20    ; Signed Integer                       ;
-; keyU              ; 21    ; Signed Integer                       ;
-; keyI              ; 22    ; Signed Integer                       ;
-; keyO              ; 23    ; Signed Integer                       ;
-; keyP              ; 24    ; Signed Integer                       ;
-; keyLSquareBracket ; 25    ; Signed Integer                       ;
-; keyRSquareBracket ; 26    ; Signed Integer                       ;
-; keyBackslash      ; 27    ; Signed Integer                       ;
-; keySpacebar       ; 28    ; Signed Integer                       ;
-; noPress           ; 29    ; Signed Integer                       ;
-+-------------------+-------+--------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------+
 ; Parameter Settings for User Entity Instance: startScreenHandler:startScreenController|StartScreen:startScreenMemoryController|altsyncram:altsyncram_component ;
 +------------------------------------+--------------------------+-----------------------------------------------------------------------------------------------+
@@ -1324,45 +1213,6 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; DEVICE_FAMILY                      ; Cyclone V                ; Untyped                                                                                       ;
 ; CBXI_PARAMETER                     ; altsyncram_rtg1          ; Untyped                                                                                       ;
 +------------------------------------+--------------------------+-----------------------------------------------------------------------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
-+-----------------------------------------------------------------------------------+
-; Parameter Settings for User Entity Instance: mainStateHandler:mainStateController ;
-+-------------------+-------+-------------------------------------------------------+
-; Parameter Name    ; Value ; Type                                                  ;
-+-------------------+-------+-------------------------------------------------------+
-; key0              ; 0     ; Signed Integer                                        ;
-; key1              ; 1     ; Signed Integer                                        ;
-; key2              ; 2     ; Signed Integer                                        ;
-; key3              ; 3     ; Signed Integer                                        ;
-; key4              ; 4     ; Signed Integer                                        ;
-; key5              ; 5     ; Signed Integer                                        ;
-; key6              ; 6     ; Signed Integer                                        ;
-; key7              ; 7     ; Signed Integer                                        ;
-; key8              ; 8     ; Signed Integer                                        ;
-; key9              ; 9     ; Signed Integer                                        ;
-; keyTilda          ; 10    ; Signed Integer                                        ;
-; keyMinus          ; 11    ; Signed Integer                                        ;
-; keyEquals         ; 12    ; Signed Integer                                        ;
-; keyBackspace      ; 13    ; Signed Integer                                        ;
-; keyTab            ; 14    ; Signed Integer                                        ;
-; keyQ              ; 15    ; Signed Integer                                        ;
-; keyW              ; 16    ; Signed Integer                                        ;
-; keyE              ; 17    ; Signed Integer                                        ;
-; keyR              ; 18    ; Signed Integer                                        ;
-; keyT              ; 19    ; Signed Integer                                        ;
-; keyY              ; 20    ; Signed Integer                                        ;
-; keyU              ; 21    ; Signed Integer                                        ;
-; keyI              ; 22    ; Signed Integer                                        ;
-; keyO              ; 23    ; Signed Integer                                        ;
-; keyP              ; 24    ; Signed Integer                                        ;
-; keyLSquareBracket ; 25    ; Signed Integer                                        ;
-; keyRSquareBracket ; 26    ; Signed Integer                                        ;
-; keyBackslash      ; 27    ; Signed Integer                                        ;
-; keySpacebar       ; 28    ; Signed Integer                                        ;
-; noPress           ; 29    ; Signed Integer                                        ;
-+-------------------+-------+-------------------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -1427,13 +1277,33 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+-------------------------------------------------------------------------------------------+
-; Parameter Settings for User Entity Instance: upLoopCounterVariableBits:drawScannerCounter ;
-+----------------+-------+------------------------------------------------------------------+
-; Parameter Name ; Value ; Type                                                             ;
-+----------------+-------+------------------------------------------------------------------+
-; outputBits     ; 20    ; Signed Integer                                                   ;
-+----------------+-------+------------------------------------------------------------------+
++-----------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mainStateHandler:mainStateController|timeCounter:timecounter ;
++----------------+-------+----------------------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                                             ;
++----------------+-------+----------------------------------------------------------------------------------+
+; MAXBITSINCOUNT ; 29    ; Signed Integer                                                                   ;
++----------------+-------+----------------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mainStateHandler:mainStateController|timeCounter:timecounter|upLoopCounter_29b:clockCount ;
++----------------+-------+---------------------------------------------------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                                                                          ;
++----------------+-------+---------------------------------------------------------------------------------------------------------------+
+; MAXBITSINCOUNT ; 29    ; Signed Integer                                                                                                ;
++----------------+-------+---------------------------------------------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: mainStateHandler:mainStateController|timeCounter:timecounter|upLoopCounter_29b:outputCount ;
++----------------+-------+----------------------------------------------------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                                                                           ;
++----------------+-------+----------------------------------------------------------------------------------------------------------------+
+; MAXBITSINCOUNT ; 29    ; Signed Integer                                                                                                 ;
++----------------+-------+----------------------------------------------------------------------------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
@@ -1507,20 +1377,6 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-------------------------------+-------------------------------------------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "upLoopCounterVariableBits:drawScannerCounter"                                                                                                                                      ;
-+-----------------+--------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port            ; Type   ; Severity ; Details                                                                                                                                                                 ;
-+-----------------+--------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; maxCount[6..5]  ; Input  ; Info     ; Stuck at VCC                                                                                                                                                            ;
-; maxCount[19..7] ; Input  ; Info     ; Stuck at GND                                                                                                                                                            ;
-; maxCount[4..3]  ; Input  ; Info     ; Stuck at GND                                                                                                                                                            ;
-; maxCount[1..0]  ; Input  ; Info     ; Stuck at GND                                                                                                                                                            ;
-; maxCount[2]     ; Input  ; Info     ; Stuck at VCC                                                                                                                                                            ;
-; regOut          ; Output ; Warning  ; Output or bidir port (20 bits) is smaller than the port expression (21 bits) it drives.  The 1 most-significant bit(s) in the port expression will be connected to GND. ;
-+-----------------+--------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-
-
 +------------------------------------------------------------------------------------------------------------------------+
 ; Port Connectivity Checks: "mainStateHandler:mainStateController|timeCounter:timecounter|upLoopCounter_29b:outputCount" ;
 +------------------+-------+----------+----------------------------------------------------------------------------------+
@@ -1565,6 +1421,15 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-------------+-------+----------+---------------------------------------------------------+
 
 
++-----------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "mainStateHandler:mainStateController"                                                            ;
++-------------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port              ; Type   ; Severity ; Details                                                                             ;
++-------------------+--------+----------+-------------------------------------------------------------------------------------+
+; retrievedNoteData ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-------------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
 +-----------------------------------------------------------------------------------------------------------------------+
 ; Port Connectivity Checks: "MasterFSM:masterFSM"                                                                       ;
 +-------------+--------+----------+-------------------------------------------------------------------------------------+
@@ -1599,28 +1464,27 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 304                         ;
+; arriav_ff             ; 341                         ;
 ;     CLR SCLR          ; 39                          ;
 ;     ENA               ; 16                          ;
 ;     ENA CLR SCLR      ; 39                          ;
-;     ENA SCLR          ; 78                          ;
+;     ENA SCLR          ; 104                         ;
+;     ENA SCLR SLD      ; 33                          ;
 ;     ENA SLD           ; 29                          ;
 ;     SCLR              ; 12                          ;
-;     plain             ; 91                          ;
+;     plain             ; 69                          ;
 ; arriav_io_obuf        ; 2                           ;
-; arriav_lcell_comb     ; 586                         ;
-;     arith             ; 175                         ;
-;         1 data inputs ; 175                         ;
-;     extend            ; 6                           ;
-;         7 data inputs ; 6                           ;
-;     normal            ; 329                         ;
+; arriav_lcell_comb     ; 580                         ;
+;     arith             ; 182                         ;
+;         1 data inputs ; 182                         ;
+;     normal            ; 322                         ;
 ;         0 data inputs ; 2                           ;
-;         1 data inputs ; 2                           ;
-;         2 data inputs ; 32                          ;
-;         3 data inputs ; 66                          ;
-;         4 data inputs ; 52                          ;
-;         5 data inputs ; 38                          ;
-;         6 data inputs ; 137                         ;
+;         1 data inputs ; 1                           ;
+;         2 data inputs ; 34                          ;
+;         3 data inputs ; 72                          ;
+;         4 data inputs ; 34                          ;
+;         5 data inputs ; 47                          ;
+;         6 data inputs ; 132                         ;
 ;     shared            ; 76                          ;
 ;         0 data inputs ; 2                           ;
 ;         1 data inputs ; 4                           ;
@@ -1630,8 +1494,8 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; generic_pll           ; 1                           ;
 ; stratixv_ram_block    ; 206                         ;
 ;                       ;                             ;
-; Max LUT depth         ; 5.80                        ;
-; Average LUT depth     ; 2.47                        ;
+; Max LUT depth         ; 6.80                        ;
+; Average LUT depth     ; 2.46                        ;
 +-----------------------+-----------------------------+
 
 
@@ -1640,7 +1504,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:12     ;
+; Top            ; 00:00:10     ;
 +----------------+--------------+
 
 
@@ -1650,31 +1514,31 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 18.0.0 Build 614 04/24/2018 SJ Standard Edition
-    Info: Processing started: Tue Nov 12 12:50:13 2024
+    Info: Processing started: Thu Nov 14 17:50:37 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Pianissimo -c Pianissimo
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 6 of the 6 processors detected
+Info (20030): Parallel compilation is enabled and will use 16 of the 20 processors detected
 Info (12021): Found 4 design units, including 4 entities, in source file timecounter.v
     Info (12023): Found entity 1: timeCounter File: W:/Pianissimo/TimeCounter.v Line: 1
-    Info (12023): Found entity 2: upLoopCounter_29b File: W:/Pianissimo/TimeCounter.v Line: 11
-    Info (12023): Found entity 3: downCounter_9b File: W:/Pianissimo/TimeCounter.v Line: 30
-    Info (12023): Found entity 4: upLoopCounterVariableBits File: W:/Pianissimo/TimeCounter.v Line: 46
-Warning (10229): Verilog HDL Expression warning at StateHandlers.v(83): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 83
-Warning (10229): Verilog HDL Expression warning at StateHandlers.v(84): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 84
-Warning (10229): Verilog HDL Expression warning at StateHandlers.v(85): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 85
-Warning (10229): Verilog HDL Expression warning at StateHandlers.v(86): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 86
-Warning (10229): Verilog HDL Expression warning at StateHandlers.v(87): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 87
-Warning (10229): Verilog HDL Expression warning at StateHandlers.v(88): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 88
+    Info (12023): Found entity 2: upLoopCounter_29b File: W:/Pianissimo/TimeCounter.v Line: 16
+    Info (12023): Found entity 3: downCounter_9b File: W:/Pianissimo/TimeCounter.v Line: 36
+    Info (12023): Found entity 4: upLoopCounterVariableBits File: W:/Pianissimo/TimeCounter.v Line: 52
 Warning (10229): Verilog HDL Expression warning at StateHandlers.v(89): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 89
 Warning (10229): Verilog HDL Expression warning at StateHandlers.v(90): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 90
-Warning (10229): Verilog HDL Expression warning at StateHandlers.v(131): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 131
-Warning (10229): Verilog HDL Expression warning at StateHandlers.v(132): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 132
-Warning (10229): Verilog HDL Expression warning at StateHandlers.v(133): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 133
-Warning (10229): Verilog HDL Expression warning at StateHandlers.v(134): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 134
-Warning (10229): Verilog HDL Expression warning at StateHandlers.v(135): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 135
-Warning (10229): Verilog HDL Expression warning at StateHandlers.v(136): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 136
-Warning (10229): Verilog HDL Expression warning at StateHandlers.v(137): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 137
+Warning (10229): Verilog HDL Expression warning at StateHandlers.v(91): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 91
+Warning (10229): Verilog HDL Expression warning at StateHandlers.v(92): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 92
+Warning (10229): Verilog HDL Expression warning at StateHandlers.v(93): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 93
+Warning (10229): Verilog HDL Expression warning at StateHandlers.v(94): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 94
+Warning (10229): Verilog HDL Expression warning at StateHandlers.v(95): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 95
+Warning (10229): Verilog HDL Expression warning at StateHandlers.v(96): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 96
 Warning (10229): Verilog HDL Expression warning at StateHandlers.v(138): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 138
+Warning (10229): Verilog HDL Expression warning at StateHandlers.v(139): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 139
+Warning (10229): Verilog HDL Expression warning at StateHandlers.v(140): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 140
+Warning (10229): Verilog HDL Expression warning at StateHandlers.v(141): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 141
+Warning (10229): Verilog HDL Expression warning at StateHandlers.v(142): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 142
+Warning (10229): Verilog HDL Expression warning at StateHandlers.v(143): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 143
+Warning (10229): Verilog HDL Expression warning at StateHandlers.v(144): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 144
+Warning (10229): Verilog HDL Expression warning at StateHandlers.v(145): truncated literal to match 4 bits File: W:/Pianissimo/StateHandlers.v Line: 145
 Info (12021): Found 2 design units, including 2 entities, in source file statehandlers.v
     Info (12023): Found entity 1: startScreenHandler File: W:/Pianissimo/StateHandlers.v Line: 3
     Info (12023): Found entity 2: mainStateHandler File: W:/Pianissimo/StateHandlers.v Line: 11
@@ -1687,8 +1551,8 @@ Info (12021): Found 1 design units, including 1 entities, in source file pianiss
 Info (12021): Found 1 design units, including 1 entities, in source file notestorage.v
     Info (12023): Found entity 1: NoteStorage File: W:/Pianissimo/NoteStorage.v Line: 40
 Info (12021): Found 2 design units, including 2 entities, in source file drawtoscreen.v
-    Info (12023): Found entity 1: drawToScreen File: W:/Pianissimo/DrawToScreen.v Line: 1
-    Info (12023): Found entity 2: resetScreen File: W:/Pianissimo/DrawToScreen.v Line: 33
+    Info (12023): Found entity 1: drawToScreen File: W:/Pianissimo/DrawToScreen.v Line: 3
+    Info (12023): Found entity 2: resetScreen File: W:/Pianissimo/DrawToScreen.v Line: 45
 Info (12021): Found 1 design units, including 1 entities, in source file vga_adapter/vga_pll.v
     Info (12023): Found entity 1: vga_pll File: W:/Pianissimo/vga_adapter/vga_pll.v Line: 36
 Info (12021): Found 1 design units, including 1 entities, in source file vga_adapter/vga_controller.v
@@ -1706,59 +1570,58 @@ Info (12021): Found 1 design units, including 1 entities, in source file ps2_con
 Info (12021): Found 1 design units, including 1 entities, in source file fsms/masterfsm.v
     Info (12023): Found entity 1: MasterFSM File: W:/Pianissimo/FSMs/MasterFSM.v Line: 3
 Info (12127): Elaborating entity "PianissimoFinalProject" for the top level hierarchy
-Warning (10036): Verilog HDL or VHDL warning at PianissimoFinalProject.v(92): object "rdAddress" assigned a value but never read File: W:/Pianissimo/PianissimoFinalProject.v Line: 92
-Warning (10858): Verilog HDL warning at PianissimoFinalProject.v(94): object masterResetAddress used but never assigned File: W:/Pianissimo/PianissimoFinalProject.v Line: 94
-Warning (10240): Verilog HDL Always Construct warning at PianissimoFinalProject.v(136): inferring latch(es) for variable "plotWriteEnable", which holds its previous value in one or more paths through the always construct File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Warning (10240): Verilog HDL Always Construct warning at PianissimoFinalProject.v(136): inferring latch(es) for variable "colour", which holds its previous value in one or more paths through the always construct File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Warning (10240): Verilog HDL Always Construct warning at PianissimoFinalProject.v(136): inferring latch(es) for variable "screenX", which holds its previous value in one or more paths through the always construct File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Warning (10240): Verilog HDL Always Construct warning at PianissimoFinalProject.v(136): inferring latch(es) for variable "screenY", which holds its previous value in one or more paths through the always construct File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Warning (10030): Net "masterResetAddress" at PianissimoFinalProject.v(94) has no driver or initial value, using a default initial value '0' File: W:/Pianissimo/PianissimoFinalProject.v Line: 94
-Warning (10034): Output port "LEDR[7..3]" at PianissimoFinalProject.v(10) has no driver File: W:/Pianissimo/PianissimoFinalProject.v Line: 10
-Info (10041): Inferred latch for "screenY[0]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "screenY[1]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "screenY[2]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "screenY[3]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "screenY[4]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "screenY[5]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "screenY[6]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "screenY[7]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "screenX[0]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "screenX[1]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "screenX[2]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "screenX[3]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "screenX[4]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "screenX[5]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "screenX[6]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "screenX[7]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[0]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[1]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[2]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[3]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[4]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[5]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[6]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[7]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[8]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[9]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[10]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[11]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[12]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[13]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[14]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[15]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[16]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[17]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[18]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[19]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[20]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[21]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[22]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "colour[23]" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (10041): Inferred latch for "plotWriteEnable" at PianissimoFinalProject.v(136) File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-Info (12128): Elaborating entity "PS2_Controller" for hierarchy "PS2_Controller:ps2" File: W:/Pianissimo/PianissimoFinalProject.v Line: 39
+Warning (10036): Verilog HDL or VHDL warning at PianissimoFinalProject.v(133): object "rdAddress" assigned a value but never read File: W:/Pianissimo/PianissimoFinalProject.v Line: 133
+Warning (10858): Verilog HDL warning at PianissimoFinalProject.v(135): object masterResetAddress used but never assigned File: W:/Pianissimo/PianissimoFinalProject.v Line: 135
+Warning (10240): Verilog HDL Always Construct warning at PianissimoFinalProject.v(181): inferring latch(es) for variable "plotWriteEnable", which holds its previous value in one or more paths through the always construct File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Warning (10240): Verilog HDL Always Construct warning at PianissimoFinalProject.v(181): inferring latch(es) for variable "colour", which holds its previous value in one or more paths through the always construct File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Warning (10240): Verilog HDL Always Construct warning at PianissimoFinalProject.v(181): inferring latch(es) for variable "screenX", which holds its previous value in one or more paths through the always construct File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Warning (10240): Verilog HDL Always Construct warning at PianissimoFinalProject.v(181): inferring latch(es) for variable "screenY", which holds its previous value in one or more paths through the always construct File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Warning (10030): Net "masterResetAddress" at PianissimoFinalProject.v(135) has no driver or initial value, using a default initial value '0' File: W:/Pianissimo/PianissimoFinalProject.v Line: 135
+Info (10041): Inferred latch for "screenY[0]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "screenY[1]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "screenY[2]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "screenY[3]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "screenY[4]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "screenY[5]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "screenY[6]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "screenY[7]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "screenX[0]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "screenX[1]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "screenX[2]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "screenX[3]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "screenX[4]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "screenX[5]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "screenX[6]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "screenX[7]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[0]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[1]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[2]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[3]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[4]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[5]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[6]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[7]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[8]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[9]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[10]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[11]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[12]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[13]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[14]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[15]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[16]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[17]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[18]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[19]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[20]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[21]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[22]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "colour[23]" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (10041): Inferred latch for "plotWriteEnable" at PianissimoFinalProject.v(181) File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+Info (12128): Elaborating entity "PS2_Controller" for hierarchy "PS2_Controller:ps2" File: W:/Pianissimo/PianissimoFinalProject.v Line: 40
 Info (12128): Elaborating entity "Altera_UP_PS2_Data_In" for hierarchy "PS2_Controller:ps2|Altera_UP_PS2_Data_In:PS2_Data_In" File: W:/Pianissimo/PS2_controller/PS2_Controller.v Line: 246
 Info (12128): Elaborating entity "Altera_UP_PS2_Command_Out" for hierarchy "PS2_Controller:ps2|Altera_UP_PS2_Command_Out:PS2_Command_Out" File: W:/Pianissimo/PS2_controller/PS2_Controller.v Line: 266
-Info (12128): Elaborating entity "vga_adapter" for hierarchy "vga_adapter:VGA" File: W:/Pianissimo/PianissimoFinalProject.v Line: 114
+Info (12128): Elaborating entity "vga_adapter" for hierarchy "vga_adapter:VGA" File: W:/Pianissimo/PianissimoFinalProject.v Line: 155
 Info (12128): Elaborating entity "vga_address_translator" for hierarchy "vga_adapter:VGA|vga_address_translator:user_input_translator" File: W:/Pianissimo/vga_adapter/vga_adapter.v Line: 157
 Info (12128): Elaborating entity "altsyncram" for hierarchy "vga_adapter:VGA|altsyncram:VideoMemory" File: W:/Pianissimo/vga_adapter/vga_adapter.v Line: 178
 Info (12130): Elaborated megafunction instantiation "vga_adapter:VGA|altsyncram:VideoMemory" File: W:/Pianissimo/vga_adapter/vga_adapter.v Line: 178
@@ -1809,13 +1672,13 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/altp
     Info (12023): Found entity 1: altpll_80u File: W:/Pianissimo/db/altpll_80u.tdf Line: 25
 Info (12128): Elaborating entity "altpll_80u" for hierarchy "vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component|altpll_80u:auto_generated" File: c:/desl/quartus18/quartus/libraries/megafunctions/altpll.tdf Line: 897
 Info (12128): Elaborating entity "vga_controller" for hierarchy "vga_adapter:VGA|vga_controller:controller" File: W:/Pianissimo/vga_adapter/vga_adapter.v Line: 216
-Info (12128): Elaborating entity "drawToScreen" for hierarchy "drawToScreen:drawScanner" File: W:/Pianissimo/PianissimoFinalProject.v Line: 122
-Warning (10230): Verilog HDL assignment warning at DrawToScreen.v(15): truncated value with size 32 to match size of target (8) File: W:/Pianissimo/DrawToScreen.v Line: 15
+Info (12128): Elaborating entity "drawToScreen" for hierarchy "drawToScreen:drawScanner" File: W:/Pianissimo/PianissimoFinalProject.v Line: 163
 Warning (10230): Verilog HDL assignment warning at DrawToScreen.v(18): truncated value with size 32 to match size of target (8) File: W:/Pianissimo/DrawToScreen.v Line: 18
-Warning (10230): Verilog HDL assignment warning at DrawToScreen.v(23): truncated value with size 32 to match size of target (15) File: W:/Pianissimo/DrawToScreen.v Line: 23
-Info (12128): Elaborating entity "resetScreen" for hierarchy "resetScreen:screenReseter" File: W:/Pianissimo/PianissimoFinalProject.v Line: 123
-Warning (10230): Verilog HDL assignment warning at DrawToScreen.v(47): truncated value with size 32 to match size of target (13) File: W:/Pianissimo/DrawToScreen.v Line: 47
-Info (12128): Elaborating entity "PianoROM" for hierarchy "resetScreen:screenReseter|PianoROM:pianoImage" File: W:/Pianissimo/DrawToScreen.v Line: 41
+Warning (10230): Verilog HDL assignment warning at DrawToScreen.v(21): truncated value with size 32 to match size of target (8) File: W:/Pianissimo/DrawToScreen.v Line: 21
+Warning (10230): Verilog HDL assignment warning at DrawToScreen.v(26): truncated value with size 32 to match size of target (15) File: W:/Pianissimo/DrawToScreen.v Line: 26
+Info (12128): Elaborating entity "resetScreen" for hierarchy "resetScreen:screenReseter" File: W:/Pianissimo/PianissimoFinalProject.v Line: 164
+Warning (10230): Verilog HDL assignment warning at DrawToScreen.v(60): truncated value with size 32 to match size of target (13) File: W:/Pianissimo/DrawToScreen.v Line: 60
+Info (12128): Elaborating entity "PianoROM" for hierarchy "resetScreen:screenReseter|PianoROM:pianoImage" File: W:/Pianissimo/DrawToScreen.v Line: 54
 Info (12128): Elaborating entity "altsyncram" for hierarchy "resetScreen:screenReseter|PianoROM:pianoImage|altsyncram:altsyncram_component" File: W:/Pianissimo/PianoROM.v Line: 82
 Info (12130): Elaborated megafunction instantiation "resetScreen:screenReseter|PianoROM:pianoImage|altsyncram:altsyncram_component" File: W:/Pianissimo/PianoROM.v Line: 82
 Info (12133): Instantiated megafunction "resetScreen:screenReseter|PianoROM:pianoImage|altsyncram:altsyncram_component" with the following parameter: File: W:/Pianissimo/PianoROM.v Line: 82
@@ -1836,9 +1699,8 @@ Info (12133): Instantiated megafunction "resetScreen:screenReseter|PianoROM:pian
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_m7g1.tdf
     Info (12023): Found entity 1: altsyncram_m7g1 File: W:/Pianissimo/db/altsyncram_m7g1.tdf Line: 27
 Info (12128): Elaborating entity "altsyncram_m7g1" for hierarchy "resetScreen:screenReseter|PianoROM:pianoImage|altsyncram:altsyncram_component|altsyncram_m7g1:auto_generated" File: c:/desl/quartus18/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Info (12128): Elaborating entity "MasterFSM" for hierarchy "MasterFSM:masterFSM" File: W:/Pianissimo/PianissimoFinalProject.v Line: 126
-Warning (10270): Verilog HDL Case Statement warning at MasterFSM.v(28): incomplete case statement has no default case item File: W:/Pianissimo/FSMs/MasterFSM.v Line: 28
-Info (12128): Elaborating entity "startScreenHandler" for hierarchy "startScreenHandler:startScreenController" File: W:/Pianissimo/PianissimoFinalProject.v Line: 129
+Info (12128): Elaborating entity "MasterFSM" for hierarchy "MasterFSM:masterFSM" File: W:/Pianissimo/PianissimoFinalProject.v Line: 167
+Info (12128): Elaborating entity "startScreenHandler" for hierarchy "startScreenHandler:startScreenController" File: W:/Pianissimo/PianissimoFinalProject.v Line: 170
 Info (12128): Elaborating entity "StartScreen" for hierarchy "startScreenHandler:startScreenController|StartScreen:startScreenMemoryController" File: W:/Pianissimo/StateHandlers.v Line: 8
 Info (12128): Elaborating entity "altsyncram" for hierarchy "startScreenHandler:startScreenController|StartScreen:startScreenMemoryController|altsyncram:altsyncram_component" File: W:/Pianissimo/StartScreen.v Line: 82
 Info (12130): Elaborated megafunction instantiation "startScreenHandler:startScreenController|StartScreen:startScreenMemoryController|altsyncram:altsyncram_component" File: W:/Pianissimo/StartScreen.v Line: 82
@@ -1860,23 +1722,22 @@ Info (12133): Instantiated megafunction "startScreenHandler:startScreenControlle
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_rtg1.tdf
     Info (12023): Found entity 1: altsyncram_rtg1 File: W:/Pianissimo/db/altsyncram_rtg1.tdf Line: 31
 Info (12128): Elaborating entity "altsyncram_rtg1" for hierarchy "startScreenHandler:startScreenController|StartScreen:startScreenMemoryController|altsyncram:altsyncram_component|altsyncram_rtg1:auto_generated" File: c:/desl/quartus18/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Info (12128): Elaborating entity "mainStateHandler" for hierarchy "mainStateHandler:mainStateController" File: W:/Pianissimo/PianissimoFinalProject.v Line: 132
-Warning (10230): Verilog HDL assignment warning at StateHandlers.v(95): truncated value with size 91 to match size of target (62) File: W:/Pianissimo/StateHandlers.v Line: 95
-Warning (10230): Verilog HDL assignment warning at StateHandlers.v(96): truncated value with size 32 to match size of target (7) File: W:/Pianissimo/StateHandlers.v Line: 96
-Warning (10230): Verilog HDL assignment warning at StateHandlers.v(110): truncated value with size 32 to match size of target (8) File: W:/Pianissimo/StateHandlers.v Line: 110
-Warning (10272): Verilog HDL Case Statement warning at StateHandlers.v(131): case item expression covers a value already covered by a previous case item File: W:/Pianissimo/StateHandlers.v Line: 131
-Warning (10272): Verilog HDL Case Statement warning at StateHandlers.v(132): case item expression covers a value already covered by a previous case item File: W:/Pianissimo/StateHandlers.v Line: 132
-Warning (10272): Verilog HDL Case Statement warning at StateHandlers.v(133): case item expression covers a value already covered by a previous case item File: W:/Pianissimo/StateHandlers.v Line: 133
-Warning (10272): Verilog HDL Case Statement warning at StateHandlers.v(134): case item expression covers a value already covered by a previous case item File: W:/Pianissimo/StateHandlers.v Line: 134
-Warning (10272): Verilog HDL Case Statement warning at StateHandlers.v(135): case item expression covers a value already covered by a previous case item File: W:/Pianissimo/StateHandlers.v Line: 135
-Warning (10272): Verilog HDL Case Statement warning at StateHandlers.v(136): case item expression covers a value already covered by a previous case item File: W:/Pianissimo/StateHandlers.v Line: 136
-Warning (10272): Verilog HDL Case Statement warning at StateHandlers.v(137): case item expression covers a value already covered by a previous case item File: W:/Pianissimo/StateHandlers.v Line: 137
+Info (12128): Elaborating entity "mainStateHandler" for hierarchy "mainStateHandler:mainStateController" File: W:/Pianissimo/PianissimoFinalProject.v Line: 177
+Warning (10230): Verilog HDL assignment warning at StateHandlers.v(102): truncated value with size 91 to match size of target (62) File: W:/Pianissimo/StateHandlers.v Line: 102
+Warning (10230): Verilog HDL assignment warning at StateHandlers.v(103): truncated value with size 32 to match size of target (7) File: W:/Pianissimo/StateHandlers.v Line: 103
+Warning (10230): Verilog HDL assignment warning at StateHandlers.v(117): truncated value with size 32 to match size of target (8) File: W:/Pianissimo/StateHandlers.v Line: 117
 Warning (10272): Verilog HDL Case Statement warning at StateHandlers.v(138): case item expression covers a value already covered by a previous case item File: W:/Pianissimo/StateHandlers.v Line: 138
-Warning (10230): Verilog HDL assignment warning at StateHandlers.v(142): truncated value with size 32 to match size of target (9) File: W:/Pianissimo/StateHandlers.v Line: 142
-Warning (10230): Verilog HDL assignment warning at StateHandlers.v(143): truncated value with size 32 to match size of target (8) File: W:/Pianissimo/StateHandlers.v Line: 143
-Warning (10230): Verilog HDL assignment warning at StateHandlers.v(147): truncated value with size 32 to match size of target (7) File: W:/Pianissimo/StateHandlers.v Line: 147
-Info (10264): Verilog HDL Case Statement information at StateHandlers.v(62): all case item expressions in this case statement are onehot File: W:/Pianissimo/StateHandlers.v Line: 62
-Info (12128): Elaborating entity "NoteStorage" for hierarchy "mainStateHandler:mainStateController|NoteStorage:noteRamStorage" File: W:/Pianissimo/StateHandlers.v Line: 32
+Warning (10272): Verilog HDL Case Statement warning at StateHandlers.v(139): case item expression covers a value already covered by a previous case item File: W:/Pianissimo/StateHandlers.v Line: 139
+Warning (10272): Verilog HDL Case Statement warning at StateHandlers.v(140): case item expression covers a value already covered by a previous case item File: W:/Pianissimo/StateHandlers.v Line: 140
+Warning (10272): Verilog HDL Case Statement warning at StateHandlers.v(141): case item expression covers a value already covered by a previous case item File: W:/Pianissimo/StateHandlers.v Line: 141
+Warning (10272): Verilog HDL Case Statement warning at StateHandlers.v(142): case item expression covers a value already covered by a previous case item File: W:/Pianissimo/StateHandlers.v Line: 142
+Warning (10272): Verilog HDL Case Statement warning at StateHandlers.v(143): case item expression covers a value already covered by a previous case item File: W:/Pianissimo/StateHandlers.v Line: 143
+Warning (10272): Verilog HDL Case Statement warning at StateHandlers.v(144): case item expression covers a value already covered by a previous case item File: W:/Pianissimo/StateHandlers.v Line: 144
+Warning (10272): Verilog HDL Case Statement warning at StateHandlers.v(145): case item expression covers a value already covered by a previous case item File: W:/Pianissimo/StateHandlers.v Line: 145
+Warning (10230): Verilog HDL assignment warning at StateHandlers.v(149): truncated value with size 32 to match size of target (9) File: W:/Pianissimo/StateHandlers.v Line: 149
+Warning (10230): Verilog HDL assignment warning at StateHandlers.v(150): truncated value with size 32 to match size of target (8) File: W:/Pianissimo/StateHandlers.v Line: 150
+Warning (10230): Verilog HDL assignment warning at StateHandlers.v(154): truncated value with size 32 to match size of target (7) File: W:/Pianissimo/StateHandlers.v Line: 154
+Info (12128): Elaborating entity "NoteStorage" for hierarchy "mainStateHandler:mainStateController|NoteStorage:noteRamStorage" File: W:/Pianissimo/StateHandlers.v Line: 36
 Info (12128): Elaborating entity "altsyncram" for hierarchy "mainStateHandler:mainStateController|NoteStorage:noteRamStorage|altsyncram:altsyncram_component" File: W:/Pianissimo/NoteStorage.v Line: 89
 Info (12130): Elaborated megafunction instantiation "mainStateHandler:mainStateController|NoteStorage:noteRamStorage|altsyncram:altsyncram_component" File: W:/Pianissimo/NoteStorage.v Line: 89
 Info (12133): Instantiated megafunction "mainStateHandler:mainStateController|NoteStorage:noteRamStorage|altsyncram:altsyncram_component" with the following parameter: File: W:/Pianissimo/NoteStorage.v Line: 89
@@ -1902,23 +1763,9 @@ Info (12133): Instantiated megafunction "mainStateHandler:mainStateController|No
 Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_kot1.tdf
     Info (12023): Found entity 1: altsyncram_kot1 File: W:/Pianissimo/db/altsyncram_kot1.tdf Line: 27
 Info (12128): Elaborating entity "altsyncram_kot1" for hierarchy "mainStateHandler:mainStateController|NoteStorage:noteRamStorage|altsyncram:altsyncram_component|altsyncram_kot1:auto_generated" File: c:/desl/quartus18/quartus/libraries/megafunctions/altsyncram.tdf Line: 791
-Info (12128): Elaborating entity "timeCounter" for hierarchy "mainStateHandler:mainStateController|timeCounter:timecounter" File: W:/Pianissimo/StateHandlers.v Line: 33
-Info (12128): Elaborating entity "upLoopCounter_29b" for hierarchy "mainStateHandler:mainStateController|timeCounter:timecounter|upLoopCounter_29b:clockCount" File: W:/Pianissimo/TimeCounter.v Line: 6
-Warning (10230): Verilog HDL assignment warning at TimeCounter.v(24): truncated value with size 32 to match size of target (29) File: W:/Pianissimo/TimeCounter.v Line: 24
-Info (12128): Elaborating entity "upLoopCounterVariableBits" for hierarchy "upLoopCounterVariableBits:drawScannerCounter" File: W:/Pianissimo/PianissimoFinalProject.v Line: 175
-Warning (10230): Verilog HDL assignment warning at TimeCounter.v(55): truncated value with size 29 to match size of target (20) File: W:/Pianissimo/TimeCounter.v Line: 55
-Warning (10230): Verilog HDL assignment warning at TimeCounter.v(59): truncated value with size 29 to match size of target (20) File: W:/Pianissimo/TimeCounter.v Line: 59
-Warning (10230): Verilog HDL assignment warning at TimeCounter.v(61): truncated value with size 32 to match size of target (20) File: W:/Pianissimo/TimeCounter.v Line: 61
-Warning (12011): Net is missing source, defaulting to GND
-    Warning (12110): Net "inputStateStorage[29]" is missing source, defaulting to GND File: W:/Pianissimo/PianissimoFinalProject.v Line: 37
-Warning (12011): Net is missing source, defaulting to GND
-    Warning (12110): Net "inputStateStorage[29]" is missing source, defaulting to GND File: W:/Pianissimo/PianissimoFinalProject.v Line: 37
-Warning (12011): Net is missing source, defaulting to GND
-    Warning (12110): Net "inputStateStorage[29]" is missing source, defaulting to GND File: W:/Pianissimo/PianissimoFinalProject.v Line: 37
-Warning (12011): Net is missing source, defaulting to GND
-    Warning (12110): Net "inputStateStorage[29]" is missing source, defaulting to GND File: W:/Pianissimo/PianissimoFinalProject.v Line: 37
-Warning (12011): Net is missing source, defaulting to GND
-    Warning (12110): Net "inputStateStorage[29]" is missing source, defaulting to GND File: W:/Pianissimo/PianissimoFinalProject.v Line: 37
+Info (12128): Elaborating entity "timeCounter" for hierarchy "mainStateHandler:mainStateController|timeCounter:timecounter" File: W:/Pianissimo/StateHandlers.v Line: 38
+Info (12128): Elaborating entity "upLoopCounter_29b" for hierarchy "mainStateHandler:mainStateController|timeCounter:timecounter|upLoopCounter_29b:clockCount" File: W:/Pianissimo/TimeCounter.v Line: 8
+Warning (10230): Verilog HDL assignment warning at TimeCounter.v(30): truncated value with size 32 to match size of target (29) File: W:/Pianissimo/TimeCounter.v Line: 30
 Warning (14284): Synthesized away the following node(s):
     Warning (14285): Synthesized away the following RAM node(s):
         Warning (14320): Synthesized away node "resetScreen:screenReseter|PianoROM:pianoImage|altsyncram:altsyncram_component|altsyncram_m7g1:auto_generated|q_a[16]" File: W:/Pianissimo/db/altsyncram_m7g1.tdf Line: 386
@@ -1945,64 +1792,106 @@ Warning (14284): Synthesized away the following node(s):
         Warning (14320): Synthesized away node "resetScreen:screenReseter|PianoROM:pianoImage|altsyncram:altsyncram_component|altsyncram_m7g1:auto_generated|q_a[5]" File: W:/Pianissimo/db/altsyncram_m7g1.tdf Line: 144
         Warning (14320): Synthesized away node "resetScreen:screenReseter|PianoROM:pianoImage|altsyncram:altsyncram_component|altsyncram_m7g1:auto_generated|q_a[6]" File: W:/Pianissimo/db/altsyncram_m7g1.tdf Line: 166
         Warning (14320): Synthesized away node "resetScreen:screenReseter|PianoROM:pianoImage|altsyncram:altsyncram_component|altsyncram_m7g1:auto_generated|q_a[7]" File: W:/Pianissimo/db/altsyncram_m7g1.tdf Line: 188
-Warning (12241): 2 hierarchies have connectivity warnings - see the Connectivity Checks report folder
-Warning (13012): Latch screenX[7] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 44
-Warning (13012): Latch screenX[6] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 44
-Warning (13012): Latch screenX[5] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 44
-Warning (13012): Latch screenY[6] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 44
-Warning (13012): Latch screenY[5] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 44
-Warning (13012): Latch screenY[4] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 44
-Warning (13012): Latch screenY[3] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 44
-Warning (13012): Latch screenX[0] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 44
-Warning (13012): Latch screenX[1] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 44
-Warning (13012): Latch screenX[2] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 44
-Warning (13012): Latch screenX[3] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 44
-Warning (13012): Latch screenX[4] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 44
-Warning (13012): Latch screenY[0] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 44
-Warning (13012): Latch screenY[1] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 44
-Warning (13012): Latch screenY[2] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 136
-    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 44
+Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (13012): Latch screenX[7] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch screenX[5] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch screenX[6] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch screenY[6] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch screenY[5] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch screenY[4] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch screenY[3] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[16] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch screenX[0] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch screenX[1] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch screenX[2] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch screenX[3] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch screenX[4] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[17] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[18] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[19] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[20] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[21] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[22] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[23] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[8] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[9] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[10] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[11] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[12] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[13] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[14] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[15] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[0] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[1] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[2] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[3] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[4] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[5] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[6] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch colour[7] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch screenY[0] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch screenY[1] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
+Warning (13012): Latch screenY[2] has unsafe behavior File: W:/Pianissimo/PianissimoFinalProject.v Line: 181
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal MasterFSM:masterFSM|currentState[1] File: W:/Pianissimo/FSMs/MasterFSM.v Line: 45
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "VGA_SYNC_N" is stuck at VCC File: W:/Pianissimo/PianissimoFinalProject.v Line: 17
-    Warning (13410): Pin "LEDR[3]" is stuck at GND File: W:/Pianissimo/PianissimoFinalProject.v Line: 10
-    Warning (13410): Pin "LEDR[4]" is stuck at GND File: W:/Pianissimo/PianissimoFinalProject.v Line: 10
-    Warning (13410): Pin "LEDR[5]" is stuck at GND File: W:/Pianissimo/PianissimoFinalProject.v Line: 10
-    Warning (13410): Pin "LEDR[6]" is stuck at GND File: W:/Pianissimo/PianissimoFinalProject.v Line: 10
-    Warning (13410): Pin "LEDR[7]" is stuck at GND File: W:/Pianissimo/PianissimoFinalProject.v Line: 10
-    Warning (13410): Pin "LEDR[9]" is stuck at VCC File: W:/Pianissimo/PianissimoFinalProject.v Line: 10
 Info (286030): Timing-Driven Synthesis is running
-Info (17049): 35 registers lost all their fanouts during netlist optimizations.
+Info (17049): 32 registers lost all their fanouts during netlist optimizations.
 Info (144001): Generated suppressed messages file W:/Pianissimo/output_files/Pianissimo.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 5 node(s), including 0 DDIO, 1 PLL, 0 transceiver and 0 LCELL
 Warning: RST port on the PLL is not properly connected on instance vga_adapter:VGA|vga_pll:mypll|altpll:altpll_component|altpll_80u:auto_generated|generic_pll1. The reset port on the PLL should be connected. If the PLL loses lock for any reason, you might need to manually reset the PLL in order to re-establish lock to the reference clock. File: W:/Pianissimo/db/altpll_80u.tdf Line: 33
     Info: Must be connected
-Info (21057): Implemented 891 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 916 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 2 input pins
     Info (21059): Implemented 39 output pins
     Info (21060): Implemented 2 bidirectional pins
-    Info (21061): Implemented 641 logic cells
+    Info (21061): Implemented 666 logic cells
     Info (21064): Implemented 206 RAM segments
     Info (21065): Implemented 1 PLLs
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 124 warnings
-    Info: Peak virtual memory: 4877 megabytes
-    Info: Processing ended: Tue Nov 12 12:52:49 2024
-    Info: Elapsed time: 00:02:36
-    Info: Total CPU time (on all processors): 00:00:28
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 151 warnings
+    Info: Peak virtual memory: 4957 megabytes
+    Info: Processing ended: Thu Nov 14 17:51:46 2024
+    Info: Elapsed time: 00:01:09
+    Info: Total CPU time (on all processors): 00:00:15
 
 
 +------------------------------------------+
