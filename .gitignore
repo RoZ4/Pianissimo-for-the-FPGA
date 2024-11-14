@@ -1,5 +1,4 @@
 *.flock
-*.qpf
 *.psf
 *.qws
 greybox_tmp/
