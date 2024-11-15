@@ -1,112 +1,95 @@
-module pianocomplexfade (
-	// Inputs
-	CLOCK_50,
-	KEY, notelengthEnable,
-
-	AUD_ADCDAT,
-
-	// Bidirectionals
-	AUD_BCLK,
-	AUD_ADCLRCK,
-	AUD_DACLRCK,
-
-	FPGA_I2C_SDAT,
-
-	// Outputs
-	AUD_XCK,
-	AUD_DACDAT,
-
-	FPGA_I2C_SCLK,
-	SW
-);
-
-// Inputs
+module pianosimple (CLOCK_50, KEY, AUD_ADCDAT, AUD_BCLK, AUD_ADCLRCK, AUD_DACLRCK, FPGA_I2C_SDAT, AUD_XCK, AUD_DACDAT, FPGA_I2C_SCLK, SW, retrievedNoteData);
 input				CLOCK_50;
 input		[3:0]	KEY;
 input		[9:0]	SW;
-
 input				AUD_ADCDAT;
 
-// Bidirectionals
 inout				AUD_BCLK;
 inout				AUD_ADCLRCK;
 inout				AUD_DACLRCK;
-
 inout				FPGA_I2C_SDAT;
 
-// Outputs
 output				AUD_XCK;
 output				AUD_DACDAT;
-
 output				FPGA_I2C_SCLK;
 
-//not used (not using audio input)
-wire				audio_in_available;
-wire		[31:0]	left_channel_audio_in;
-wire		[31:0]	right_channel_audio_in;
-wire				read_audio_in;
 
 wire				audio_out_allowed;
 wire		[31:0]	left_channel_audio_out;
 wire		[31:0]	right_channel_audio_out;
 wire				write_audio_out;
 
-// Internal Registers
+//not used (for taking audio input used in controller)
+wire				audio_in_available;
+wire		[31:0]	left_channel_audio_in;
+wire		[31:0]	right_channel_audio_in;
+wire				read_audio_in;
 
 reg [18:0] delay_cnt;
 wire [18:0] delay;
-
-reg [18:0] noteLengthCount = notelengthEnable;
-
-reg [7:0] volume = 8'd125;
-
 reg snd;
+reg [57:0] noteLength = retrievedNoteData[28:0] - retrievedNoteData[57:29];
+wire [31:0] sound;
 
-always @(posedge CLOCK_50)
+//generates wave
+
+if (noteLength >= 0) begin
+   always @(posedge CLOCK_50)
 	if(delay_cnt == delay) begin
 		delay_cnt <= 0;
 		snd <= !snd;
-	end else delay_cnt <= delay_cnt + 1;
+    end else begin delay_cnt <= delay_cnt + 1; 
+    noteLength <= noteLength - 1;
+    end
+end else assign sound = 32'd0;
 
-/*****************************************************************************
- *                            Combinational Logic                            *
- *****************************************************************************/
+
+//selects tone
  always @(*) begin
-        case (SW)
-            10'd1: delay <= 32'd95554;  // C4 (261.63 Hz) //middle C
-            10'd2: delay <= 32'd85132; // D4 (293.66 Hz)
-            10'd4: delay <= 32'd75842;  // E4 (329.63 Hz)
-            10'd8: delay <= 32'd71586;  // F4 (349.23 Hz)
-            10'd16: delay <= 32'd63775;  // G4 (392.00 Hz)
-            10'd32: delay <= 32'd56818; // A4 (440.00 Hz)
-            10'd64: delay <= 32'd50620;  // B4 (493.88 Hz)
-            10'd128: delay <= 32'd47778;  // C5 (523.25 Hz)
-            10'd256: delay <= 32'd42568;  // D5 (587.33 Hz)
-            10'd512: delay <= 32'd37922;  // E5 (659.25 Hz)
-    default: delay <= 32'd0; // Default to no sound
+        case (retrievedNoteData[61:58])
+                //white notes
+                    4'd0: delay <= 32'd95554;  // C4 (261.63 Hz) //middle C
+					4'd1: delay <= 32'd85132; // D4 (293.66 Hz)
+					4'd2: delay <= 32'd75842;  // E4 (329.63 Hz)
+					4'd3: delay <= 32'd71586;  // F4 (349.23 Hz)
+					4'd4: delay <= 32'd63775;  // G4 (392.00 Hz)
+					4'd5: delay <= 32'd56818; // A4 (440.00 Hz)
+					4'd6: delay <= 32'd50620;  // B4 (493.88 Hz)
+
+
+					4'd7: delay <= 32'd47778;  // C5 (523.25 Hz) //next octave
+					4'd8: delay <= 32'd42568;  // D5 (587.33 Hz)
+					4'd9: delay <= 32'd37922;  // E5 (659.25 Hz)
+
+                    //no calculated values yet, awaiting testing
+				    4'd10: delay <= 8'd116; //F5 (698.46 Hz)
+					4'd11: delay <= 8'd128; // G5 (783.99 Hz)
+					4'd12: delay <= 8'd139; // A5 (880 Hz)
+					4'd13: delay <= 8'd151; // B5 (987.77 Hz)
+					
+                    //black notes
+					4'd14: delay <= 8'd5; //C#4 (277.18 Hz)
+					4'd15: delay <= 8'd19; //D#4 (311.13 Hz)
+					4'd16: delay <= 8'd40; //F#4 (369.99 Hz)
+					4'd17: delay <= 8'd53; //G#4 (415.30 Hz)
+					4'd18: delay <= 8'd66; //A#4 (466.16 Hz)
+
+					4'd19: delay <= 8'd87; //C#5 (554.37 Hz) //next octave
+					4'd20: delay <= 8'd101; //D#5 (622.25 Hz)
+					4'd21: delay <= 8'd122; //F#5 (739.99 Hz)
+					4'd22: delay <= 8'd135; //G#5 (830.61 Hz)
+					4'd23: delay <= 8'd148; //A#5 (932.33 Hz)
+				default: delay <= 32'd0; // Default to no sound
         endcase
     end
 
-wire [31:0] sound = snd ? 32'd10000000 : -31'd10000000;
-wire [31:0] finalSound;
+assign sound = snd ? 32'd10000000 : -32'd10000000;
 
-always @(posedge CLOCK_50)
-	if(noteLengthCount > 0) begin
-		finalSound = sound * volume;
-        volume <= volume - 1;
-        noteLengthCount <= noteLengthCount -1;
-        assign read_audio_in			= audio_in_available & audio_out_allowed;
+assign read_audio_in			= audio_in_available & audio_out_allowed;
 
-        assign left_channel_audio_out	= sound;
-        assign right_channel_audio_out	= sound;
-        assign write_audio_out			= audio_in_available & audio_out_allowed;
-    end else finalSound <= 0;
-
-        assign read_audio_in			= audio_in_available & audio_out_allowed;
-
-        assign left_channel_audio_out	= sound;
-        assign right_channel_audio_out	= sound;
-        assign write_audio_out			= audio_in_available & audio_out_allowed;
+assign left_channel_audio_out	= sound;
+assign right_channel_audio_out	= sound;
+assign write_audio_out			= audio_in_available & audio_out_allowed;
 
 /*****************************************************************************
  *                              Internal Modules                             *
