@@ -28,7 +28,7 @@ wire				read_audio_in;
 reg [18:0] delay_cnt;
 reg [18:0] delay;
 reg snd;
-reg Enable = 1;
+reg Enable;
 
 //generates square wave
 always @(posedge CLOCK_50)
