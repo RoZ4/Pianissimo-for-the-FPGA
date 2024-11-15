@@ -29,13 +29,21 @@ reg [18:0] delay_cnt;
 reg [18:0] delay;
 reg snd;
 reg Enable;
+reg [4:0] count;
 
-//generates square wave
+//generates square wave!! 
 always @(posedge CLOCK_50)
 	if(delay_cnt == delay) begin
 		delay_cnt <= 0;
 		snd <= !snd;
 	end else delay_cnt <= delay_cnt + 1;
+
+//generates sine wave?
+	always @(posedge CLOCK_50)
+		if(delay_cnt == delay) begin
+		delay_cnt <= 0;
+		count <= 5'd0;
+		
 
 
 
