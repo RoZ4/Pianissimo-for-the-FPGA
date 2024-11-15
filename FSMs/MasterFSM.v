@@ -11,14 +11,20 @@ module MasterFSM (clk, resetn, inputStateStorage, currentState, timerEnable);
 
 	always @(*) begin: nextStateLogic
 		case (currentState)
-			`STARTSCREEN: nextState <= inputStateStorage[`keySpacebar] ? `RECORD : `STARTSCREEN;
-			`RECORD: nextState <= inputStateStorage[`keyBackslash] ? `PLAYBACK : `RECORD;
-			`PLAYBACK: begin
-				if (inputStateStorage[`keyR]) nextState <= `RESTARTPLAYBACK;
-				else if (inputStateStorage[`keySpacebar]) nextState <= `RECORD;
-				else nextState <= `PLAYBACK;
+			`STARTSCREEN: begin
+				if (inputStateStorage[`keySpacebar]) nextState = `RECORD;
+				else nextState = `STARTSCREEN;
 			end
-			`RESTARTPLAYBACK: nextState <= `PLAYBACK;
+			`RECORD: begin
+				if (inputStateStorage[`keyBackslash]) nextState = `PLAYBACK;
+				else nextState = `RECORD;
+			end
+			`PLAYBACK: begin
+				if (inputStateStorage[`keyR]) nextState = `RESTARTPLAYBACK;
+				else if (inputStateStorage[`keySpacebar]) nextState = `RECORD;
+				else nextState = `PLAYBACK;
+			end
+			`RESTARTPLAYBACK: nextState = `PLAYBACK;
 			default: nextState = `STARTSCREEN;
 		endcase
 	end

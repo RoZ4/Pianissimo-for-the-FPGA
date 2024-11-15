@@ -1,7 +1,7 @@
 `include "DefineMacros.vh"
 
 module startScreenHandler(clk, inputGetAtAddress, outputColour);
-	input clk;
+	input clk; //! Testing clk
 	input [14:0] inputGetAtAddress;
 	output [23:0] outputColour;
 
