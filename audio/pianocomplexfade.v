@@ -62,23 +62,23 @@ end else assign sound = 32'd0;
 					4'd9: delay <= 32'd37922;  // E5 (659.25 Hz)
 
                     //no calculated values yet, awaiting testing
-				    4'd10: delay <= 8'd116; //F5 (698.46 Hz)
-					4'd11: delay <= 8'd128; // G5 (783.99 Hz)
-					4'd12: delay <= 8'd139; // A5 (880 Hz)
-					4'd13: delay <= 8'd151; // B5 (987.77 Hz)
+				    4'd10: delay <= 32'd35793; //F5 (698.46 Hz)
+					4'd11: delay <= 32'd31888; // G5 (783.99 Hz)
+					4'd12: delay <= 32'd28409; // A5 (880 Hz)
+					4'd13: delay <= 32'd25309; // B5 (987.77 Hz)
 					
                     //black notes
-					4'd14: delay <= 8'd5; //C#4 (277.18 Hz)
-					4'd15: delay <= 8'd19; //D#4 (311.13 Hz)
-					4'd16: delay <= 8'd40; //F#4 (369.99 Hz)
-					4'd17: delay <= 8'd53; //G#4 (415.30 Hz)
-					4'd18: delay <= 8'd66; //A#4 (466.16 Hz)
+					4'd14: delay <= 32'd90194; //C#4 (277.18 Hz)
+					4'd15: delay <= 32'd80352; //D#4 (311.13 Hz)
+					4'd16: delay <= 32'd67569; //F#4 (369.99 Hz)
+					4'd17: delay <= 32'd60197; //G#4 (415.30 Hz)
+					4'd18: delay <= 32'd53629; //A#4 (466.16 Hz)
 
-					4'd19: delay <= 8'd87; //C#5 (554.37 Hz) //next octave
-					4'd20: delay <= 8'd101; //D#5 (622.25 Hz)
-					4'd21: delay <= 8'd122; //F#5 (739.99 Hz)
-					4'd22: delay <= 8'd135; //G#5 (830.61 Hz)
-					4'd23: delay <= 8'd148; //A#5 (932.33 Hz)
+					4'd19: delay <= 32'd45096; //C#5 (554.37 Hz) //next octave
+					4'd20: delay <= 32'd40176; //D#5 (622.25 Hz)
+					4'd21: delay <= 32'd33784; //F#5 (739.99 Hz)
+					4'd22: delay <= 32'd30098; //G#5 (830.61 Hz)
+					4'd23: delay <= 32'd26814; //A#5 (932.33 Hz)
 				default: delay <= 32'd0; // Default to no sound
         endcase
     end
