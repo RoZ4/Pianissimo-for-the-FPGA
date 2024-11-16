@@ -1,23 +1,31 @@
 `include "../DefineMacros.vh"
 
-module mainStateHandler(clk, inputClearScreenDoneDrawing, outputScreenX, outputScreenY, currentState, currentSubState, inputStateStorage, outputColour, doneDrawing, retrievedNoteData);
+module mainStateHandler(clk, inputClearScreenDoneDrawing, outputScreenX, outputScreenY, currentState, currentSubState, inputStateStorage, outputColour, doneDrawingFrame, retrievedNoteData);
 	input clk, inputClearScreenDoneDrawing;
 	input [4:0] currentState;
 	input [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStorage; //! Stores the state of the inputs
 	reg [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStoragePrevious; //! Stores the state of the inputs in the previous clock cycle
+	reg keyPressPulse;
 	output reg [7:0] outputScreenX, outputScreenY;
-	output reg doneDrawing;
+	output reg doneDrawingFrame;
 	output reg [23:0] outputColour;
 
 	reg [12:0] writeToScreenAddress;
 
 	reg [61:0] currentNoteData; //! Data to write to memory
-	reg [6:0] noteReadAddress = 0, noteWriteAddress = 0, mostRecentCompleteWriteAddress = 0;
+	reg [6:0] noteReadAddress = 0, noteWriteAddress = 0; //! Address to read from; Address to write to
+	reg [6:0] mostRecentCompleteWriteAddress = 0, earliestEmptyCellinNoteStorage = 0; //! Highest address with a full note stored; Earliest address that is empty
 	reg [3:0] currentWriteNote = 0; //! Current note being written to
 
-	reg foundMemoryToWriteTo; //! found an empty block of memory to write to during `subSCANMEMORYFORWRITESTART
 	reg memoryWriteEnable = 0, resetTimer = 0;
-	reg [8:0] linesDrawn = 0;
+	wire [9:0] lengthOfCurrentNoteBlock, initialYValueofNote;
+	assign lengthOfCurrentNoteBlock = ((retrievedNoteData[57:29] - retrievedNoteData[28:0]) >> 20);
+	assign initialYValueofNote = 92 - ((retrievedNoteData[57:29] - microSecondCounter) >> 20);
+	reg [7:0] initialXValueofNote;
+	reg [6:0] mostRecentNoteDoneDrawing = 0;
+	reg [6:0] linesDrawn;
+	reg [3:0] drawLineXCount;
+
 	output reg [3:0] currentSubState;
 	reg [3:0] nextSubState;
 
@@ -30,49 +38,46 @@ module mainStateHandler(clk, inputClearScreenDoneDrawing, outputScreenX, outputS
 	timeCounter timecounter(clk, resetTimer, 1'b1, microSecondCounter);
 	defparam timecounter.MAXBITSINCOUNT = 29;
 
+	always @(posedge clk) begin
+		if (inputStateStorage ^ inputStateStoragePrevious) keyPressPulse <= 1;
+		else keyPressPulse <= 0;
+	end
+
 
 	always @(*) begin: nextSubstateLogic
 		case(currentSubState)
-			`subIDLE: begin 
-				if (currentState == `RECORD && (inputStateStorage[`keySpacebar] && inputStateStorage['keyReleasePulse])) nextSubState <= `subSTARTNOTERECORDING;
+			`subIDLE: begin // Initial state
+				if (currentState == `RECORD && (inputStateStorage[`keySpacebar] && inputStateStorage[`keyReleasePulse])) nextSubState <= `subSTARTNOTERECORDING;
 				else nextSubState <= `subIDLE;
 			end
-			`subSTARTNOTERECORDING: begin
+			`subSTARTNOTERECORDING: begin // Central state for RECORD state
 				if (currentState == `RECORD) begin
-					if (inputStateStorage[`keyPressPulse]) nextSubState <= `subWRITESTARTOFNOTE;
+					if (keyPressPulse) nextSubState <= `subWRITESTARTOFNOTE;
 					if (inputStateStorage[`keyReleasePulse]) nextSubState <= `subWRITEENDOFNOTE; 
 					else nextSubState <= `subSTARTNOTERECORDING;
 				end 
 				else nextSubState <= `subRESETPLAYBACK;
 			end
-			`subWRITESTARTOFNOTE: nextSubState <= `subSCANMEMORYFORWRITESTART;
-			`subSCANMEMORYFORWRITESTART: begin
-				if (foundMemoryToWriteTo) nextSubState <= `STARTNOTERECORDING
-				else nextSubState <= `subSCANMEMORYFORWRITESTART;
-			end
+			`subWRITESTARTOFNOTE: nextSubState <= `subSTARTNOTERECORDING; // Records when note was pressed to currentNoteData[57:29], writes to noteRamStorage
 			`subWRITEENDOFNOTE: nextSubState <= `subSCANMEMORYFORWRITEEND;
 			`subSCANMEMORYFORWRITEEND: begin
-				if (~|retrievedNoteData) nextSubState <= `STARTNOTERECORDING;
+				if (~|retrievedNoteData) nextSubState <= `subSTARTNOTERECORDING;
 				else nextSubState <= `subSCANMEMORYFORWRITEEND;
 			end
-			`subRESETPLAYBACK: nextSubState <= `subDRAWNEWLINEOFNOTEBLOCK;
-			`subDRAWNEWLINEOFNOTEBLOCK: begin
-				if (linesDrawn != (retrievedNoteData[57:29] - retrievedNoteData[28:0]) >> 20) nextSubState <= `subDRAWNOTEBLOCK; 
-				else nextSubState <= `subDRAWNEXTNOTEBLOCK; // )[28:20]) ? 
+			`subRESETPLAYBACK: nextSubState <= `subDRAWNEWNOTEBLOCK;
+			`subDRAWNEWNOTEBLOCK: begin
+				if (initialYValueofNote > 0) nextSubState <= `subDRAWNOTEBLOCK;
+				else if (~|retrievedNoteData) nextSubState <= `subDONEDRAWING;
+				else nextSubState <= `subDRAWNEWNOTEBLOCK;
 			end
 			`subDRAWNOTEBLOCK: begin
-				if (outputScreenX == 8'd160) nextSubState <= `subDRAWNEWLINENOFNOTEBLOCK;
-				else nextSubState <= `subDONEDRAWING;
-			end
-			`subDRAWNEXTNOTEBLOCK: begin
-				if (retrievedNoteData != 62'd0) nextSubState <= `subDRAWNEWLINEOFNOTEBLOCK;
-				else nextSubState <= `subDONEDRAWING;
+				if (linesDrawn == lengthOfCurrentNoteBlock) nextSubState <= `subDRAWNEWNOTEBLOCK;
+				else nextSubState <= `subDRAWNOTEBLOCK;
 			end
 			`subDONEDRAWING: begin
-				if (currentState == `RESTARTPLAYBACK) nextSubState <= `subRESETPLAYBACK;
+				if (inputClearScreenDoneDrawing) nextSubState <= `subDRAWNOTEBLOCK;
+				else if (currentState == `RESTARTPLAYBACK) nextSubState <= `subRESETPLAYBACK;
 				else if (currentState == `RECORD) nextSubState <= `subSTARTNOTERECORDING;
-				
-				else if (inputClearScreenDoneDrawing) nextSubState <= `subDRAWNOTEBLOCK;
 				else nextSubState <= `subDONEDRAWING;
 			end
 			default: nextSubState <= `subIDLE;
@@ -84,9 +89,8 @@ module mainStateHandler(clk, inputClearScreenDoneDrawing, outputScreenX, outputS
 			`subSTARTNOTERECORDING: begin
 				resetTimer <= 0;
 				memoryWriteEnable <= 0;
-				foundMemoryToWriteTo <= 0;
 			end
-			`subWRITESTARTOFNOTE begin
+			`subWRITESTARTOFNOTE: begin
 				if(inputStateStorage[`keyTab] && !inputStateStoragePrevious[`keyTab]) begin currentNoteData <= {4'd0, microSecondCounter, 29'b0}; inputStateStoragePrevious[`keyTab] <= 1; end
 				else if(inputStateStorage[`keyQ] && !inputStateStoragePrevious[`keyQ]) begin currentNoteData <= {4'd1, microSecondCounter, 29'b0}; inputStateStoragePrevious[`keyQ] <= 1; end
 				else if(inputStateStorage[`keyW] && !inputStateStoragePrevious[`keyW]) begin currentNoteData <= {4'd2, microSecondCounter, 29'b0}; inputStateStoragePrevious[`keyW] <= 1; end
@@ -113,16 +117,9 @@ module mainStateHandler(clk, inputClearScreenDoneDrawing, outputScreenX, outputS
 				else if(inputStateStorage[`keyEquals] && !inputStateStoragePrevious[`keyEquals]) begin currentNoteData <= {4'd22, microSecondCounter, 29'b0}; inputStateStoragePrevious[`keyEquals] <= 1; end
 				else if(inputStateStorage[`keyBackspace] && !inputStateStoragePrevious[`keyBackspace]) begin currentNoteData <= {4'd23, microSecondCounter, 29'b0}; inputStateStoragePrevious[`keyBackspace] <= 1; end
 				
-				noteReadAddress <= mostRecentCompleteWriteAddress;
-				
-			end
-			`subSCANMEMORYFORWRITESTART: begin
-				if (~|retrievedNoteData) begin
-					noteWriteAddress <= noteReadAddress;
-					memoryWriteEnable <= 1;
-					foundMemoryToWriteTo <= 1;
-				end
-				else noteReadAddress <= noteReadAddress + 1;
+				noteWriteAddress <= earliestEmptyCellinNoteStorage;
+				memoryWriteEnable <= 1;
+				earliestEmptyCellinNoteStorage <= earliestEmptyCellinNoteStorage + 1;
 			end
 			`subWRITEENDOFNOTE: begin
 				if(!inputStateStorage[`keyTab] && inputStateStoragePrevious[`keyTab]) begin inputStateStoragePrevious[`keyTab] <= 0; currentWriteNote <= 4'd0; end
@@ -156,72 +153,87 @@ module mainStateHandler(clk, inputClearScreenDoneDrawing, outputScreenX, outputS
 			`subSCANMEMORYFORWRITEEND: begin
 				if (~|retrievedNoteData[28:0] && retrievedNoteData[61:58] == currentWriteNote) begin
 					noteWriteAddress <= noteReadAddress;
-					memoryWriteEnable <= 1;
 					currentNoteData <= {retrievedNoteData, microSecondCounter};
+					memoryWriteEnable <= 1;
 					mostRecentCompleteWriteAddress <= noteReadAddress;
 				end
 				else noteReadAddress <= noteReadAddress + 1;
+				if (noteReadAddress > 100) noteReadAddress <= 0; // if the noteReadAddress tries to access memory outside of the range contained in noteStorage, reset it
 			end
-			RESETPLAYBACK: begin
+			`subRESETPLAYBACK: begin
 				memoryWriteEnable <= 0;
 				noteWriteAddress <= 0;
 				noteReadAddress <= 0;
-				doneDrawing <= 0;
+				linesDrawn <= 0;
+				drawLineXCount <= 0;
 				if (!resetTimer) resetTimer <= 1;
 			end
-			DRAWNOTEBLOCK: begin
+			`subDRAWNOTEBLOCK: begin
 				if (resetTimer) begin 
 					resetTimer <= 0;
 				end
-				outputColour <= 24'b0000_0000_1111; 
+				outputColour <= 24'b0000_0000_1111;
+				
+				// if (outputScreenY <= initialYValueofNote - lengthOfCurrentNoteBlock && drawLineXCount == 10) begin 
+				// 	noteReadAddress <= noteReadAddress + 1;
+				// end
+				if (drawLineXCount == 10) begin
+					outputScreenY <= outputScreenY - 1;
+					outputScreenX <= initialXValueofNote;
+				end
 				outputScreenX <= outputScreenX + 1;
+				drawLineXCount <= drawLineXCount + 1;
+				
+
+				
 			end
-			DRAWNEWLINEOFNOTEBLOCK: begin
+			`subDRAWNEWNOTEBLOCK: begin
+				drawLineXCount <= 0;
+				doneDrawingFrame <= 0;
 				case(retrievedNoteData[61:58])
-					4'd0: outputScreenX <= 8'd0;
-					4'd1: outputScreenX <= 8'd11;
-					4'd2: outputScreenX <= 8'd22;
-					4'd3: outputScreenX <= 8'd34;
-					4'd4: outputScreenX <= 8'd46;
-					4'd5: outputScreenX <= 8'd57;
-					4'd6: outputScreenX <= 8'd69;
-					4'd7: outputScreenX <= 8'd81;
-					4'd8: outputScreenX <= 8'd93;
-					4'd9: outputScreenX <= 8'd104;
-					4'd10: outputScreenX <= 8'd116;
-					4'd11: outputScreenX <= 8'd128;
-					4'd12: outputScreenX <= 8'd139;
-					4'd13: outputScreenX <= 8'd151;
+					4'd0: initialXValueofNote <= 8'd0;
+					4'd1: initialXValueofNote <= 8'd11;
+					4'd2: initialXValueofNote <= 8'd22;
+					4'd3: initialXValueofNote <= 8'd34;
+					4'd4: initialXValueofNote <= 8'd46;
+					4'd5: initialXValueofNote <= 8'd57;
+					4'd6: initialXValueofNote <= 8'd69;
+					4'd7: initialXValueofNote <= 8'd81;
+					4'd8: initialXValueofNote <= 8'd93;
+					4'd9: initialXValueofNote <= 8'd104;
+					4'd10: initialXValueofNote <= 8'd116;
+					4'd11: initialXValueofNote <= 8'd128;
+					4'd12: initialXValueofNote <= 8'd139;
+					4'd13: initialXValueofNote <= 8'd151;
 					
-					4'd14: outputScreenX <= 8'd5;
-					4'd15: outputScreenX <= 8'd19;
-					4'd16: outputScreenX <= 8'd40;
-					4'd17: outputScreenX <= 8'd53;
-					4'd18: outputScreenX <= 8'd66;
-					4'd19: outputScreenX <= 8'd87;
-					4'd20: outputScreenX <= 8'd101;
-					4'd21: outputScreenX <= 8'd122;
-					4'd22: outputScreenX <= 8'd135;
-					4'd23: outputScreenX <= 8'd148;
-					default: outputScreenX <= 8'd0;
+					4'd14: initialXValueofNote <= 8'd5;
+					4'd15: initialXValueofNote <= 8'd19;
+					4'd16: initialXValueofNote <= 8'd40;
+					4'd17: initialXValueofNote <= 8'd53;
+					4'd18: initialXValueofNote <= 8'd66;
+					4'd19: initialXValueofNote <= 8'd87;
+					4'd20: initialXValueofNote <= 8'd101;
+					4'd21: initialXValueofNote <= 8'd122;
+					4'd22: initialXValueofNote <= 8'd135;
+					4'd23: initialXValueofNote <= 8'd148;
+					default: initialXValueofNote <= 8'd0;
 				endcase
-				//[8:0] 
-				linesDrawn <= linesDrawn + 1;
-				outputScreenY <= 92-((retrievedNoteData[57:29]-microSecondCounter) >> 20); // )[28:20]); trucate to about 1 second, subtract from working screen height
+				if (initialYValueofNote > 0 || initialYValueofNote + lengthOfCurrentNoteBlock < 92) begin
+					outputScreenY <= initialYValueofNote;
+					outputScreenX <= initialXValueofNote;
+				end
+				noteReadAddress <= noteReadAddress + 1;
+				
 			end
-		DRAWNEXTNOTEBLOCK: begin
-			linesDrawn <= 0;
-			noteReadAddress <= noteReadAddress + 1;
-		end
-		DONEDRAWING: begin
-			doneDrawing <= 1;
-			noteReadAddress <= 0;
-			outputScreenX <= 0;
-			outputScreenY <= 0;
-		end
-		default: begin
-			resetTimer <= 1;
-		end
+			`subDONEDRAWING: begin
+				doneDrawingFrame <= 1;
+				noteReadAddress <= 0;
+				outputScreenX <= 0;
+				outputScreenY <= 0;
+			end
+			default: begin
+				resetTimer <= 1;
+			end
 		endcase
 	end
 

@@ -42,7 +42,6 @@ module PianissimoFinalProject (CLOCK_50,
 	reg prevWasRelease; //Tracks whether a key was released. Required because recievedNewData is clocked twice, one for break command 8'hF0 and one for the lifting of the key
 	always @(posedge recievedNewData) begin: PS2Controller
 		if (recievedData == 8'hF0) begin
-			//inputStateStorage[`NUMBEROFKEYBOARDINPUTS-2:0] <= 0;
 			prevWasRelease <= 1;
 			inputStateStorage[`keyReleasePulse] <= 1'b1;
 		end
@@ -84,7 +83,6 @@ module PianissimoFinalProject (CLOCK_50,
 			endcase
 		end
 		else begin
-			inputStateStorage[`keyPressPulse] <= 1;
 			case (recievedData)
 				8'h0E: inputStateStorage[`keyTilda] <= 1'b1;
 				8'h16: inputStateStorage[`key1] <= 1'b1;
@@ -119,10 +117,6 @@ module PianissimoFinalProject (CLOCK_50,
 				8'h29: inputStateStorage[`keySpacebar] <= 1'b1;		
 			endcase
 		end
-	end
-
-	always @(posedge CLOCK_50) begin
-		if (inputStateStorage[`keyPressPulse]) inputStateStorage[`keyPressPulse] <= 0;
 	end
 	//-----------------------------------------------------
 
