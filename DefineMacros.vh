@@ -3,7 +3,7 @@
 `define PLAYBACK 5'd2
 `define RESTARTPLAYBACK 5'd3
 
-`define NUMBEROFKEYBOARDINPUTS 30
+`define NUMBEROFKEYBOARDINPUTS 31
 
 
 // ---------- Keyboard Keys Mapped to an ID ---------
@@ -42,10 +42,10 @@
 // -------- Sub-States Used in mainStatehandler ----------
 `define subIDLE 4'd0
 `define subSTARTNOTERECORDING 4'd1
-`define subRECORDSTARTOFNOTE 4'd2
+`define subWRITESTARTOFNOTE 4'd2
 `define subWRITEENDOFNOTE 4'd3
-`define subRESETPLAYBACK 4'd4
-`define subDRAWNOTEBLOCK 4'd5
-`define subDRAWNEWLINEOFNOTEBLOCK 4'd6
-`define subDRAWNEXTNOTEBLOCK 4'd7
+`define subSCANMEMORYFORWRITEEND 4'd4
+`define subRESETPLAYBACK 4'd5
+`define subDRAWNEWNOTEBLOCK 4'd6
+`define subDRAWNOTEBLOCK 4'd7
 `define subDONEDRAWING 4'd8
