@@ -37,52 +37,85 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 	//PS2_Controller ps2 (CLOCK_50, ~KEY[0], commandToSend, sendCommand, PS2_CLK, PS2_DAT, commandWasSent, 
 	//				    errorCommunicationTimedOut, recievedData, recievedNewData);
 
-	integer i;
+	reg prevWasRelease; //Tracks whether a key was released. Required because recievedNewData is clocked twice, one for break command 8'hF0 and one for the lifting of the key
 	always @(posedge recievedNewData) begin: PS2Controller
 		if (recievedData == 8'hF0) begin
-			for (i = 0; i < `NUMBEROFKEYBOARDINPUTS-1; i = i+1) begin
-				inputStateStorage[i] = 1'b0;
-			end
-			inputStateStorage[`noPress] <= 1'b1;
+			prevWasRelease <= 1;
+			inputStateStorage[`keyReleasePulse] <= 1'b1;
 		end
-		else inputStateStorage[`noPress] <= 1'b0;
-		
-		case (recievedData)
-			8'h0E: inputStateStorage[`keyTilda] <= 1'b1;
-			8'h16: inputStateStorage[`key1] <= 1'b1;
-			8'h1E: inputStateStorage[`key2] <= 1'b1;
-			8'h26: inputStateStorage[`key3] <= 1'b1;
-			8'h25: inputStateStorage[`key4] <= 1'b1;
-			8'h2E: inputStateStorage[`key5] <= 1'b1;
-			8'h36: inputStateStorage[`key6] <= 1'b1;
-			8'h3D: inputStateStorage[`key7] <= 1'b1;
-			8'h3E: inputStateStorage[`key8] <= 1'b1;
-			8'h46: inputStateStorage[`key9] <= 1'b1;
-			8'h45: inputStateStorage[`key0] <= 1'b1;
-			8'h4E: inputStateStorage[`keyMinus] <= 1'b1;
-			8'h55: inputStateStorage[`keyEquals] <= 1'b1;
-			8'h66: inputStateStorage[`keyBackspace] <= 1'b1;
+		else if (prevWasRelease) begin
+			prevWasRelease <= 0;
+			inputStateStorage[`keyReleasePulse] <= 1'b0;
+			case (recievedData)
+				8'h0E: inputStateStorage[`keyTilda] <= 1'b0;
+				8'h16: inputStateStorage[`key1] <= 1'b0;
+				8'h1E: inputStateStorage[`key2] <= 1'b0;
+				8'h26: inputStateStorage[`key3] <= 1'b0;
+				8'h25: inputStateStorage[`key4] <= 1'b0;
+				8'h2E: inputStateStorage[`key5] <= 1'b0;
+				8'h36: inputStateStorage[`key6] <= 1'b0;
+				8'h3D: inputStateStorage[`key7] <= 1'b0;
+				8'h3E: inputStateStorage[`key8] <= 1'b0;
+				8'h46: inputStateStorage[`key9] <= 1'b0;
+				8'h45: inputStateStorage[`key0] <= 1'b0;
+				8'h4E: inputStateStorage[`keyMinus] <= 1'b0;
+				8'h55: inputStateStorage[`keyEquals] <= 1'b0;
+				8'h66: inputStateStorage[`keyBackspace] <= 1'b0;
 
-			8'h0D: inputStateStorage[`keyTab] <= 1'b1;
-			8'h15: inputStateStorage[`keyQ] <= 1'b1;
-			8'h1D: inputStateStorage[`keyW] <= 1'b1;
-			8'h24: inputStateStorage[`keyE] <= 1'b1;
-			8'h2D: inputStateStorage[`keyR] <= 1'b1;
-			8'h2C: inputStateStorage[`keyT] <= 1'b1;
-			8'h35: inputStateStorage[`keyY] <= 1'b1;
-			8'h3C: inputStateStorage[`keyU] <= 1'b1;
-			8'h43: inputStateStorage[`keyI] <= 1'b1;
-			8'h44: inputStateStorage[`keyO] <= 1'b1;
-			8'h4D: inputStateStorage[`keyP] <= 1'b1;
-			8'h54: inputStateStorage[`keyLSquareBracket] <= 1'b1;
-			8'h5B: inputStateStorage[`keyRSquareBracket] <= 1'b1;
-			8'h5D: inputStateStorage[`keyBackslash] <= 1'b1;
+				8'h0D: inputStateStorage[`keyTab] <= 1'b0;
+				8'h15: inputStateStorage[`keyQ] <= 1'b0;
+				8'h1D: inputStateStorage[`keyW] <= 1'b0;
+				8'h24: inputStateStorage[`keyE] <= 1'b0;
+				8'h2D: inputStateStorage[`keyR] <= 1'b0;
+				8'h2C: inputStateStorage[`keyT] <= 1'b0;
+				8'h35: inputStateStorage[`keyY] <= 1'b0;
+				8'h3C: inputStateStorage[`keyU] <= 1'b0;
+				8'h43: inputStateStorage[`keyI] <= 1'b0;
+				8'h44: inputStateStorage[`keyO] <= 1'b0;
+				8'h4D: inputStateStorage[`keyP] <= 1'b0;
+				8'h54: inputStateStorage[`keyLSquareBracket] <= 1'b0;
+				8'h5B: inputStateStorage[`keyRSquareBracket] <= 1'b0;
+				8'h5D: inputStateStorage[`keyBackslash] <= 1'b0;
 
-			8'h29: inputStateStorage[`keySpacebar] <= 1'b1;		
-		endcase
+				8'h29: inputStateStorage[`keySpacebar] <= 1'b0;
+			endcase
+		end
+		else begin
+			case (recievedData)
+				8'h0E: inputStateStorage[`keyTilda] <= 1'b1;
+				8'h16: inputStateStorage[`key1] <= 1'b1;
+				8'h1E: inputStateStorage[`key2] <= 1'b1;
+				8'h26: inputStateStorage[`key3] <= 1'b1;
+				8'h25: inputStateStorage[`key4] <= 1'b1;
+				8'h2E: inputStateStorage[`key5] <= 1'b1;
+				8'h36: inputStateStorage[`key6] <= 1'b1;
+				8'h3D: inputStateStorage[`key7] <= 1'b1;
+				8'h3E: inputStateStorage[`key8] <= 1'b1;
+				8'h46: inputStateStorage[`key9] <= 1'b1;
+				8'h45: inputStateStorage[`key0] <= 1'b1;
+				8'h4E: inputStateStorage[`keyMinus] <= 1'b1;
+				8'h55: inputStateStorage[`keyEquals] <= 1'b1;
+				8'h66: inputStateStorage[`keyBackspace] <= 1'b1;
+
+				8'h0D: inputStateStorage[`keyTab] <= 1'b1;
+				8'h15: inputStateStorage[`keyQ] <= 1'b1;
+				8'h1D: inputStateStorage[`keyW] <= 1'b1;
+				8'h24: inputStateStorage[`keyE] <= 1'b1;
+				8'h2D: inputStateStorage[`keyR] <= 1'b1;
+				8'h2C: inputStateStorage[`keyT] <= 1'b1;
+				8'h35: inputStateStorage[`keyY] <= 1'b1;
+				8'h3C: inputStateStorage[`keyU] <= 1'b1;
+				8'h43: inputStateStorage[`keyI] <= 1'b1;
+				8'h44: inputStateStorage[`keyO] <= 1'b1;
+				8'h4D: inputStateStorage[`keyP] <= 1'b1;
+				8'h54: inputStateStorage[`keyLSquareBracket] <= 1'b1;
+				8'h5B: inputStateStorage[`keyRSquareBracket] <= 1'b1;
+				8'h5D: inputStateStorage[`keyBackslash] <= 1'b1;
+
+				8'h29: inputStateStorage[`keySpacebar] <= 1'b1;		
+			endcase
+		end
 	end
-
-
 	//-----------------------------------------------------
 
 	// -------------------- STATES ------------------------
@@ -101,6 +134,7 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 
     wire resetn;
 	assign resetn = ~KEY[0]; // Reset on key 0 downpress
+	assign masterResetAddress = resetn;
 
     assign VGA_X = screenX;
     assign VGA_Y = screenY[6:0];
@@ -108,17 +142,19 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 	
 	wire drawScannerDoneDrawing, noteBlocksDoneDrawing;
 	wire [23:0] resetScreenColour;
-	drawToScreen drawScanner(CLOCK_50, nextAddress, drawScannerDoneDrawing, backgroundX, backgroundY);
-	resetScreen screenReseter(CLOCK_50, noteBlocksDoneDrawing, backgroundX, backgroundY, resetScreenColour);
+	drawToScreen drawScanner(CLOCK_50, nextAddress, drawScannerDoneDrawing, backgroundX, backgroundY, currentState);
+	resetScreen screenReseter(CLOCK_50, noteBlocksDoneDrawing, currentState, backgroundX, backgroundY, resetScreenColour);
 
 	wire randomTimerEnable;
 	MasterFSM masterFSM(CLOCK_50, resetn, inputStateStorage, currentState, randomTimerEnable);
 
 	wire [23:0] startScreenColour, mainStateColour;
 	startScreenHandler startScreenController(CLOCK_50, nextAddress, startScreenColour);
-
+			
 	wire [7:0] mainStateOutputScreenX, mainStateOutputScreenY;
-	mainStateHandler mainStateController(CLOCK_50, drawScannerDoneDrawing, mainStateOutputScreenX, mainStateOutputScreenY, currentState, inputStateStorage, mainStateColour, noteBlocksDoneDrawing);
+	wire [3:0] currentSubState;
+	wire [61:0] retrievedNoteData;
+	mainStateHandler mainStateController(CLOCK_50, drawScannerDoneDrawing, mainStateOutputScreenX, mainStateOutputScreenY, currentState, currentSubState, inputStateStorage, mainStateColour, noteBlocksDoneDrawing, retrievedNoteData);
 
 
 	always @* begin

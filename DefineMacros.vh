@@ -3,7 +3,7 @@
 `define PLAYBACK 5'd2
 `define RESTARTPLAYBACK 5'd3
 
-`define NUMBEROFKEYBOARDINPUTS 31
+`define NUMBEROFKEYBOARDINPUTS 30
 
 
 // ---------- Keyboard Keys Mapped to an ID ---------
@@ -37,7 +37,6 @@
 `define keyBackslash 27
 `define keySpacebar 28
 `define keyReleasePulse 29
-`define keyPressPulse 30
 
 // -------- Sub-States Used in mainStatehandler ----------
 `define subIDLE 4'd0

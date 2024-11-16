@@ -1,11 +1,11 @@
 `include "../DefineMacros.vh"
 
-module mainStateHandler(clk, inputClearScreenDoneDrawing, outputScreenX, outputScreenY, currentState, currentSubState, inputStateStorage, outputColour, doneDrawingFrame, retrievedNoteData);
+module mainStateHandler(clk, keyPressPulse, inputClearScreenDoneDrawing, outputScreenX, outputScreenY, currentState, currentSubState, inputStateStorage, outputColour, doneDrawingFrame, retrievedNoteData);
 	input clk, inputClearScreenDoneDrawing;
 	input [4:0] currentState;
 	input [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStorage; //! Stores the state of the inputs
 	reg [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStoragePrevious; //! Stores the state of the inputs in the previous clock cycle
-	reg keyPressPulse;
+	output reg keyPressPulse;
 	output reg [7:0] outputScreenX, outputScreenY;
 	output reg doneDrawingFrame;
 	output reg [23:0] outputColour;
@@ -18,9 +18,6 @@ module mainStateHandler(clk, inputClearScreenDoneDrawing, outputScreenX, outputS
 	reg [3:0] currentWriteNote = 0; //! Current note being written to
 
 	reg memoryWriteEnable = 0, resetTimer = 0;
-	wire [9:0] lengthOfCurrentNoteBlock, initialYValueofNote;
-	assign lengthOfCurrentNoteBlock = ((retrievedNoteData[57:29] - retrievedNoteData[28:0]) >> 20);
-	assign initialYValueofNote = 92 - ((retrievedNoteData[57:29] - microSecondCounter) >> 20);
 	reg [7:0] initialXValueofNote;
 	reg [6:0] mostRecentNoteDoneDrawing = 0;
 	reg [6:0] linesDrawn;
@@ -37,6 +34,10 @@ module mainStateHandler(clk, inputClearScreenDoneDrawing, outputScreenX, outputS
 	wire [28:0] microSecondCounter;
 	timeCounter timecounter(clk, resetTimer, 1'b1, microSecondCounter);
 	defparam timecounter.MAXBITSINCOUNT = 29;
+
+	wire [9:0] lengthOfCurrentNoteBlock, initialYValueofNote;
+	assign lengthOfCurrentNoteBlock = ((retrievedNoteData[57:29] - retrievedNoteData[28:0]) >> 20);
+	assign initialYValueofNote = 92 - ((retrievedNoteData[57:29] - microSecondCounter) >> 20);
 
 	always @(posedge clk) begin
 		if (inputStateStorage ^ inputStateStoragePrevious) keyPressPulse <= 1;

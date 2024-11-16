@@ -4,7 +4,7 @@ module testbench ( );
 
 	parameter CLOCK_PERIOD = 20;
 
-    reg CLOCK_50;	
+    	reg CLOCK_50;	
 	//reg [7:0] SW;
 	reg [3:0] KEY;
 	wire [7:0] VGA_X;
@@ -30,17 +30,10 @@ module testbench ( );
 	initial begin
         KEY[0] <= 1'b0; #20 KEY[0] <= 1'b1;
 	#25000
-	force U1.inputStateStorage[`noPress] = 1'b0;
 	force U1.inputStateStorage[`keySpacebar] = 1'b1;
 	force U1.inputStateStorage[`keyBackslash] = 1'b0;
 	#25000
 	force U1.inputStateStorage[`keySpacebar] = 1'b0;
-	#25000
-	force U1.inputStateStorage[`keyRSquareBracket] = 1'b1;
-	force U1.inputStateStorage[`keySpacebar] = 1'b0;
-	#25000
-	force U1.inputStateStorage[`noPress] = 1'b0;
-	force U1.inputStateStorage[`keyBackslash] = 1'b0;
 
 
 	end // initial

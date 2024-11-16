@@ -2,12 +2,13 @@
 
 module PianissimoFinalProject (CLOCK_50,
                 	VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK,
-					PS2_CLK, PS2_DAT, KEY, LEDR
+					PS2_CLK, PS2_DAT, KEY, LEDR, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5
 					);
 	
 
 	input [0:0] KEY;
 	output [9:0] LEDR;
+	output [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
 	//--------------------- VGA IO ------------------------
 	input			CLOCK_50;				//	50 MHz	
 	output			VGA_CLK;   				//	VGA Clock
@@ -136,6 +137,7 @@ module PianissimoFinalProject (CLOCK_50,
 
     wire resetn;
 	assign resetn = ~KEY[0]; // Reset on key 0 downpress
+	assign masterResetAddress = resetn;
 
 	vga_adapter VGA (
         .resetn(KEY[0]),
@@ -173,7 +175,8 @@ module PianissimoFinalProject (CLOCK_50,
 	wire [7:0] mainStateOutputScreenX, mainStateOutputScreenY;
 	wire [2:0] currentSubState;
 	wire [61:0] retrievedNoteData;
-	mainStateHandler mainStateController(CLOCK_50, drawScannerDoneDrawing, mainStateOutputScreenX, mainStateOutputScreenY, currentState, currentSubState, inputStateStorage, mainStateColour, noteBlocksDoneDrawing, retrievedNoteData);
+	wire keyPressPulse;
+	mainStateHandler mainStateController(CLOCK_50, keyPressPulse, drawScannerDoneDrawing, mainStateOutputScreenX, mainStateOutputScreenY, currentState, currentSubState, inputStateStorage, mainStateColour, noteBlocksDoneDrawing, retrievedNoteData);
 
 
 	always @* begin
@@ -186,7 +189,7 @@ module PianissimoFinalProject (CLOCK_50,
 
 			if (currentState == `STARTSCREEN) begin
 				plotWriteEnable <= 1;
-				colour <= startScreenColour;
+				colour <= 24'b1111_1111_0000; //startScreenColour
 				screenX <= backgroundX;
 				screenY <= backgroundY;
 			end
@@ -213,22 +216,81 @@ module PianissimoFinalProject (CLOCK_50,
 		end
 	end
 
-	assign LEDR[0] = currentState == `STARTSCREEN;
-	assign LEDR[1] = currentState == `RECORD;
-	assign LEDR[2] = currentState == `PLAYBACK;
-
-	assign LEDR[3] = currentSubState == 3'd0; //STARTNOTERECORDING
-	assign LEDR[4] = currentSubState == 3'd1; // WRITETOMEMORY
-	assign LEDR[5] = currentSubState == 3'd2; // RESETPLAYBACK
-	assign LEDR[6] = currentSubState == 3'd3; //DRAWNOTEBLOCK
+	displayStateHEX(currentState, currentSubState, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5);
 
 	
 	
 	assign LEDR[9] = inputStateStorage[`keyTilda];
 	assign LEDR[8] = inputStateStorage[`keySpacebar];
-	assign LEDR[7] = recievedData == 8'hf0;
+	
+	assign LEDR[1] = recievedData == 8'hf0;
+	assign LEDR[0] = keyPressPulse;
 
 
 	// --------AUDIO CONTROLLER HERE ---------
 	
+endmodule
+
+module displayStateHEX (currentStateDisplay, currentSubStateDisplay, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5);
+	output reg [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
+	input [4:0] currentStateDisplay;
+	input [3:0] currentSubStateDisplay;
+
+	always @(*) begin
+		case(currentStateDisplay)
+			`STARTSCREEN: begin
+				HEX2 = ~(1011010); //S
+				HEX1 = ~(0001111); //t
+				HEX0 = ~(0000101); //r
+			end
+			`RECORD: begin
+				HEX2 = ~(0000101); //R 
+				HEX1 = ~(1001111); //E
+				HEX0 = ~(1001110); //C
+			end
+			`PLAYBACK: begin
+				HEX2 = ~(1100111); //P 
+				HEX1 = ~(0001110); //l
+				HEX0 = ~(0111011); //y
+			end
+			`RESTARTPLAYBACK: begin
+				HEX2 = ~(0000101); //r
+				HEX1 = ~(0001111); //t
+				HEX0 = ~(0001111); //t
+			end
+			default: begin
+				HEX2 = ~(1111110); //0
+				HEX1 = ~(1111110); //0
+				HEX0 = ~(1111110); //0
+			end
+		endcase
+		case(currentSubStateDisplay)
+			`subIDLE: begin
+				HEX2 = ~(0110000); //i
+				HEX1 = ~(0111101); //d
+				HEX0 = ~(0001110); //l
+			end
+			`subSTARTNOTERECORDING: begin
+				HEX2 = ~(0000101); //R 
+				HEX1 = ~(1001111); //E
+				HEX0 = ~(1001110); //C
+			end
+			`subDRAWNOTEBLOCK: begin
+				HEX2 = ~(0111101); //d
+				HEX1 = ~(0000101); //r
+				HEX0 = ~(1110111); //A
+			end
+			`subDONEDRAWING: begin
+				HEX2 = ~(0111101); //d
+				HEX1 = ~(0010101); //n
+				HEX0 = ~(1001111); //E
+			end
+			default: begin
+				HEX2 = ~(1111110); //0
+				HEX1 = ~(1111110); //0
+				HEX0 = ~(1111110); //0
+			end
+		endcase
+	end
+
 endmodule
