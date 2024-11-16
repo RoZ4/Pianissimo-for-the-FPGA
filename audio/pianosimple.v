@@ -28,32 +28,43 @@ wire				read_audio_in;
 reg [18:0] delay_cnt;
 reg [18:0] delay;
 reg snd;
+reg Enable;
+reg [4:0] count;
 
-//generates wave
+//generates square wave!! 
 always @(posedge CLOCK_50)
 	if(delay_cnt == delay) begin
 		delay_cnt <= 0;
 		snd <= !snd;
 	end else delay_cnt <= delay_cnt + 1;
 
+//generates sine wave?
+	always @(posedge CLOCK_50)
+		if(delay_cnt == delay) begin
+		delay_cnt <= 0;
+		count <= 5'd0;
+		
+
+
+
 //selects tone
  always @(*) begin
         case (SW)
-            10'd1: delay <= 32'd95554;  // C4 (261.63 Hz) //middle C
-            10'd2: delay <= 32'd85132; // D4 (293.66 Hz)
-            10'd4: delay <= 32'd75842;  // E4 (329.63 Hz)
-            10'd8: delay <= 32'd71586;  // F4 (349.23 Hz)
-            10'd16: delay <= 32'd63775;  // G4 (392.00 Hz)
-            10'd32: delay <= 32'd56818; // A4 (440.00 Hz)
-            10'd64: delay <= 32'd50620;  // B4 (493.88 Hz)
-            10'd128: delay <= 32'd47778;  // C5 (523.25 Hz)
-            10'd256: delay <= 32'd42568;  // D5 (587.33 Hz)
-            10'd512: delay <= 32'd37922;  // E5 (659.25 Hz)
-    default: delay <= 32'd0; // Default to no sound
+	    10'd1: begin delay <= 32'd95554; Enable <= 1; end // C4 (261.63 Hz) //middle C
+	    10'd2: begin delay <= 32'd85132; Enable <= 1; end// D4 (293.66 Hz)
+	    10'd4: begin delay <= 32'd75842; Enable <= 1; end// E4 (329.63 Hz)
+            10'd8: begin delay <= 32'd71586; Enable <= 1; end// F4 (349.23 Hz)
+            10'd16: begin delay <= 32'd63775; Enable <= 1; end // G4 (392.00 Hz)
+            10'd32: begin delay <= 32'd56818; Enable <= 1; end// A4 (440.00 Hz)
+            10'd64: begin delay <= 32'd50620; Enable <= 1; end// B4 (493.88 Hz)
+            10'd128: begin delay <= 32'd47778; Enable <= 1; end// C5 (523.25 Hz)
+            10'd256: begin delay <= 32'd42568; Enable <= 1; end// D5 (587.33 Hz)
+            10'd512: begin delay <= 32'd37922; Enable <= 1; end// E5 (659.25 Hz)
+    default: begin delay <= 32'd0; Enable <= 0; end // Default to no sound
         endcase
     end
 
-wire [31:0] sound = snd ? 32'd10000000 : -31'd10000000;
+	wire [31:0] sound = Enable ? snd ? 32'd10000000 : -31'd10000000: 0;
 
 assign read_audio_in			= audio_in_available & audio_out_allowed;
 
