@@ -26,14 +26,16 @@ wire		[31:0]	right_channel_audio_in;
 wire				read_audio_in;
 
 wire [31:0] sound;
+wire [31:0] sound2;
 
 sineWaveGenerator hiRobertsboss (.Clk(CLOCK_50), .noteSelector(SW[9:0]), .sound(sound));
+squareWaveGenerator byeRobertsboss (.Clk(CLOCK_50), .noteSelector(SW[9:0]), .sound(sound2));
 
+wire [31:0] outputSound = ~KEY[0] ? sound : sound2;
 
 assign read_audio_in			= audio_in_available & audio_out_allowed;
-
-assign left_channel_audio_out	= sound;
-assign right_channel_audio_out	= sound;
+assign left_channel_audio_out	= outputSound;
+assign right_channel_audio_out	= outputSound;
 assign write_audio_out			= audio_in_available & audio_out_allowed;
 
 /*****************************************************************************
@@ -121,33 +123,57 @@ always @(posedge Clk)
 	
 endmodule
 
-//sine lookup taken from fpga4fun.com
-module sine_lookup(input clk, input [10:0] addr, output reg [16:0] value);
+module sineWaveGenerator(Clk, noteSelector, sound);
+input Clk;
+input [9:0] noteSelector;
+reg [31:0] sinewave;
+output [31:0] sound;
+reg [18:0] frequency_step;
+reg Enable;
 
-wire [15:0] sine_1sym;  // sine with 1 symmetry
-wire [9:0] LUT_output;
-reg [15:0] cnt;
-always @(posedge clk) cnt <= cnt + 16'h1;
-blockram512x10bit_2clklatency my_DDS_LUT(.rdclock(clk), .rdaddress(cnt[8:0]), .q(LUT_output));
-blockram512x16bit_2clklatency my_quarter_sine_LUT(     // the LUT contains only one quarter of the sine wave
-    .rdclock(clk),
-    .rdaddress(addr[9] ? ~addr[8:0] : addr[8:0]),   // first symmetry
-    .q(sine_1sym)
-);
+reg [31:0]	phase;
+always @(posedge Clk) begin
+		phase <= phase + frequency_step;
+end
 
-// now for the second symmetry, we need to use addr[10]
-// but since our blockram has 2 clock latencies on reads
-// we need a two-clock delayed version of addr[10]
-reg addr10_delay1; always @(posedge clk) addr10_delay1 <= addr[10];
-reg addr10_delay2; always @(posedge clk) addr10_delay2 <= addr10_delay1;
+//selects tone
+ always @(*) begin
+        case (noteSelector)
+	    10'd1: begin frequency_step <= 32'd22419; Enable <= 1; end // C4 (261.63 Hz) //middle C
+    default: begin frequency_step <= 32'd0; Enable <= 0; end // Default to no sound
+        endcase
+    end
+	 
+reg [31:0] friendly [0:40000];
+	 
+initial $readmemh("sinetable.hex", friendly);
+	 
+always @(posedge Clk) begin
+sinewave <= friendly[phase[31:24]];
+end
 
-wire [15:0] sine_2sym = addr10_delay2 ? {1'b0,-sine_1sym} : {1'b1,sine_1sym};  // second symmetry
+assign sound = Enable ? sinewave*1_000_000_000_000 : 0;
+	 
+endmodule
+	
 
-// add a third latency to the module output for best performance
-always @(posedge clk) value <= sine_2sym;
+
+module sine_lookup(Clk, addr, value);
+input Clk;
+input [10:0] addr;
+output reg [16:0] value;
+
+wire [15:0] sine_1sym;  
+
+mem512x10 U1 (.address((addr[9]) ? ~addr[8:0] : addr[8:0]), .clock(Clk), .data(0), .wren(0),.q(sine_1sym));
+
+wire [15:0] sine_2sym = (addr[10]) ? {1'b0,-sine_1sym} : {1'b1,sine_1sym}; 
+
+always @(posedge Clk) value <= sine_2sym;
 endmodule
 
-module sineWaveGenerator(Clk, noteSelector, sound);
+
+module worseSineWaveGenerator(Clk, noteSelector, sound);
 
 input Clk;
 input [9:0] noteSelector;
@@ -156,9 +182,9 @@ reg [18:0] delay;
 reg Enable;
 
 reg [31:0] phase_acc;
-always @(posedge clk) phase_acc <= phase_acc + delay; 
+always @(posedge Clk) phase_acc <= phase_acc + delay; 
 
-sine_lookup my_sine(.clk(clk), .addr(phase_acc[14:4]), .value(sine_lookup_output));
+sine_lookup my_sine(.Clk(Clk), .addr(phase_acc[14:4]), .value(sine_lookup_output));
 
 //selects tone
  always @(*) begin
@@ -177,7 +203,7 @@ sine_lookup my_sine(.clk(clk), .addr(phase_acc[14:4]), .value(sine_lookup_output
         endcase
     end 
 	 
-	 assign sound = Enable ? sine_lookup_output : 0;
+	 assign sound = Enable ? sine_lookup_output*1_000_000_000_000 : 0;
 
 endmodule
 
@@ -250,7 +276,7 @@ if (delay_cnt == delay) begin
 	 endcase
 	 end
 	 
-	 assign sound = Enable ? inputAmplitude * 10_000 : 0;
+	 assign sound = Enable ? inputAmplitude * 10_000_000_000 : 0;
 endmodule
 
 /*
