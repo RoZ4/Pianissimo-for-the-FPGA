@@ -83,7 +83,8 @@ module PianissimoFinalProject (CLOCK_50,
 				8'h29: inputStateStorage[`keySpacebar] <= 1'b0;
 			endcase
 		end
-		else begin 
+		else begin
+			inputStateStorage[`keyPressPulse] <= 1;
 			case (recievedData)
 				8'h0E: inputStateStorage[`keyTilda] <= 1'b1;
 				8'h16: inputStateStorage[`key1] <= 1'b1;
@@ -118,6 +119,10 @@ module PianissimoFinalProject (CLOCK_50,
 				8'h29: inputStateStorage[`keySpacebar] <= 1'b1;		
 			endcase
 		end
+	end
+
+	always @(posedge CLOCK_50) begin
+		if (inputStateStorage[`keyPressPulse]) inputStateStorage[`keyPressPulse] <= 0;
 	end
 	//-----------------------------------------------------
 

@@ -24,7 +24,7 @@ module upLoopCounter_29b(clk, resetn, enable, maxCount, regOut);
 			regOut <= 29'd0;
 			
 		else if(enable) begin
-			if (regOut == maxCount) // Time for update
+			if (regOut >= maxCount) // Time for update
 				regOut <= 29'd0;
 			else
 				regOut <= regOut+1;

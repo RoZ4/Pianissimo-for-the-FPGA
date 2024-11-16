@@ -37,3 +37,15 @@
 `define keyBackslash 27
 `define keySpacebar 28
 `define keyReleasePulse 29
+`define keyPressPulse 30
+
+// -------- Sub-States Used in mainStatehandler ----------
+`define subIDLE 4'd0
+`define subSTARTNOTERECORDING 4'd1
+`define subRECORDSTARTOFNOTE 4'd2
+`define subWRITEENDOFNOTE 4'd3
+`define subRESETPLAYBACK 4'd4
+`define subDRAWNOTEBLOCK 4'd5
+`define subDRAWNEWLINEOFNOTEBLOCK 4'd6
+`define subDRAWNEXTNOTEBLOCK 4'd7
+`define subDONEDRAWING 4'd8
