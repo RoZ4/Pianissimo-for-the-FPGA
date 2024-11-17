@@ -126,7 +126,6 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 
 
     reg [23:0] colour;
-	wire test;
     reg [7:0] screenX, screenY;
 	reg plotWriteEnable; 					// Feeds .plot() on the VGA adapter; tells when to draw pixels to screen
 	wire [7:0] backgroundX, backgroundY; 	// Coordinates on .mif background texture

@@ -176,6 +176,7 @@ module PianissimoFinalProject (CLOCK_50,
 	wire [2:0] currentSubState;
 	wire [61:0] retrievedNoteData;
 	wire keyPressPulse;
+	wire test;
 	mainStateHandler mainStateController(CLOCK_50, keyPressPulse, drawScannerDoneDrawing, mainStateOutputScreenX, mainStateOutputScreenY, currentState, currentSubState, inputStateStorage, mainStateColour, noteBlocksDoneDrawing, retrievedNoteData);
 
 
@@ -239,56 +240,56 @@ module displayStateHEX (currentStateDisplay, currentSubStateDisplay, HEX0, HEX1,
 	always @(*) begin
 		case(currentStateDisplay)
 			`STARTSCREEN: begin
-				HEX2 = ~(7'b1011010); //S
-				HEX1 = ~(7'b0001111); //t
-				HEX0 = ~(7'b0000101); //r
+				HEX2 = ~(7'b1101101); //S
+				HEX1 = ~(7'b1111001); //t
+				HEX0 = ~(7'b1010111); //r
 			end
 			`RECORD: begin
-				HEX2 = ~(7'b0000101); //R 
-				HEX1 = ~(7'b1001111); //E
-				HEX0 = ~(7'b1001110); //C
+				HEX2 = ~(7'b1010111); //R 
+				HEX1 = ~(7'b1111001); //E
+				HEX0 = ~(7'b0111001); //C
 			end
 			`PLAYBACK: begin
-				HEX2 = ~(7'b1100111); //P 
-				HEX1 = ~(7'b0001110); //l
-				HEX0 = ~(7'b0111011); //y
+				HEX2 = ~(7'b1110001); //P 
+				HEX1 = ~(7'b0111000); //l
+				HEX0 = ~(7'b1101110); //y
 			end
 			`RESTARTPLAYBACK: begin
-				HEX2 = ~(7'b0000101); //r
-				HEX1 = ~(7'b0001111); //t
-				HEX0 = ~(7'b0001111); //t
+				HEX2 = ~(7'b1010111); //r
+				HEX1 = ~(7'b1111001); //t
+				HEX0 = ~(7'b1111001); //t
 			end
 			default: begin
-				HEX2 = ~(7'b1111110); //0
-				HEX1 = ~(7'b1111110); //0
-				HEX0 = ~(7'b1111110); //0
+				HEX2 = ~(7'b0111111); //0
+				HEX1 = ~(7'b0111111); //0
+				HEX0 = ~(7'b0111111); //0
 			end
 		endcase
 		case(currentSubStateDisplay)
 			`subIDLE: begin
-				HEX2 = ~(7'b0110000); //i
-				HEX1 = ~(7'b0111101); //d
-				HEX0 = ~(7'b0001110); //l
+				HEX5 = ~(7'b0000110); //i
+				HEX4 = ~(7'b1011110); //d
+				HEX3 = ~(7'b0111000); //l
 			end
 			`subSTARTNOTERECORDING: begin
-				HEX2 = ~(7'b0000101); //R 
-				HEX1 = ~(7'b1001111); //E
-				HEX0 = ~(7'b1001110); //C
+				HEX5 = ~(7'b1010000); //R 
+				HEX4 = ~(7'b1111001); //E
+				HEX3 = ~(7'b0111001); //C
 			end
 			`subDRAWNOTEBLOCK: begin
-				HEX2 = ~(7'b0111101); //d
-				HEX1 = ~(7'b0000101); //r
-				HEX0 = ~(7'b1110111); //A
+				HEX5 = ~(7'b1011111); //d
+				HEX4 = ~(7'b1010000); //r
+				HEX3 = ~(7'b1110111); //A
 			end
 			`subDONEDRAWING: begin
-				HEX2 = ~(7'b0111101); //d
-				HEX1 = ~(7'b0010101); //n
-				HEX0 = ~(7'b1001111); //E
+				HEX5 = ~(7'b1011110); //d
+				HEX4 = ~(7'b1010100); //n
+				HEX3 = ~(7'b1111001); //E
 			end
 			default: begin
-				HEX2 = ~(7'b1111110); //0
-				HEX1 = ~(7'b1111110); //0
-				HEX0 = ~(7'b1111110); //0
+				HEX5 = ~(7'b0111111); //0
+				HEX4 = ~(7'b0111111); //0
+				HEX3 = ~(7'b0111111); //0
 			end
 		endcase
 	end
