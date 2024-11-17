@@ -1,12 +1,15 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
 add wave -noupdate -label CLOCK_50 -radix binary /testbench/CLOCK_50
-//add wave -noupdate -label KEY -radix binary /testbench/KEY
+#add wave -noupdate -label KEY -radix binary /testbench/KEY
+add wave -noupdate -label HEX2 -radix binary /testbench/HEX2
+add wave -noupdate -label HEX1 -radix binary /testbench/HEX1
+add wave -noupdate -label HEX0 -radix binary /testbench/HEX0
 add wave -noupdate -divider part1
 add wave -noupdate -label inputStateStorage -radix binary {/testbench/U1/inputStateStorage[29:26]}
-add wave -noupdate -label OverallState -radix binary /testbench/U1/masterFSM/currentState
-add wave -noupdate -label mainLogicSubstate -radix binary /testbench/U1/mainStateController/currentSubState
-add wave -noupdate -label linesDrawn -radix binary /testbench/U1/mainStateController/linesDrawn
+add wave -noupdate -label currentState -radix binary /testbench/U1/masterFSM/currentState
+add wave -noupdate -label currentSubState -radix binary /testbench/U1/mainStateController/currentSubState
+#add wave -noupdate -label linesDrawn -radix binary /testbench/U1/mainStateController/linesDrawn
 add wave -noupdate -label retrievedNoteData -radix binary /testbench/U1/mainStateController/retrievedNoteData
 add wave -noupdate -label microSecondCounter -radix binary /testbench/U1/mainStateController/microSecondCounter
 add wave -noupdate -label resetTimer -radix binary /testbench/U1/mainStateController/timecounter/microSecondEnable

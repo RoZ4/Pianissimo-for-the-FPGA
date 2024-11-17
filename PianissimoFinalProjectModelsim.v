@@ -1,9 +1,11 @@
 `include "DefineMacros.vh"
 
 
-module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, PS2_CLK, PS2_DAT, KEY);
+module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, PS2_CLK, PS2_DAT, KEY,
+										HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6);
 
 	input [3:0] KEY;
+	output [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6;
 	//--------------------- VGA IO ------------------------
 	input			CLOCK_50;				//	50 MHz	
 	output	[23:0]	VGA_COLOR;
@@ -154,7 +156,8 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 	wire [7:0] mainStateOutputScreenX, mainStateOutputScreenY;
 	wire [3:0] currentSubState;
 	wire [61:0] retrievedNoteData;
-	mainStateHandler mainStateController(CLOCK_50, drawScannerDoneDrawing, mainStateOutputScreenX, mainStateOutputScreenY, currentState, currentSubState, inputStateStorage, mainStateColour, noteBlocksDoneDrawing, retrievedNoteData);
+	wire keyPressPulse;
+	mainStateHandler mainStateController(CLOCK_50, keyPressPulse, drawScannerDoneDrawing, mainStateOutputScreenX, mainStateOutputScreenY, currentState, currentSubState, inputStateStorage, mainStateColour, noteBlocksDoneDrawing, retrievedNoteData);
 
 
 	always @* begin
@@ -192,4 +195,70 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 		end
 	end
 	
+	displayStateHEX debugDisplayState(currentState, currentSubState, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5);
+
+endmodule
+
+module displayStateHEX (currentStateDisplay, currentSubStateDisplay, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5);
+	output reg [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5;
+	input [4:0] currentStateDisplay;
+	input [3:0] currentSubStateDisplay;
+
+	always @(*) begin
+		case(currentStateDisplay)
+			`STARTSCREEN: begin
+				HEX2 = ~(7'b1101101); //S
+				HEX1 = ~(7'b1111001); //t
+				HEX0 = ~(7'b1010111); //r
+			end
+			`RECORD: begin
+				HEX2 = ~(7'b1010111); //R 
+				HEX1 = ~(7'b1111001); //E
+				HEX0 = ~(7'b0111001); //C
+			end
+			`PLAYBACK: begin
+				HEX2 = ~(7'b1110001); //P 
+				HEX1 = ~(7'b0111000); //l
+				HEX0 = ~(7'b1101110); //y
+			end
+			`RESTARTPLAYBACK: begin
+				HEX2 = ~(7'b1010111); //r
+				HEX1 = ~(7'b1111001); //t
+				HEX0 = ~(7'b1111001); //t
+			end
+			default: begin
+				HEX2 = ~(7'b0111111); //0
+				HEX1 = ~(7'b0111111); //0
+				HEX0 = ~(7'b0111111); //0
+			end
+		endcase
+		case(currentSubStateDisplay)
+			`subIDLE: begin
+				HEX5 = ~(7'b0000110); //i
+				HEX4 = ~(7'b1011110); //d
+				HEX3 = ~(7'b0111000); //l
+			end
+			`subSTARTNOTERECORDING: begin
+				HEX5 = ~(7'b1010000); //R 
+				HEX4 = ~(7'b1111001); //E
+				HEX3 = ~(7'b0111001); //C
+			end
+			`subDRAWNOTEBLOCK: begin
+				HEX5 = ~(7'b1011111); //d
+				HEX4 = ~(7'b1010000); //r
+				HEX3 = ~(7'b1110111); //A
+			end
+			`subDONEDRAWING: begin
+				HEX5 = ~(7'b1011110); //d
+				HEX4 = ~(7'b1010100); //n
+				HEX3 = ~(7'b1111001); //E
+			end
+			default: begin
+				HEX5 = ~(7'b0111111); //0
+				HEX4 = ~(7'b0111111); //0
+				HEX3 = ~(7'b0111111); //0
+			end
+		endcase
+	end
+
 endmodule

@@ -1,11 +1,10 @@
 `include "../DefineMacros.vh"
 
-module mainStateHandler(clk, keyPressPulse, inputClearScreenDoneDrawing, outputScreenX, outputScreenY, currentState, currentSubState, inputStateStorage, outputColour, doneDrawingFrame, retrievedNoteData);
+module mainStateHandler(clk, inputXor, inputClearScreenDoneDrawing, outputScreenX, outputScreenY, currentState, currentSubState, inputStateStorage, outputColour, doneDrawingFrame, retrievedNoteData);
 	input clk, inputClearScreenDoneDrawing;
 	input [4:0] currentState;
 	input [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStorage; //! Stores the state of the inputs
 	reg [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStoragePrevious; //! Stores the state of the inputs in the previous clock cycle
-	output reg keyPressPulse;
 	output reg [7:0] outputScreenX, outputScreenY;
 	output reg doneDrawingFrame;
 	output reg [23:0] outputColour;
@@ -28,7 +27,8 @@ module mainStateHandler(clk, keyPressPulse, inputClearScreenDoneDrawing, outputS
 
 	output [61:0] retrievedNoteData; //! Data read from memory || 4 bits - 24 notes, 29 bits - timeStart, 29bits-timeEnd
 	
-
+	output inputXor;
+	assign inputXor = inputStateStorage ^ inputStateStoragePrevious;
 
 	NoteStorage noteRamStorage(clk, currentNoteData, noteReadAddress, noteWriteAddress, memoryWriteEnable, retrievedNoteData);
 	wire [28:0] microSecondCounter;
@@ -39,11 +39,6 @@ module mainStateHandler(clk, keyPressPulse, inputClearScreenDoneDrawing, outputS
 	assign lengthOfCurrentNoteBlock = ((retrievedNoteData[57:29] - retrievedNoteData[28:0]) >> 20);
 	assign initialYValueofNote = 92 - ((retrievedNoteData[57:29] - microSecondCounter) >> 20);
 
-	always @(posedge clk) begin
-		if (inputStateStorage ^ inputStateStoragePrevious) keyPressPulse <= 1;
-		else keyPressPulse <= 0;
-	end
-
 
 	always @(*) begin: nextSubstateLogic
 		case(currentSubState)
@@ -53,7 +48,7 @@ module mainStateHandler(clk, keyPressPulse, inputClearScreenDoneDrawing, outputS
 			end
 			`subSTARTNOTERECORDING: begin // Central state for RECORD state
 				if (currentState == `RECORD) begin
-					if (keyPressPulse) nextSubState <= `subWRITESTARTOFNOTE;
+					if (inputXor) nextSubState <= `subWRITESTARTOFNOTE;
 					if (inputStateStorage[`keyReleasePulse]) nextSubState <= `subWRITEENDOFNOTE; 
 					else nextSubState <= `subSTARTNOTERECORDING;
 				end 

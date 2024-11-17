@@ -14,7 +14,7 @@ module drawToScreen (clk, nextAddress, doneDrawing, outputDrawScreenPosX, output
 		if (doneDrawing) doneDrawing <= 0;
 
 		else begin
-			if (outputDrawScreenPosX < 8'd160) begin
+			if (outputDrawScreenPosX < 8'd159) begin
 				outputDrawScreenPosX <= outputDrawScreenPosX + 1;
 			end
 			else if (outputDrawScreenPosX == 8'd159 && outputDrawScreenPosY < 8'd120) begin

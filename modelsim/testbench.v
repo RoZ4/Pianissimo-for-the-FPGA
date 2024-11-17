@@ -6,6 +6,7 @@ module testbench ( );
 
     	reg CLOCK_50;	
 	//reg [7:0] SW;
+	wire [6:0] HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6;
 	reg [3:0] KEY;
 	wire [7:0] VGA_X;
 	wire [6:0] VGA_Y;
@@ -38,7 +39,7 @@ module testbench ( );
 
 	end // initial
 
-	PianissimoFinalProjectModelsim U1 (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, PS2_CLK, PS2_DAT, KEY);
+	PianissimoFinalProjectModelsim U1 (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, PS2_CLK, PS2_DAT, KEY, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6);
 
     //initial begin $monitor("time=%0d, reset=%b, counter=%d, hex=%7b", $time, KEY[0], slowCounterOut, HEX0); end 
 
