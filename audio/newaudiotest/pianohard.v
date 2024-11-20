@@ -64,16 +64,16 @@ initial Enable = 0;
  always @(*) begin
 	 case (SW[9:0])
                 //white notes
-            10'd1: begin delay <= 32'd95554; Enable <= 1; end // C4 (261.63 Hz) //middle C
-	    10'd2: begin delay <= 32'd85132; Enable <= 1; end// D4 (293.66 Hz)
-	    10'd4: begin delay <= 32'd75842; Enable <= 1; end// E4 (329.63 Hz)
-            10'd8: begin delay <= 32'd71586; Enable <= 1; end// F4 (349.23 Hz)
-            10'd16: begin delay <= 32'd63775; Enable <= 1; end // G4 (392.00 Hz)
-            10'd32: begin delay <= 32'd56818; Enable <= 1; end// A4 (440.00 Hz)
-            10'd64: begin delay <= 32'd50620; Enable <= 1; end// B4 (493.88 Hz)
-            10'd128: begin delay <= 32'd47778; Enable <= 1; end// C5 (523.25 Hz)
-            10'd256: begin delay <= 32'd42568; Enable <= 1; end// D5 (587.33 Hz)
-            10'd512: begin delay <= 32'd37922; Enable <= 1; end// E5 (659.25 Hz)
+            10'd1: begin delay <= 32'd22419; Enable <= 1; end // C4 (261.63 Hz) //middle C
+	    10'd2: begin delay <= 32'd25168; Enable <= 1; end// D4 (293.66 Hz)
+	    10'd4: begin delay <= 32'd28260; Enable <= 1; end// E4 (329.63 Hz)
+            10'd8: begin delay <= 32'd29978; Enable <= 1; end// F4 (349.23 Hz)
+            10'd16: begin delay <= 32'd33672; Enable <= 1; end // G4 (392.00 Hz)
+            10'd32: begin delay <= 32'd37795; Enable <= 1; end// A4 (440.00 Hz)
+            10'd64: begin delay <= 32'd42348; Enable <= 1; end// B4 (493.88 Hz)
+            10'd128: begin delay <= 32'd44925; Enable <= 1; end// C5 (523.25 Hz)
+            10'd256: begin delay <= 32'd50422; Enable <= 1; end// D5 (587.33 Hz)
+            10'd512: begin delay <= 32'd56607; Enable <= 1; end// E5 (659.25 Hz)
 /*
                     //no calculated values yet, awaiting testing
 				    4'd10: delay <= 32'd35793; //F5 (698.46 Hz)
@@ -98,7 +98,7 @@ initial Enable = 0;
         endcase
     end
 
-assign sound = (Enable) ? wave*1000 : 0;
+assign sound = (Enable) ? wave : 0;
 
 assign read_audio_in			= audio_in_available & audio_out_allowed;
 
