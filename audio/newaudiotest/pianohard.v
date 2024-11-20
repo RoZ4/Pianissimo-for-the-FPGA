@@ -58,7 +58,7 @@ sineWaveGenerator zero_sine (.Clk(Clk), .frequencyVal(delay), .wave(wave0);
 
 muxxywuxxy zero (.a(SW[0]), .b(wave0), .c(sound0));
 */
-sineWaveGenerator sophia_OG (.Clk(Clk), .frequencyVal(delay), .wave(wave);
+sineWaveGenerator sophia_OG (.Clk(Clk), .frequencyVal(delay), .wave(wave));
 
 initial Enable = 0;
 //selects tone
@@ -99,7 +99,7 @@ initial Enable = 0;
         endcase
     end
 
-assign sound = (Enable) ? wave : 0;
+assign sound = (Enable) ? wave*10_000_000 : 0;
 
 assign read_audio_in			= audio_in_available & audio_out_allowed;
 
@@ -156,12 +156,12 @@ endmodule
 module sineWaveGenerator(Clk, frequencyVal, wave);
 input Clk;
 input [18:0] frequencyVal;
-output [31:0] wave;
+output reg [31:0] wave;
 reg [9:0] counter;
 reg [31:0] phase;
 
 reg [31:0] lookuptable [0:1023];
-initial	$readmemh("realsintable.hex", lookuptable);
+initial $readmemh("realsinetable.hex", lookuptable);
 
 	always @(posedge Clk) begin
 		if (counter == 10'd1024) begin
@@ -176,6 +176,8 @@ initial	$readmemh("realsintable.hex", lookuptable);
 	end
 endmodule
 
+/*
+
 module muxxywuxxy(a, b, c);
 input a;
 input [31:0] b;
@@ -188,6 +190,7 @@ output wire [31:0] c;
 	end
                 
 endmodule
+*/
 
 
 	

@@ -26,12 +26,34 @@ wire		[31:0]	right_channel_audio_in;
 wire				read_audio_in;
 
 wire [31:0] sound;
+//wire [31:0] sound2;
+wire [31:0] sound00;
+wire [31:0] sound01;
+
+wire [31:0] sound0;
+wire [31:0] sound1;
 wire [31:0] sound2;
+wire [31:0] sound3;
+wire [31:0] sound4;
+wire [31:0] sound5;
+wire [31:0] sound6;
+wire [31:0] sound7;
+wire [31:0] sound8;
+wire [31:0] sound9;
 
-sineWaveGenerator hiRobertsboss (.Clk(CLOCK_50), .noteSelector(SW[9:0]), .sound(sound));
-squareWaveGenerator byeRobertsboss (.Clk(CLOCK_50), .noteSelector(SW[9:0]), .sound(sound2));
+//sineWaveGenerator hiRobertsboss (.Clk(CLOCK_50), .noteSelector(SW[9:0]), .sound(sound));
+//squareWaveGenerator byeRobertsboss (.Clk(CLOCK_50), .noteSelector(SW[9:0]), .sound(sound2));
 
-wire [31:0] outputSound = ~KEY[0] ? sound : sound2;
+squareWaveGenerator byeRobertsboss (.Clk(CLOCK_50), .noteSelector(10'd1), .sound(sound00));
+squareWaveGenerator byeRobertswife (.Clk(CLOCK_50), .noteSelector(10'd2), .sound(sound01));
+
+
+
+assign sound0 = ~SW[0] ? 32'd0 : sound00;
+assign sound1 = ~SW[1] ? 32'd0 : sound01;
+
+
+wire [31:0] outputSound = sound0 + sound1;
 
 assign read_audio_in			= audio_in_available & audio_out_allowed;
 assign left_channel_audio_out	= outputSound;
