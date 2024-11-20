@@ -29,7 +29,7 @@ reg [18:0] delay;
 reg Enable;
 
 wire [31:0] sound;
-wire 
+
 
 wire [31:0] sound0;
 wire [31:0] sound1;
@@ -41,6 +41,21 @@ wire [31:0] sound6;
 wire [31:0] sound7;
 wire [31:0] sound8;
 wire [31:0] sound9;
+
+	wire [31:0] wave0;
+	wire [31:0] wave1;
+	wire [31:0] wave2;
+	wire [31:0] wave3;
+	wire [31:0] wave4;
+	wire [31:0] wave5;
+	wire [31:0] wave6;
+	wire [31:0] wave7;
+	wire [31:0] wave8;
+	wire [31:0] wave9;
+
+sineWaveGenerator zero_sine (.Clk(Clk), .frequencyVal(delay), .wave(wave0); 
+
+muxxywuxxy zero (.a(SW[0]), .b(wave0), .c(sound0));
 
 sineWaveGenerator sophia_OG (.Clk(Clk), .frequencyVal(delay), .wave(wave);
 
@@ -160,6 +175,19 @@ initial	$readmemh("realsintable.hex", lookuptable);
 			wave <= lookuptable[phase[31:24]];
 		end
 	end
+endmodule
+
+module muxxywuxxy(a, b, c);
+input a;
+input [31:0] b;
+output wire [31:0] c;
+
+	if (a) begin
+		assign c = b;
+	end else begin
+		assign c = 32'd0;
+	end
+                
 endmodule
 
 
