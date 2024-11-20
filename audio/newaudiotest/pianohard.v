@@ -1,4 +1,4 @@
-module pianosimple (CLOCK_50, KEY, AUD_ADCDAT, AUD_BCLK, AUD_ADCLRCK, AUD_DACLRCK, FPGA_I2C_SDAT, AUD_XCK, AUD_DACDAT, FPGA_I2C_SCLK, SW);
+module pianohard (CLOCK_50, KEY, AUD_ADCDAT, AUD_BCLK, AUD_ADCLRCK, AUD_DACLRCK, FPGA_I2C_SDAT, AUD_XCK, AUD_DACDAT, FPGA_I2C_SCLK, SW);
 input				CLOCK_50;
 input		[3:0]	KEY;
 input		[9:0]	SW;
@@ -64,18 +64,16 @@ initial Enable = 0;
  always @(*) begin
 	 case (SW[9:0])
                 //white notes
-                    4'd0: delay <= 32'd95554;  // C4 (261.63 Hz) //middle C
-					4'd1: delay <= 32'd85132; // D4 (293.66 Hz)
-					4'd2: delay <= 32'd75842;  // E4 (329.63 Hz)
-					4'd3: delay <= 32'd71586;  // F4 (349.23 Hz)
-					4'd4: delay <= 32'd63775;  // G4 (392.00 Hz)
-					4'd5: delay <= 32'd56818; // A4 (440.00 Hz)
-					4'd6: delay <= 32'd50620;  // B4 (493.88 Hz)
-
-
-					4'd7: delay <= 32'd47778;  // C5 (523.25 Hz) //next octave
-					4'd8: delay <= 32'd42568;  // D5 (587.33 Hz)
-					4'd9: delay <= 32'd37922;  // E5 (659.25 Hz)
+            10'd1: begin delay <= 32'd95554; Enable <= 1; end // C4 (261.63 Hz) //middle C
+	    10'd2: begin delay <= 32'd85132; Enable <= 1; end// D4 (293.66 Hz)
+	    10'd4: begin delay <= 32'd75842; Enable <= 1; end// E4 (329.63 Hz)
+            10'd8: begin delay <= 32'd71586; Enable <= 1; end// F4 (349.23 Hz)
+            10'd16: begin delay <= 32'd63775; Enable <= 1; end // G4 (392.00 Hz)
+            10'd32: begin delay <= 32'd56818; Enable <= 1; end// A4 (440.00 Hz)
+            10'd64: begin delay <= 32'd50620; Enable <= 1; end// B4 (493.88 Hz)
+            10'd128: begin delay <= 32'd47778; Enable <= 1; end// C5 (523.25 Hz)
+            10'd256: begin delay <= 32'd42568; Enable <= 1; end// D5 (587.33 Hz)
+            10'd512: begin delay <= 32'd37922; Enable <= 1; end// E5 (659.25 Hz)
 /*
                     //no calculated values yet, awaiting testing
 				    4'd10: delay <= 32'd35793; //F5 (698.46 Hz)
