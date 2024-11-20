@@ -25,28 +25,29 @@ wire		[31:0]	left_channel_audio_in;
 wire		[31:0]	right_channel_audio_in;
 wire				read_audio_in;
 
-reg [18:0] delay_cnt;
-wire [18:0] delay;
-reg snd;
-reg [57:0] noteLength = retrievedNoteData[28:0] - retrievedNoteData[57:29];
+reg [18:0] delay;
+reg Enable;
+
 wire [31:0] sound;
+wire 
 
-//generates wave
+wire [31:0] sound0;
+wire [31:0] sound1;
+wire [31:0] sound2;
+wire [31:0] sound3;
+wire [31:0] sound4;
+wire [31:0] sound5;
+wire [31:0] sound6;
+wire [31:0] sound7;
+wire [31:0] sound8;
+wire [31:0] sound9;
 
-if (noteLength >= 0) begin
-   always @(posedge CLOCK_50)
-	if(delay_cnt == delay) begin
-		delay_cnt <= 0;
-		snd <= !snd;
-    end else begin delay_cnt <= delay_cnt + 1; 
-    noteLength <= noteLength - 1;
-    end
-end else assign sound = 32'd0;
+sineWaveGenerator sophia_OG (.Clk(Clk), .frequencyVal(delay), .wave(wave);
 
-
+initial Enable = 0;
 //selects tone
  always @(*) begin
-        case (retrievedNoteData[61:58])
+	 case (SW[9:0])
                 //white notes
                     4'd0: delay <= 32'd95554;  // C4 (261.63 Hz) //middle C
 					4'd1: delay <= 32'd85132; // D4 (293.66 Hz)
@@ -60,7 +61,7 @@ end else assign sound = 32'd0;
 					4'd7: delay <= 32'd47778;  // C5 (523.25 Hz) //next octave
 					4'd8: delay <= 32'd42568;  // D5 (587.33 Hz)
 					4'd9: delay <= 32'd37922;  // E5 (659.25 Hz)
-
+/*
                     //no calculated values yet, awaiting testing
 				    4'd10: delay <= 32'd35793; //F5 (698.46 Hz)
 					4'd11: delay <= 32'd31888; // G5 (783.99 Hz)
@@ -79,11 +80,12 @@ end else assign sound = 32'd0;
 					4'd21: delay <= 32'd33784; //F#5 (739.99 Hz)
 					4'd22: delay <= 32'd30098; //G#5 (830.61 Hz)
 					4'd23: delay <= 32'd26814; //A#5 (932.33 Hz)
-				default: delay <= 32'd0; // Default to no sound
+     */
+		 default: begin delay <= 32'd0; Enable <= 1'd0; end// Default to no sound
         endcase
     end
 
-assign sound = snd ? 32'd10000000 : -32'd10000000;
+assign sound = (Enable) ? wave*1000 : 0;
 
 assign read_audio_in			= audio_in_available & audio_out_allowed;
 
@@ -136,3 +138,33 @@ avconf #(.USE_MIC_INPUT(1)) avc (
 );
 
 endmodule
+
+module sineWaveGenerator(Clk, frequencyVal, wave);
+input Clk;
+input [18:0] frequencyVal;
+output [31:0] wave;
+reg [9:0] counter;
+reg [31:0] phase;
+
+reg [31:0] lookuptable [0:1023];
+initial	$readmemh("realsintable.hex", lookuptable);
+
+	always @(posedge Clk) begin
+		if (counter == 10'd1024) begin
+			counter <= 10'd0;
+			phase <= 32'd0;
+		end
+		else begin
+			phase <= phase + frequencyVal;
+			counter <= counter + 10'd1;
+			wave <= lookuptable[phase[31:24]];
+		end
+	end
+endmodule
+
+
+	
+			
+
+
+
