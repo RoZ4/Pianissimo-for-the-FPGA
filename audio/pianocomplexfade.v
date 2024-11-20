@@ -1,4 +1,4 @@
-module pianosimple (CLOCK_50, KEY, AUD_ADCDAT, AUD_BCLK, AUD_ADCLRCK, AUD_DACLRCK, FPGA_I2C_SDAT, AUD_XCK, AUD_DACDAT, FPGA_I2C_SCLK, SW, retrievedNoteData);
+module pianocomplexfade (CLOCK_50, KEY, AUD_ADCDAT, AUD_BCLK, AUD_ADCLRCK, AUD_DACLRCK, FPGA_I2C_SDAT, AUD_XCK, AUD_DACDAT, FPGA_I2C_SCLK, SW, retrievedNoteData);
 input				CLOCK_50;
 input		[3:0]	KEY;
 input		[9:0]	SW;
