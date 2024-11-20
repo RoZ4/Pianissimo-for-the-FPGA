@@ -25,11 +25,20 @@ wire		[31:0]	left_channel_audio_in;
 wire		[31:0]	right_channel_audio_in;
 wire				read_audio_in;
 
-wire [31:0] sound;
-//wire [31:0] sound2;
+
+//calculation wires
 wire [31:0] sound00;
 wire [31:0] sound01;
+wire [31:0] sound02;
+wire [31:0] sound03;
+wire [31:0] sound04;
+wire [31:0] sound05;
+wire [31:0] sound06;
+wire [31:0] sound07;
+wire [31:0] sound08;
+wire [31:0] sound09;
 
+//actual wires
 wire [31:0] sound0;
 wire [31:0] sound1;
 wire [31:0] sound2;
@@ -41,19 +50,34 @@ wire [31:0] sound7;
 wire [31:0] sound8;
 wire [31:0] sound9;
 
-//sineWaveGenerator hiRobertsboss (.Clk(CLOCK_50), .noteSelector(SW[9:0]), .sound(sound));
-//squareWaveGenerator byeRobertsboss (.Clk(CLOCK_50), .noteSelector(SW[9:0]), .sound(sound2));
 
-squareWaveGenerator byeRobertsboss (.Clk(CLOCK_50), .noteSelector(10'd1), .sound(sound00));
-squareWaveGenerator byeRobertswife (.Clk(CLOCK_50), .noteSelector(10'd2), .sound(sound01));
+//generates notes
+squareWaveGenerator C4 (.Clk(CLOCK_50), .noteSelector(10'd1), .sound(sound00));
+squareWaveGenerator D4 (.Clk(CLOCK_50), .noteSelector(10'd2), .sound(sound01));
+squareWaveGenerator E4 (.Clk(CLOCK_50), .noteSelector(10'd4), .sound(sound02));
+squareWaveGenerator F4 (.Clk(CLOCK_50), .noteSelector(10'd8), .sound(sound03));
+squareWaveGenerator G4 (.Clk(CLOCK_50), .noteSelector(10'd16), .sound(sound04));
+squareWaveGenerator A4 (.Clk(CLOCK_50), .noteSelector(10'd32), .sound(sound05));
+squareWaveGenerator B4 (.Clk(CLOCK_50), .noteSelector(10'd64), .sound(sound06));
+squareWaveGenerator C5 (.Clk(CLOCK_50), .noteSelector(10'd128), .sound(sound07));
+squareWaveGenerator D5 (.Clk(CLOCK_50), .noteSelector(10'd256), .sound(sound08));
+squareWaveGenerator E5 (.Clk(CLOCK_50), .noteSelector(10'd512), .sound(sound09));
 
 
-
+//assigns if switch is turned on
 assign sound0 = ~SW[0] ? 32'd0 : sound00;
 assign sound1 = ~SW[1] ? 32'd0 : sound01;
+assign sound2 = ~SW[2] ? 32'd0 : sound02;
+assign sound3 = ~SW[3] ? 32'd0 : sound03;
+assign sound4 = ~SW[4] ? 32'd0 : sound04;
+assign sound5 = ~SW[5] ? 32'd0 : sound05;
+assign sound6 = ~SW[6] ? 32'd0 : sound06;
+assign sound7 = ~SW[7] ? 32'd0 : sound07;
+assign sound8 = ~SW[8] ? 32'd0 : sound08;
+assign sound9 = ~SW[9] ? 32'd0 : sound09;
 
 
-wire [31:0] outputSound = sound0 + sound1;
+wire [31:0] outputSound = sound0 + sound1 + sound2 + sound3 + sound4 + sound5 + sound6 + sound7 + sound8 + sound9;
 
 assign read_audio_in			= audio_in_available & audio_out_allowed;
 assign left_channel_audio_out	= outputSound;
