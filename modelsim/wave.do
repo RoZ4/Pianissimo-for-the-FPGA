@@ -6,13 +6,16 @@ add wave -noupdate -label HEX2 -radix binary /testbench/HEX2
 add wave -noupdate -label HEX1 -radix binary /testbench/HEX1
 add wave -noupdate -label HEX0 -radix binary /testbench/HEX0
 add wave -noupdate -divider part1
-add wave -noupdate -label inputStateStorage -radix binary {/testbench/U1/inputStateStorage[29:26]}
+add wave -noupdate -label inputStateStorage -radix binary {/testbench/U1/inputStateStorage[30:26]}
+#add wave -noupdate -label StateStoragePrevious -radix binary {/testbench/U1/mainStateController/inputStateStoragePrevious}
 add wave -noupdate -label currentState -radix binary /testbench/U1/masterFSM/currentState
 add wave -noupdate -label currentSubState -radix binary /testbench/U1/mainStateController/currentSubState
-#add wave -noupdate -label linesDrawn -radix binary /testbench/U1/mainStateController/linesDrawn
-add wave -noupdate -label retrievedNoteData -radix binary /testbench/U1/mainStateController/retrievedNoteData
-add wave -noupdate -label microSecondCounter -radix binary /testbench/U1/mainStateController/microSecondCounter
-add wave -noupdate -label resetTimer -radix binary /testbench/U1/mainStateController/timecounter/microSecondEnable
+#add wave -noupdate -label ScreenX -unsigned /testbench/U1/screenX
+#add wave -noupdate -label ScreenY -unsigned /testbench/U1/screenY
+#add wave -noupdate -label outputColour -unsigned /testbench/U1/screenReseter/outputColour
+add wave -noupdate -label pressPulseShifter -radix binary /testbench/U1/pressPulseShifter
+add wave -noupdate -label recievedNewData -radix binary /testbench/U1/recievedNewData
+#add wave -noupdate -label inputXor -radix binary /testbench/U1/mainStateController/inputXor
 
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {10000 ns} 0}

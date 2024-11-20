@@ -1,10 +1,10 @@
 `include "../DefineMacros.vh"
 
-module mainStateHandler(clk, inputXor, inputClearScreenDoneDrawing, outputScreenX, outputScreenY, currentState, currentSubState, inputStateStorage, outputColour, doneDrawingFrame, retrievedNoteData);
-	input clk, inputClearScreenDoneDrawing;
+module mainStateHandler(clk, reset, inputClearScreenDoneDrawing, outputScreenX, outputScreenY, currentState, currentSubState, inputStateStorage, outputColour, doneDrawingFrame, retrievedNoteData);
+	input clk, inputClearScreenDoneDrawing, reset;
 	input [4:0] currentState;
 	input [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStorage; //! Stores the state of the inputs
-	reg [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStoragePrevious; //! Stores the state of the inputs in the previous clock cycle
+	reg [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStoragePrevious = 0; //! Stores the state of the inputs in the previous clock cycle
 	output reg [7:0] outputScreenX, outputScreenY;
 	output reg doneDrawingFrame;
 	output reg [23:0] outputColour;
@@ -26,9 +26,7 @@ module mainStateHandler(clk, inputXor, inputClearScreenDoneDrawing, outputScreen
 	reg [3:0] nextSubState;
 
 	output [61:0] retrievedNoteData; //! Data read from memory || 4 bits - 24 notes, 29 bits - timeStart, 29bits-timeEnd
-	
-	output inputXor;
-	assign inputXor = inputStateStorage ^ inputStateStoragePrevious;
+
 
 	NoteStorage noteRamStorage(clk, currentNoteData, noteReadAddress, noteWriteAddress, memoryWriteEnable, retrievedNoteData);
 	wire [28:0] microSecondCounter;
@@ -48,7 +46,7 @@ module mainStateHandler(clk, inputXor, inputClearScreenDoneDrawing, outputScreen
 			end
 			`subSTARTNOTERECORDING: begin // Central state for RECORD state
 				if (currentState == `RECORD) begin
-					if (inputXor) nextSubState <= `subWRITESTARTOFNOTE;
+					if (inputStateStorage[`keyPressPulse]) nextSubState <= `subWRITESTARTOFNOTE;
 					if (inputStateStorage[`keyReleasePulse]) nextSubState <= `subWRITEENDOFNOTE; 
 					else nextSubState <= `subSTARTNOTERECORDING;
 				end 
@@ -234,6 +232,7 @@ module mainStateHandler(clk, inputXor, inputClearScreenDoneDrawing, outputScreen
 	end
 
 	always@(posedge clk) begin
+		if (reset) currentSubState <= `subIDLE;
 		currentSubState <= nextSubState;
 	end
 

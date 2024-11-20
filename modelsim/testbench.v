@@ -31,6 +31,9 @@ module testbench ( );
 	initial begin
         KEY[0] <= 1'b0; #20 KEY[0] <= 1'b1;
 	#25000
+	force U1.recievedNewData = 1'b1;
+	#CLOCK_PERIOD
+	force U1.recievedNewData = 1'b0;
 	force U1.inputStateStorage[`keySpacebar] = 1'b1;
 	force U1.inputStateStorage[`keyBackslash] = 1'b0;
 	#25000

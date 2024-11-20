@@ -11,6 +11,9 @@ output_files/*
 *.bak
 *.out
 *.qdf
+*.py
+*.mp3
+*.wav
 
 modelsim/*
 !modelsim/*.v

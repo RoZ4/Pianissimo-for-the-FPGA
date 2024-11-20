@@ -29,8 +29,8 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 	wire commandWasSent;					// Confirmation of command send
 	wire errorCommunicationTimedOut;		// Unable to communicate with PS2 device
 
-	reg [7:0] recievedData;				// Data recieved from PS2 Device
-	reg recievedNewData;					// Driven high for one clock cycle when new data is recieved
+	reg [7:0] recievedData = 0;				// Data recieved from PS2 Device
+	reg recievedNewData = 0;					// Driven high for one clock cycle when new data is recieved
 
 	//- - - - - - PS2 Take Inputs From Keyboard - - - - - -
 	// Define storage elements for state of keys
@@ -118,6 +118,20 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 			endcase
 		end
 	end
+
+	reg [63:0] pressPulseShifter;
+	integer i;
+	always@(posedge CLOCK_50, posedge recievedNewData) begin
+		if (recievedNewData) begin
+			pressPulseShifter[63] <= 0;
+			pressPulseShifter[62:0] <= {63{1'b1}};
+		end
+		else begin
+			for (i = 62; i == 0; i = i - 1) begin
+				pressPulseShifter[i] <= pressPulseShifter[i+1]; 
+			end
+		end
+	end
 	//-----------------------------------------------------
 
 	// -------------------- STATES ------------------------
@@ -145,7 +159,7 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 	wire drawScannerDoneDrawing, noteBlocksDoneDrawing;
 	wire [23:0] resetScreenColour;
 	drawToScreen drawScanner(CLOCK_50, nextAddress, drawScannerDoneDrawing, backgroundX, backgroundY, currentState);
-	resetScreen screenReseter(CLOCK_50, noteBlocksDoneDrawing, currentState, backgroundX, backgroundY, resetScreenColour);
+	resetScreen screenReseter(CLOCK_50, noteBlocksDoneDrawing, currentState, backgroundX, backgroundY, inputStateStorage, resetScreenColour);
 
 	wire randomTimerEnable;
 	MasterFSM masterFSM(CLOCK_50, resetn, inputStateStorage, currentState, randomTimerEnable);
@@ -157,7 +171,7 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 	wire [3:0] currentSubState;
 	wire [61:0] retrievedNoteData;
 	wire keyPressPulse;
-	mainStateHandler mainStateController(CLOCK_50, keyPressPulse, drawScannerDoneDrawing, mainStateOutputScreenX, mainStateOutputScreenY, currentState, currentSubState, inputStateStorage, mainStateColour, noteBlocksDoneDrawing, retrievedNoteData);
+	mainStateHandler mainStateController(CLOCK_50, resetn, drawScannerDoneDrawing, mainStateOutputScreenX, mainStateOutputScreenY, currentState, currentSubState, inputStateStorage, mainStateColour, noteBlocksDoneDrawing, retrievedNoteData);
 
 
 	always @* begin
@@ -208,22 +222,22 @@ module displayStateHEX (currentStateDisplay, currentSubStateDisplay, HEX0, HEX1,
 		case(currentStateDisplay)
 			`STARTSCREEN: begin
 				HEX2 = ~(7'b1101101); //S
-				HEX1 = ~(7'b1111001); //t
+				HEX1 = ~(7'b1111000); //t
 				HEX0 = ~(7'b1010111); //r
 			end
 			`RECORD: begin
-				HEX2 = ~(7'b1010111); //R 
+				HEX2 = ~(7'b1010000); //R 
 				HEX1 = ~(7'b1111001); //E
 				HEX0 = ~(7'b0111001); //C
 			end
 			`PLAYBACK: begin
-				HEX2 = ~(7'b1110001); //P 
+				HEX2 = ~(7'b1110011); //P 
 				HEX1 = ~(7'b0111000); //l
 				HEX0 = ~(7'b1101110); //y
 			end
 			`RESTARTPLAYBACK: begin
-				HEX2 = ~(7'b1010111); //r
-				HEX1 = ~(7'b1111001); //t
+				HEX2 = ~(7'b1010000); //r
+				HEX1 = ~(7'b1111000); //t
 				HEX0 = ~(7'b1111001); //t
 			end
 			default: begin

@@ -2,7 +2,9 @@
 
 module PianissimoFinalProject (CLOCK_50,
                 	VGA_R, VGA_G, VGA_B, VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK,
-					PS2_CLK, PS2_DAT, KEY, LEDR, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5
+					PS2_CLK, PS2_DAT, KEY, LEDR, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5,
+					AUD_ADCDAT, AUD_BCLK, AUD_ADCLRCK, AUD_DACLRCK, FPGA_I2C_SDAT, AUD_XCK, AUD_DACDAT, FPGA_I2C_SCLK
+					
 					);
 	
 
@@ -119,6 +121,33 @@ module PianissimoFinalProject (CLOCK_50,
 			endcase
 		end
 	end
+
+	reg [63:0] pressPulseShifter;
+	integer i;
+	always@(posedge CLOCK_50, posedge recievedNewData) begin
+		if (recievedNewData) begin
+			pressPulseShifter[63] <= 0;
+			pressPulseShifter[62:0] <= {63{1'b1}};
+		end
+		else begin
+			
+			pressPulseShifter[14] <= pressPulseShifter[15];
+			pressPulseShifter[13] <= pressPulseShifter[14];
+			pressPulseShifter[12] <= pressPulseShifter[13];
+			pressPulseShifter[11] <= pressPulseShifter[12];
+			pressPulseShifter[10] <= pressPulseShifter[11];
+			pressPulseShifter[9] <= pressPulseShifter[10];
+			pressPulseShifter[8] <= pressPulseShifter[9];
+			pressPulseShifter[7] <= pressPulseShifter[8];
+			pressPulseShifter[6] <= pressPulseShifter[7];
+			pressPulseShifter[5] <= pressPulseShifter[6];
+			pressPulseShifter[4] <= pressPulseShifter[5];
+			pressPulseShifter[3] <= pressPulseShifter[4];
+			pressPulseShifter[2] <= pressPulseShifter[3];
+			pressPulseShifter[1] <= pressPulseShifter[2];
+			pressPulseShifter[0] <= pressPulseShifter[1];
+		end
+	end
 	//-----------------------------------------------------
 
 	// -------------------- STATES ------------------------
@@ -162,7 +191,7 @@ module PianissimoFinalProject (CLOCK_50,
 	wire drawScannerDoneDrawing, noteBlocksDoneDrawing;
 	wire [23:0] resetScreenColour;
 	drawToScreen drawScanner(CLOCK_50, nextAddress, drawScannerDoneDrawing, backgroundX, backgroundY, currentState);
-	resetScreen screenReseter(CLOCK_50, noteBlocksDoneDrawing, currentState, backgroundX, backgroundY, resetScreenColour);
+	resetScreen screenReseter(CLOCK_50, noteBlocksDoneDrawing, currentState, backgroundX, backgroundY, inputStateStorage, resetScreenColour);
 
 	wire randomTimerEnable;
 	MasterFSM masterFSM(CLOCK_50, resetn, inputStateStorage, currentState, randomTimerEnable);
@@ -175,9 +204,7 @@ module PianissimoFinalProject (CLOCK_50,
 	wire [7:0] mainStateOutputScreenX, mainStateOutputScreenY;
 	wire [2:0] currentSubState;
 	wire [61:0] retrievedNoteData;
-	wire keyPressPulse;
-	wire test;
-	mainStateHandler mainStateController(CLOCK_50, keyPressPulse, drawScannerDoneDrawing, mainStateOutputScreenX, mainStateOutputScreenY, currentState, currentSubState, inputStateStorage, mainStateColour, noteBlocksDoneDrawing, retrievedNoteData);
+	mainStateHandler mainStateController(CLOCK_50, resetn, drawScannerDoneDrawing, mainStateOutputScreenX, mainStateOutputScreenY, currentState, currentSubState, inputStateStorage, mainStateColour, noteBlocksDoneDrawing, retrievedNoteData);
 
 
 	always @* begin
@@ -190,7 +217,7 @@ module PianissimoFinalProject (CLOCK_50,
 
 			if (currentState == `STARTSCREEN) begin
 				plotWriteEnable <= 1;
-				colour <= 24'b1111_1111_0000; //startScreenColour
+				colour <= startScreenColour
 				screenX <= backgroundX;
 				screenY <= backgroundY;
 			end
@@ -225,10 +252,115 @@ module PianissimoFinalProject (CLOCK_50,
 	assign LEDR[8] = inputStateStorage[`keySpacebar];
 
 	assign LEDR[1] = recievedData == 8'hf0;
-	assign LEDR[0] = keyPressPulse;
+	assign LEDR[0] = pressPulseShifter[0];
 
 
 	// --------AUDIO CONTROLLER HERE ---------
+
+	input				AUD_ADCDAT;
+
+	inout				AUD_BCLK;
+	inout				AUD_ADCLRCK;
+	inout				AUD_DACLRCK;
+	inout				FPGA_I2C_SDAT;
+
+	output				AUD_XCK;
+	output				AUD_DACDAT;
+	output				FPGA_I2C_SCLK;
+
+
+	wire				audio_out_allowed;
+	wire		[31:0]	left_channel_audio_out;
+	wire		[31:0]	right_channel_audio_out;
+	wire				write_audio_out;
+
+	//not used (for taking audio input used in controller)
+	wire				audio_in_available;
+	wire		[31:0]	left_channel_audio_in;
+	wire		[31:0]	right_channel_audio_in;
+	wire				read_audio_in;
+
+
+	reg [18:0] delay_cnt;
+	wire [5:0] delay;
+	reg [5:0] modifiedDelay;
+	reg snd;
+
+	reg [22:0] lengthOfNote;
+	reg [11:0] noteAccessAddress;
+
+	c5ROM noteC5(noteAccessAddress, CLOCK_50, delay);
+
+	always @(*) begin
+		if (inputStateStorage[`keyTab]) modifiedDelay <= delay >> 1;
+		else modifiedDelay <= delay;
+	end
+
+	always @(posedge CLOCK_50) begin
+		if (delay_cnt == modifiedDelay) begin
+			delay_cnt <= 0;
+			snd <= !snd;
+		end
+		else delay_cnt <= delay_cnt + 1;
+
+
+		if (lengthOfNote == 23'd5_000_000) begin
+			lengthOfNote <= 23'd0;
+			if (noteAccessAddress < 12'd3917) noteAccessAddress <= noteAccessAddress + 1;
+			else begin
+				noteAccessAddress <= 0;
+				lengthOfNote <= 0;
+			end
+		end
+	end
+
+	
+	wire [31:0] outputSound = (|inputStateStorage[28:0]) ? (snd ? 32'd100000000 : -32'd100000000) : 0;
+
+	assign read_audio_in			= audio_in_available & audio_out_allowed;
+	assign left_channel_audio_out	= outputSound;
+	assign right_channel_audio_out	= outputSound;
+	assign write_audio_out			= audio_in_available & audio_out_allowed;
+
+	Audio_Controller Audio_Controller (
+	// Inputs
+	.CLOCK_50						(CLOCK_50),
+	.reset						(~KEY[0]),
+
+	.clear_audio_in_memory		(),
+	.read_audio_in				(read_audio_in),
+	
+	.clear_audio_out_memory		(),
+	.left_channel_audio_out		(left_channel_audio_out),
+	.right_channel_audio_out	(right_channel_audio_out),
+	.write_audio_out			(write_audio_out),
+
+	.AUD_ADCDAT					(AUD_ADCDAT),
+
+	// Bidirectionals
+	.AUD_BCLK					(AUD_BCLK),
+	.AUD_ADCLRCK				(AUD_ADCLRCK),
+	.AUD_DACLRCK				(AUD_DACLRCK),
+
+
+	// Outputs
+	.audio_in_available			(audio_in_available),
+	.left_channel_audio_in		(left_channel_audio_in),
+	.right_channel_audio_in		(right_channel_audio_in),
+
+	.audio_out_allowed			(audio_out_allowed),
+
+	.AUD_XCK					(AUD_XCK),
+	.AUD_DACDAT					(AUD_DACDAT)
+
+	);
+
+	avconf #(.USE_MIC_INPUT(1)) avc (
+	.FPGA_I2C_SCLK					(FPGA_I2C_SCLK),
+	.FPGA_I2C_SDAT					(FPGA_I2C_SDAT),
+	.CLOCK_50						(CLOCK_50),
+	.reset							(~KEY[0])
+	);
 	
 endmodule
 
@@ -241,22 +373,22 @@ module displayStateHEX (currentStateDisplay, currentSubStateDisplay, HEX0, HEX1,
 		case(currentStateDisplay)
 			`STARTSCREEN: begin
 				HEX2 = ~(7'b1101101); //S
-				HEX1 = ~(7'b1111001); //t
-				HEX0 = ~(7'b1010111); //r
+				HEX1 = ~(7'b1111000); //t
+				HEX0 = ~(7'b1010000); //r
 			end
 			`RECORD: begin
-				HEX2 = ~(7'b1010111); //R 
+				HEX2 = ~(7'b1010000); //R 
 				HEX1 = ~(7'b1111001); //E
 				HEX0 = ~(7'b0111001); //C
 			end
 			`PLAYBACK: begin
-				HEX2 = ~(7'b1110001); //P 
+				HEX2 = ~(7'b1110011); //P 
 				HEX1 = ~(7'b0111000); //l
 				HEX0 = ~(7'b1101110); //y
 			end
 			`RESTARTPLAYBACK: begin
-				HEX2 = ~(7'b1010111); //r
-				HEX1 = ~(7'b1111001); //t
+				HEX2 = ~(7'b1010000); //r
+				HEX1 = ~(7'b1111000); //t
 				HEX0 = ~(7'b1111001); //t
 			end
 			default: begin
@@ -275,6 +407,11 @@ module displayStateHEX (currentStateDisplay, currentSubStateDisplay, HEX0, HEX1,
 				HEX5 = ~(7'b1010000); //R 
 				HEX4 = ~(7'b1111001); //E
 				HEX3 = ~(7'b0111001); //C
+			end
+			`subWRITESTARTOFNOTE: begin
+				HEX5 = ~(7'b1010000); //R 
+				HEX4 = ~(7'b0000110); //s
+				HEX3 = ~(7'b1111000); //n
 			end
 			`subDRAWNOTEBLOCK: begin
 				HEX5 = ~(7'b1011111); //d
