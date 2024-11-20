@@ -30,7 +30,7 @@ reg Enable;
 
 wire [31:0] sound;
 
-
+/*
 wire [31:0] sound0;
 wire [31:0] sound1;
 wire [31:0] sound2;
@@ -56,7 +56,7 @@ wire [31:0] sound9;
 sineWaveGenerator zero_sine (.Clk(Clk), .frequencyVal(delay), .wave(wave0); 
 
 muxxywuxxy zero (.a(SW[0]), .b(wave0), .c(sound0));
-
+*/
 sineWaveGenerator sophia_OG (.Clk(Clk), .frequencyVal(delay), .wave(wave);
 
 initial Enable = 0;
