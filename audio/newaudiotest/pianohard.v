@@ -29,6 +29,7 @@ reg [18:0] delay;
 reg Enable;
 
 wire [31:0] sound;
+wire [31:0] wave;
 
 /*
 wire [31:0] sound0;
