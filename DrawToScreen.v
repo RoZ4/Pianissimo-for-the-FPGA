@@ -60,7 +60,7 @@ module resetScreen (clk, noteBlocksDoneDrawing, currentState, inputDrawScreenPos
 	always @(*) begin //was clk
 		if (currentState == `RECORD || noteBlocksDoneDrawing) begin
 			if (inputDrawScreenPosY < 8'd92) begin
-				outputColour <= 24'b00000000_00000000_00000000;
+				outputColour <= `COLOURWHITE;
 			end
 			else begin
 				// `ifdef SIMULATION
@@ -68,78 +68,79 @@ module resetScreen (clk, noteBlocksDoneDrawing, currentState, inputDrawScreenPos
 				// `else
 				// outputColour <= pianoColour;
 				// `endif
-				if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 4 && inputDrawScreenPosX < 12) begin
-					outputColour <= inputStateStorage[`key1] ? `COLOURWHENKEYPRESSED : 24'b11111111_11111111_11111111;
+				// Black notes
+				if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 4 && inputDrawScreenPosX < 12) begin //C#
+					outputColour <= inputStateStorage[`key1] ? `COLOURWHENBLACKPRESSED : `COLOURBLACK;
 				end
-				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 18 && inputDrawScreenPosX < 26) begin
-					outputColour <= inputStateStorage[`key2] ? `COLOURWHENKEYPRESSED : 24'b11111111_11111111_11111111;
+				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 18 && inputDrawScreenPosX < 26) begin //D#
+					outputColour <= inputStateStorage[`key2] ? `COLOURWHENBLACKPRESSED : `COLOURBLACK;
 				end
-				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 39 && inputDrawScreenPosX < 47) begin
-					outputColour <= inputStateStorage[`key4] ? `COLOURWHENKEYPRESSED : 24'b11111111_11111111_11111111;
+				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 39 && inputDrawScreenPosX < 47) begin //F#
+					outputColour <= inputStateStorage[`key4] ? `COLOURWHENBLACKPRESSED : `COLOURBLACK;
 				end
-				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 52 && inputDrawScreenPosX < 60) begin
-					outputColour <= inputStateStorage[`key5] ? `COLOURWHENKEYPRESSED : 24'b11111111_11111111_11111111;
+				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 52 && inputDrawScreenPosX < 60) begin //G#
+					outputColour <= inputStateStorage[`key5] ? `COLOURWHENBLACKPRESSED : `COLOURBLACK;
 				end
-				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 65 && inputDrawScreenPosX < 73) begin
-					outputColour <= inputStateStorage[`key6] ? `COLOURWHENKEYPRESSED : 24'b11111111_11111111_11111111;
+				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 65 && inputDrawScreenPosX < 73) begin //A#
+					outputColour <= inputStateStorage[`key6] ? `COLOURWHENBLACKPRESSED : `COLOURBLACK;
 				end
-				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosY < 19 && inputDrawScreenPosX > 86 && inputDrawScreenPosX < 94) begin
-					outputColour <= inputStateStorage[`key8] ? `COLOURWHENKEYPRESSED : 24'b11111111_11111111_11111111;
+				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 86 && inputDrawScreenPosX < 94) begin //C#
+					outputColour <= inputStateStorage[`key8] ? `COLOURWHENBLACKPRESSED : `COLOURBLACK;
 				end
-				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 100 && inputDrawScreenPosX < 108) begin
-					outputColour <= inputStateStorage[`key9] ? `COLOURWHENKEYPRESSED : 24'b11111111_11111111_11111111;
+				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 100 && inputDrawScreenPosX < 108) begin //D#
+					outputColour <= inputStateStorage[`key9] ? `COLOURWHENBLACKPRESSED : `COLOURBLACK;
 				end
-				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 121 && inputDrawScreenPosX < 129) begin
-					outputColour <= inputStateStorage[`keyMinus] ? `COLOURWHENKEYPRESSED : 24'b11111111_11111111_11111111;
+				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 121 && inputDrawScreenPosX < 129) begin //F#
+					outputColour <= inputStateStorage[`keyMinus] ? `COLOURWHENBLACKPRESSED : `COLOURBLACK;
 				end
-				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 134 && inputDrawScreenPosX < 142) begin
-					outputColour <= inputStateStorage[`keyEquals] ? `COLOURWHENKEYPRESSED : 24'b11111111_11111111_11111111;
+				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 134 && inputDrawScreenPosX < 142) begin //G#
+					outputColour <= inputStateStorage[`keyEquals] ? `COLOURWHENBLACKPRESSED : `COLOURBLACK;
 				end
-				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 147 && inputDrawScreenPosX < 155) begin
-					outputColour <= inputStateStorage[`keyBackspace] ? `COLOURWHENKEYPRESSED : 24'b11111111_11111111_11111111;
+				else if (inputDrawScreenPosY < 111 && inputDrawScreenPosX > 147 && inputDrawScreenPosX < 155) begin //A#
+					outputColour <= inputStateStorage[`keyBackspace] ? `COLOURWHENBLACKPRESSED : `COLOURBLACK;
 				end
 				else begin
 					if (inputDrawScreenPosX < 9) begin
-						outputColour <= inputStateStorage[`keyTab] ? `COLOURWHENKEYPRESSED : 24'b00000000_00000000_00000000;
+						outputColour <= inputStateStorage[`keyTab] ? `COLOURWHENWHITEPRESSED : `COLOURWHITE;
 					end
 					else if (inputDrawScreenPosX > 10 && inputDrawScreenPosX < 20) begin
-						outputColour <= inputStateStorage[`keyQ] ? `COLOURWHENKEYPRESSED : 24'b00000000_00000000_00000000;
+						outputColour <= inputStateStorage[`keyQ] ? `COLOURWHENWHITEPRESSED : `COLOURWHITE;
 					end
 					else if (inputDrawScreenPosX > 21 && inputDrawScreenPosX < 32) begin
-						outputColour <= inputStateStorage[`keyW] ? `COLOURWHENKEYPRESSED : 24'b00000000_00000000_00000000;
+						outputColour <= inputStateStorage[`keyW] ? `COLOURWHENWHITEPRESSED : `COLOURWHITE;
 					end
 					else if (inputDrawScreenPosX > 33 && inputDrawScreenPosX < 44) begin
-						outputColour <= inputStateStorage[`keyE] ? `COLOURWHENKEYPRESSED : 24'b00000000_00000000_00000000;
+						outputColour <= inputStateStorage[`keyE] ? `COLOURWHENWHITEPRESSED : `COLOURWHITE;
 					end
 					else if (inputDrawScreenPosX > 45 && inputDrawScreenPosX < 56) begin
-						outputColour <= inputStateStorage[`keyR] ? `COLOURWHENKEYPRESSED : 24'b00000000_00000000_00000000;
+						outputColour <= inputStateStorage[`keyR] ? `COLOURWHENWHITEPRESSED : `COLOURWHITE;
 					end
 					else if (inputDrawScreenPosX > 56 && inputDrawScreenPosX < 67) begin
-						outputColour <= inputStateStorage[`keyT] ? `COLOURWHENKEYPRESSED : 24'b00000000_00000000_00000000;
+						outputColour <= inputStateStorage[`keyT] ? `COLOURWHENWHITEPRESSED : `COLOURWHITE;
 					end
 					else if (inputDrawScreenPosX > 68 && inputDrawScreenPosX < 79) begin
-						outputColour <= inputStateStorage[`keyY] ? `COLOURWHENKEYPRESSED : 24'b00000000_00000000_00000000;
+						outputColour <= inputStateStorage[`keyY] ? `COLOURWHENWHITEPRESSED : `COLOURWHITE;
 					end
 					else if (inputDrawScreenPosX > 80 && inputDrawScreenPosX < 91) begin
-						outputColour <= inputStateStorage[`keyU] ? `COLOURWHENKEYPRESSED : 24'b00000000_00000000_00000000;
+						outputColour <= inputStateStorage[`keyU] ? `COLOURWHENWHITEPRESSED : `COLOURWHITE;
 					end
 					else if (inputDrawScreenPosX > 92 && inputDrawScreenPosX < 102) begin
-						outputColour <= inputStateStorage[`keyI] ? `COLOURWHENKEYPRESSED : 24'b00000000_00000000_00000000;
+						outputColour <= inputStateStorage[`keyI] ? `COLOURWHENWHITEPRESSED : `COLOURWHITE;
 					end
 					else if (inputDrawScreenPosX > 103 && inputDrawScreenPosX < 114) begin
-						outputColour <= inputStateStorage[`keyO] ? `COLOURWHENKEYPRESSED : 24'b00000000_00000000_00000000;
+						outputColour <= inputStateStorage[`keyO] ? `COLOURWHENWHITEPRESSED : `COLOURWHITE;
 					end
 					else if (inputDrawScreenPosX > 115 && inputDrawScreenPosX < 126) begin
-						outputColour <= inputStateStorage[`keyP] ? `COLOURWHENKEYPRESSED : 24'b00000000_00000000_00000000;
+						outputColour <= inputStateStorage[`keyP] ? `COLOURWHENWHITEPRESSED : `COLOURWHITE;
 					end
 					else if (inputDrawScreenPosX > 127 && inputDrawScreenPosX < 138) begin
-						outputColour <= inputStateStorage[`keyLSquareBracket] ? `COLOURWHENKEYPRESSED : 24'b00000000_00000000_00000000;
+						outputColour <= inputStateStorage[`keyLSquareBracket] ? `COLOURWHENWHITEPRESSED : `COLOURWHITE;
 					end
 					else if (inputDrawScreenPosX > 138 && inputDrawScreenPosX < 149) begin
-						outputColour <= inputStateStorage[`keyRSquareBracket] ? `COLOURWHENKEYPRESSED : 24'b00000000_00000000_00000000;
+						outputColour <= inputStateStorage[`keyRSquareBracket] ? `COLOURWHENWHITEPRESSED : `COLOURWHITE;
 					end
 					else if (inputDrawScreenPosX > 150) begin
-						outputColour <= inputStateStorage[`keyBackslash] ? `COLOURWHENKEYPRESSED : 24'b00000000_00000000_00000000;
+						outputColour <= inputStateStorage[`keyBackslash] ? `COLOURWHENWHITEPRESSED : `COLOURWHITE;
 					end
 					else outputColour <= 24'b10011111_10011111_10011111;
 				end

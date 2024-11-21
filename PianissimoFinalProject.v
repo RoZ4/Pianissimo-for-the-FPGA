@@ -196,8 +196,8 @@ module PianissimoFinalProject (CLOCK_50,
 	wire randomTimerEnable;
 	MasterFSM masterFSM(CLOCK_50, resetn, inputStateStorage, currentState, randomTimerEnable);
 
-	wire [23:0] startScreenColour, mainStateColour;
-	startScreenHandler startScreenController(CLOCK_50, nextAddress, startScreenColour);
+	wire [23:0] mainStateColour; // startScreenColour
+	//startScreenHandler startScreenController(CLOCK_50, nextAddress, startScreenColour);
 			
 	
 
@@ -216,10 +216,10 @@ module PianissimoFinalProject (CLOCK_50,
 			rdAddress <= nextAddress;
 
 			if (currentState == `STARTSCREEN) begin
-				plotWriteEnable <= 1;
-				colour <= startScreenColour
-				screenX <= backgroundX;
-				screenY <= backgroundY;
+				plotWriteEnable <= 0;
+				// colour <= startScreenColour;
+				// screenX <= backgroundX;
+				// screenY <= backgroundY;
 			end
 
 			else if (currentState == `RECORD) begin
@@ -281,41 +281,99 @@ module PianissimoFinalProject (CLOCK_50,
 	wire				read_audio_in;
 
 
-	reg [18:0] delay_cnt;
-	wire [5:0] delay;
-	reg [5:0] modifiedDelay;
-	reg snd;
-
-	reg [22:0] lengthOfNote;
-	reg [11:0] noteAccessAddress;
-
-	c5ROM noteC5(noteAccessAddress, CLOCK_50, delay);
-
-	always @(*) begin
-		if (inputStateStorage[`keyTab]) modifiedDelay <= delay >> 1;
-		else modifiedDelay <= delay;
-	end
-
-	always @(posedge CLOCK_50) begin
-		if (delay_cnt == modifiedDelay) begin
-			delay_cnt <= 0;
-			snd <= !snd;
-		end
-		else delay_cnt <= delay_cnt + 1;
+	// wire signed [7:0] c5amplitude, voiceAmplitude, outputAmplitude;
+	// reg [12:0] samplesPerSecondCounter;
+	// reg [12:0] c5AccessAddress;
+	// reg [14:0] voiceAccessAddress;
 
 
-		if (lengthOfNote == 23'd5_000_000) begin
-			lengthOfNote <= 23'd0;
-			if (noteAccessAddress < 12'd3917) noteAccessAddress <= noteAccessAddress + 1;
-			else begin
-				noteAccessAddress <= 0;
-				lengthOfNote <= 0;
-			end
-		end
-	end
+	// c5ROM noteC5(c5AccessAddress, CLOCK_50, c5amplitude);
+	// voiceROM voiceTest(voiceAccessAddress, CLOCK_50, voiceAmplitude);
+
+
+	// always @(posedge CLOCK_50) begin
+
+	// 	if (voiceAccessAddress == 23406) voiceAccessAddress <= 0;
+	// 	if (c5AccessAddress == 5222) c5AccessAddress <= 0;
+
+	// 	if (~|inputStateStorage[28:0]) begin
+	// 		c5AccessAddress <= 0;
+	// 		voiceAccessAddress <= 0;
+	// 		samplesPerSecondCounter <= 0;
+	// 	end
+	// 	else if (samplesPerSecondCounter == 13'd6250) begin //6250 corosponds to 8kHz
+	// 		samplesPerSecondCounter <= 0;
+	// 		if (inputStateStorage[`keyTab]) voiceAccessAddress <= voiceAccessAddress + 1;
+	// 		else c5AccessAddress <= c5AccessAddress + 1;
+			
+			
+	// 	end
+	// 	else samplesPerSecondCounter <= samplesPerSecondCounter + 1;
+	// end
+
+	// assign outputAmplitude = c5amplitude + voiceAmplitude;
 
 	
-	wire [31:0] outputSound = (|inputStateStorage[28:0]) ? (snd ? 32'd100000000 : -32'd100000000) : 0;
+	// wire [31:0] outputSound = (|inputStateStorage[28:0]) ? outputAmplitude << 24 : 0; //(snd ? 32'd100000000 : -32'd100000000)
+
+
+	wire signed [7:0] voiceAmplitude, C5amplitude, B4amplitude, AS4amplitude, A4amplitude, GS4amplitude, G4amplitude, FS4amplitude;
+	wire signed [7:0] outputAmplitude;
+	reg [12:0] C5AccessAddress, B4AccessAddress, AS4AccessAddress, A4AccessAddress, GS4AccessAddress, G4AccessAddress, FS4AccessAddress;
+	reg [12:0] samplesPerSecondCounter;
+	reg [14:0] voiceAccessAddress;
+
+
+	PianoNoteROM noteC5(C5AccessAddress, CLOCK_50, C5amplitude);
+	voiceROM voice(voiceAccessAddress, CLOCK_50, voiceAmplitude);
+	// PianoNoteROM noteB4(B4AccessAddress, CLOCK_50, B4amplitude);
+	// PianoNoteROM noteAS4(AS4AccessAddress, CLOCK_50, AS4amplitude);
+	// PianoNoteROM noteA4(A4AccessAddress, CLOCK_50, A4amplitude);
+	// PianoNoteROM noteGS4(GS4AccessAddress, CLOCK_50, GS4amplitude);
+	// PianoNoteROM noteG4(G4AccessAddress, CLOCK_50, G4amplitude);
+	// PianoNoteROM noteFS4(FS4AccessAddress, CLOCK_50, FS4amplitude);
+
+	// defparam noteAS4.INITFILE = "./AudioMifs/A#4.mif",
+	// 		noteA4.INITFILE = "./AudioMifs/A4.mif",
+	// 		noteB4.INITFILE = "./AudioMifs/B4.mif",
+	// 		noteFS4.INITFILE = "./AudioMifs/F#4.mif",
+	// 		noteGS4.INITFILE = "./AudioMifs/G#4.mif",
+	// 		noteG4.INITFILE = "./AudioMifs/G4.mif";
+
+	always @(posedge CLOCK_50) begin
+
+		if (~|inputStateStorage[28:0]) begin
+			C5AccessAddress <= 0;
+			voiceAccessAddress <= 0;
+			// B4AccessAddress <= 0;
+			// AS4AccessAddress <= 0;
+			// A4AccessAddress <= 0;
+			// GS4AccessAddress <= 0;
+			// G4AccessAddress <= 0;
+			// FS4AccessAddress <= 0;
+
+			samplesPerSecondCounter <= 0;
+		end
+		else if (samplesPerSecondCounter == 13'd6250) begin //6250 corosponds to 8kHz
+			samplesPerSecondCounter <= 0;
+			if (inputStateStorage[`keyU] && C5AccessAddress != 5222) C5AccessAddress <= C5AccessAddress + 1;
+			if (inputStateStorage[`keyTab] && voiceAccessAddress != 23406) voiceAccessAddress <= voiceAccessAddress + 1;
+			// if (inputStateStorage[`keyY] && B4AccessAddress != 5222) B4AccessAddress <= B4AccessAddress + 1;
+			// if (inputStateStorage[`keyT] && AS4AccessAddress != 5222) AS4AccessAddress <= AS4AccessAddress + 1;
+			// if (inputStateStorage[`keyR] && A4AccessAddress != 5222) A4AccessAddress <= A4AccessAddress + 1;
+			// if (inputStateStorage[`keyE] && GS4AccessAddress != 5222) GS4AccessAddress <= GS4AccessAddress + 1;
+			// if (inputStateStorage[`keyW] && G4AccessAddress != 5222) G4AccessAddress <= FS4AccessAddress + 1;
+			// if (inputStateStorage[`keyQ] && FS4AccessAddress != 5222) FS4AccessAddress <= FS4AccessAddress + 1;
+			
+		end
+		else samplesPerSecondCounter <= samplesPerSecondCounter + 1;
+	end
+
+	assign outputAmplitude = C5amplitude + voiceAmplitude; //+ B4amplitude + AS4amplitude + A4amplitude + GS4amplitude + G4amplitude + FS4amplitude;
+
+	
+	wire [31:0] outputSound = (|inputStateStorage[28:0]) ? outputAmplitude << 24 : 0; //(snd ? 32'd100000000 : -32'd100000000)
+
 
 	assign read_audio_in			= audio_in_available & audio_out_allowed;
 	assign left_channel_audio_out	= outputSound;
