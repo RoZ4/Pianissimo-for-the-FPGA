@@ -4,7 +4,7 @@ Address_radix=dec;
 Data_radix=dec;
 Content
 BEGIN
-0	:	127;
+0	:	0;
 1	:	128;
 2	:	127;
 3	:	127;

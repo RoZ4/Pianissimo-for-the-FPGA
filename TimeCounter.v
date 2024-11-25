@@ -7,7 +7,7 @@ module timeCounter (clk, reset, timerEnable, microSecondCounter);
 	`ifndef SIMULATION
 		upLoopCounter_29b clockCount (clk, reset, timerEnable, 29'd1000000, microSecondEnable);
 	`else
-		upLoopCounter_29b clockCount (clk, reset, timerEnable, 29'd1000, microSecondEnable);
+		upLoopCounter_29b clockCount (clk, reset, timerEnable, 29'd10, microSecondEnable);
 	`endif
 	upLoopCounter_29b outputCount (clk, reset, ~|microSecondEnable && timerEnable, 29'd300000000, microSecondCounter);
 endmodule
@@ -21,7 +21,7 @@ module upLoopCounter_29b(clk, resetn, enable, maxCount, regOut);
 	
 	always @(posedge clk, posedge resetn) begin
 		if (resetn)
-			regOut <= 29'd0;
+			regOut <= 29'd1;
 			
 		else if(enable) begin
 			if (regOut >= maxCount) // Time for update
@@ -46,6 +46,18 @@ module downCounter_9b(clk, resetn, enable, maxCount, regOut);
 			regOut <= regOut-1;
 		end
 		
+	end
+endmodule
+
+module downCounter_nbit(clk, resetn, enable, maxCount, regOut);
+	parameter numberOfBits = 4;
+	input clk, resetn, enable;
+	input [numberOfBits-1:0] maxCount;
+	output reg [numberOfBits-1:0] regOut;
+
+	always @(posedge clk, posedge resetn) begin
+		if (resetn) regOut <= maxCount;
+		else if (enable) regOut <= regOut - 1;
 	end
 endmodule
 

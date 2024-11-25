@@ -30,20 +30,30 @@ module testbench ( );
 	// KEY IS OPPOSITE !!!!!!!
 	initial begin
         KEY[0] <= 1'b0; #20 KEY[0] <= 1'b1;
-	#25000
-	force U1.recievedNewData = 1'b1;
-	#CLOCK_PERIOD
-	force U1.recievedNewData = 1'b0;
+	#10
 	force U1.inputStateStorage[`keySpacebar] = 1'b1;
+	force U1.mainStateDrumsController.nextSubState = `subSTARTNOTERECORDING;
 	force U1.inputStateStorage[`keyBackslash] = 1'b0;
-	#25000
+	#10
 	force U1.inputStateStorage[`keySpacebar] = 1'b0;
-
+	force U1.inputStateStorage[`keyF] = 1'b1;
+	release U1.mainStateDrumsController.nextSubState;
+	#50
+	force U1.inputStateStorage[`keyF] = 1'b0;
+	#200
+	force U1.inputStateStorage[`keyG] = 1'b1;
+	#50
+	force U1.inputStateStorage[`keyG] = 1'b0;
+	#50
+	force U1.inputStateStorage[`keySpacebar] = 1'b1;
+	#10
+	force U1.inputStateStorage[`keySpacebar] = 1'b0;
+	
+	
 
 	end // initial
 
 	PianissimoFinalProjectModelsim U1 (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, PS2_CLK, PS2_DAT, KEY, HEX0, HEX1, HEX2, HEX3, HEX4, HEX5, HEX6);
-
     //initial begin $monitor("time=%0d, reset=%b, counter=%d, hex=%7b", $time, KEY[0], slowCounterOut, HEX0); end 
 
 endmodule

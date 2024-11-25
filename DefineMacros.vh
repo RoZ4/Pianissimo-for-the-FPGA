@@ -1,9 +1,16 @@
+`ifdef SIMULATION
+`define DRUMNOTEADDRESSLENGTH 3
+`else
+`define DRUMNOTEADDRESSLENGTH 2938
+`endif
+
+
 `define STARTSCREEN 5'd0
 `define RECORD 5'd1
 `define PLAYBACK 5'd2
 `define RESTARTPLAYBACK 5'd3
 
-`define NUMBEROFKEYBOARDINPUTS 31
+`define NUMBEROFKEYBOARDINPUTS 36
 
 
 // -------------- Colours ----------------
@@ -41,17 +48,30 @@
 `define keyLSquareBracket 25
 `define keyRSquareBracket 26
 `define keyBackslash 27
-`define keySpacebar 28
-`define keyReleasePulse 29
-`define keyPressPulse 30
+
+`define keyF 28
+`define keyG 29
+`define keyH 30
+`define keyJ 31
+`define keySpacebar 32
+`define keyEnter 33
+`define keyReleasePulse 34
+`define keyPressPulse 35
 
 // -------- Sub-States Used in mainStatehandler ----------
 `define subIDLE 4'd0
 `define subSTARTNOTERECORDING 4'd1
 `define subWRITESTARTOFNOTE 4'd2
-`define subWRITEENDOFNOTE 4'd3
-`define subSCANMEMORYFORWRITEEND 4'd4
-`define subRESETPLAYBACK 4'd5
-`define subDRAWNEWNOTEBLOCK 4'd6
-`define subDRAWNOTEBLOCK 4'd7
-`define subDONEDRAWING 4'd8
+`define subAWAITNOTEEND 4'd3
+`define subRESETPLAYBACK 4'd4
+`define subPLAYDRUMNOTE 4'd5
+`define subCLEARMEMORY 4'd6
+
+`define subWRITEENDOFNOTE 4'd4
+
+`define subSCANMEMORYFORWRITEEND 4'd5
+
+
+`define subDRAWNEWNOTEBLOCK 4'd7
+`define subDRAWNOTEBLOCK 4'd8
+`define subDONEDRAWING 4'd9

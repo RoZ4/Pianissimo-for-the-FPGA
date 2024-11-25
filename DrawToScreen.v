@@ -1,8 +1,9 @@
 `include "DefineMacros.vh"
 
-module drawToScreen (clk, nextAddress, doneDrawing, outputDrawScreenPosX, outputDrawScreenPosY, currentState);
+module drawToScreen (clk, nextAddress, inputStateStorage, doneDrawing, outputDrawScreenPosX, outputDrawScreenPosY, currentState);
 	input clk;
 	input [4:0] currentState;
+	input [`NUMBEROFKEYBOARDINPUTS:0] inputStateStorage;
 	output reg doneDrawing;
 	output reg [14:0] nextAddress;
 	output reg [7:0] outputDrawScreenPosX = 0, outputDrawScreenPosY = 0;
@@ -26,7 +27,7 @@ module drawToScreen (clk, nextAddress, doneDrawing, outputDrawScreenPosX, output
 			nextAddress <= nextAddress + 1;
 		end
 
-		if (outputDrawScreenPosX == 8'd159 && outputDrawScreenPosY == 8'd119) begin
+		if ((outputDrawScreenPosX == 8'd159 && outputDrawScreenPosY == 8'd119) || currentState == `STARTSCREEN || inputStateStorage[`keySpacebar]) begin
 			outputDrawScreenPosX <= 0;
 			outputDrawScreenPosY <= 0;
 			doneDrawing <= 1;
@@ -36,12 +37,26 @@ module drawToScreen (clk, nextAddress, doneDrawing, outputDrawScreenPosX, output
 	end
 endmodule
 
-module resetScreen (clk, noteBlocksDoneDrawing, currentState, inputDrawScreenPosX, inputDrawScreenPosY,  inputStateStorage, outputColour);
+module resetScreen (clk, noteBlocksDoneDrawing, currentState, inputDrawScreenPosX, inputDrawScreenPosY,  inputStateStorage, retrievedNoteDataNote, playDrumNote, outputColour);
 	input clk, noteBlocksDoneDrawing;
 	input [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStorage;
 	input [7:0] inputDrawScreenPosX, inputDrawScreenPosY;
+	input [1:0] retrievedNoteDataNote;
+	input playDrumNote;
 	input [4:0] currentState;
 	output reg [23:0] outputColour;
+
+	reg [12:0] internalDrumkitBackgroundAddress = 0;
+	reg [10:0] BassdrumAddress = 0;
+	reg [9:0] cymbelAddress = 0;
+	reg [7:0] middleDrumAddress = 0;
+	reg [8:0] topLeftDrumAddress = 0;
+
+	wire [23:0] dkbkColour;
+	wire bassDrumColour;
+	wire cymbelColour;
+	wire middleDrumColour;
+	wire topLeftDrumColour;
 	
 	// wire [23:0] pianoColour;
 	// reg [12:0] internalPianoAddress = 0;
@@ -57,10 +72,49 @@ module resetScreen (clk, noteBlocksDoneDrawing, currentState, inputDrawScreenPos
 
 	// end
 
+	DrumkitBackgroundROM dkbk(internalDrumkitBackgroundAddress, clk, dkbkColour);
+	BassdrumROM bass(BassdrumAddress, clk, bassDrumColour);
+	cymbelROM cymbel(cymbelAddress, clk, cymbelColour);
+	middleDrumROM middle(middleDrumAddress, clk, middleDrumColour);
+	topLeftDrumROM topleft(topLeftDrumAddress, clk, topLeftDrumColour);
+
+	always @(posedge clk) begin
+		if (inputDrawScreenPosX == 0 && inputDrawScreenPosY == 0) begin
+			internalDrumkitBackgroundAddress <= 0;
+			BassdrumAddress <= 0;
+			cymbelAddress <= 0;
+			middleDrumAddress <= 0;
+			topLeftDrumAddress <= 0;
+		end
+
+		if (internalDrumkitBackgroundAddress >= 7198) internalDrumkitBackgroundAddress <= 0;
+		if (BassdrumAddress >= 1722) BassdrumAddress <= 0;
+		if (cymbelAddress >= 570) cymbelAddress <= 0;
+		if (middleDrumAddress >= 198) middleDrumAddress <= 0;
+		if (topLeftDrumAddress >= 357) topLeftDrumAddress <= 0;
+		if (currentState == `RECORD || currentState == `PLAYBACK) begin
+			if (inputDrawScreenPosX > 21 && inputDrawScreenPosX < 140 && inputDrawScreenPosY > 10 && inputDrawScreenPosY < 72) begin
+				internalDrumkitBackgroundAddress <= internalDrumkitBackgroundAddress + 1;
+				if (inputDrawScreenPosX > 21 && inputDrawScreenPosX < 43 && inputDrawScreenPosY > 10 && inputDrawScreenPosY < 28) topLeftDrumAddress <= topLeftDrumAddress + 1;
+				if (inputDrawScreenPosX > 45 && inputDrawScreenPosX < 87 && inputDrawScreenPosY > 22 && inputDrawScreenPosY < 65) BassdrumAddress <= BassdrumAddress + 1;
+				if (inputDrawScreenPosX > 77 && inputDrawScreenPosX < 100 && inputDrawScreenPosY > 10 && inputDrawScreenPosY < 20) middleDrumAddress <= middleDrumAddress + 1;
+				if (inputDrawScreenPosX > 99 && inputDrawScreenPosX < 130 && inputDrawScreenPosY > 11 && inputDrawScreenPosY < 31) cymbelAddress <= cymbelAddress + 1;
+			end
+		end
+	end
+
 	always @(*) begin //was clk
-		if (currentState == `RECORD || noteBlocksDoneDrawing) begin
-			if (inputDrawScreenPosY < 8'd92) begin
-				outputColour <= `COLOURWHITE;
+		if (currentState == `RECORD || currentState == `PLAYBACK) begin
+			if ((inputDrawScreenPosX > 21 && inputDrawScreenPosX < 140 && inputDrawScreenPosY > 10 && inputDrawScreenPosY < 72) && (currentState == `RECORD || currentState == `PLAYBACK)) begin
+				outputColour <= dkbkColour;
+				if (topLeftDrumColour && inputDrawScreenPosX > 22 && inputDrawScreenPosX < 44 && inputDrawScreenPosY > 10 && inputDrawScreenPosY < 28) outputColour <= ((inputStateStorage[`keyF] && currentState == `RECORD) || (retrievedNoteDataNote == 2'd0 && playDrumNote)) ? 24'b11111111_11011000_00000000 : `COLOURBLACK;
+				else if (bassDrumColour && inputDrawScreenPosX > 46 && inputDrawScreenPosX < 88 && inputDrawScreenPosY > 21 && inputDrawScreenPosY < 64) outputColour <= ((inputStateStorage[`keyG] && currentState == `RECORD) || (retrievedNoteDataNote == 2'd1 && playDrumNote)) ? 24'b11111111_11011000_00000000 : `COLOURBLACK;
+				else if (middleDrumColour && inputDrawScreenPosX > 78 && inputDrawScreenPosX < 101 && inputDrawScreenPosY > 10 && inputDrawScreenPosY < 20) outputColour <= ((inputStateStorage[`keyH] && currentState == `RECORD) || (retrievedNoteDataNote == 2'd2 && playDrumNote)) ? 24'b11111111_11011000_00000000 : `COLOURBLACK;
+				else if (cymbelColour && inputDrawScreenPosX > 100 && inputDrawScreenPosX < 131 && inputDrawScreenPosY > 12 && inputDrawScreenPosY < 32) outputColour <= ((inputStateStorage[`keyJ] && currentState == `RECORD) || (retrievedNoteDataNote == 3'd2 && playDrumNote)) ? 24'b11111111_11011000_00000000 : `COLOURBLACK;
+				
+			end
+			else if (inputDrawScreenPosY < 8'd92) begin
+				outputColour <= 24'b10101010_00000000_01010101;
 			end
 			else begin
 				// `ifdef SIMULATION

@@ -312,6 +312,8 @@ set_location_assignment PIN_C10 -to VGA_SYNC_N
 set_location_assignment PIN_D11 -to VGA_VS
 set_global_assignment -name ALLOW_REGISTER_RETIMING ON
 set_global_assignment -name OPTIMIZATION_MODE BALANCED
+set_global_assignment -name VERILOG_FILE SquareWaveGenerator.v
+set_global_assignment -name VERILOG_FILE FSMs/MainStateHandlerDrums.v
 set_global_assignment -name VERILOG_FILE avconf/I2C_Controller.v
 set_global_assignment -name VERILOG_FILE avconf/avconf.v
 set_global_assignment -name VERILOG_FILE Audio_Controller/Audio_Controller.v
@@ -331,7 +333,6 @@ set_global_assignment -name VERILOG_FILE PS2_controller/Altera_UP_PS2_Data_In.v
 set_global_assignment -name VERILOG_FILE PS2_controller/Altera_UP_PS2_Command_Out.v
 set_global_assignment -name VERILOG_FILE FSMs/StartscreenHandler.v
 set_global_assignment -name VERILOG_FILE FSMs/MasterFSM.v
-set_global_assignment -name VERILOG_FILE FSMs/MainStateHandler.v
 set_global_assignment -name VERILOG_FILE TimeCounter.v
 set_global_assignment -name VERILOG_FILE StartScreen.v
 set_global_assignment -name VERILOG_FILE PianoROM.v

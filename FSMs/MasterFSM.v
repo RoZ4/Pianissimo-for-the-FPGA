@@ -16,7 +16,7 @@ module MasterFSM (clk, resetn, inputStateStorage, currentState, timerEnable);
 				else nextState = `STARTSCREEN;
 			end
 			`RECORD: begin
-				if (inputStateStorage[`keyBackslash]) nextState = `PLAYBACK;
+				if (inputStateStorage[`keyEnter]) nextState = `PLAYBACK;
 				else nextState = `RECORD;
 			end
 			`PLAYBACK: begin
