@@ -63,9 +63,11 @@
 `define subSTARTNOTERECORDING 4'd1
 `define subWRITESTARTOFNOTE 4'd2
 `define subAWAITNOTEEND 4'd3
-`define subRESETPLAYBACK 4'd4
-`define subPLAYDRUMNOTE 4'd5
-`define subCLEARMEMORY 4'd6
+`define subFINISHRECORD 4'd4
+`define subRESETPLAYBACK 4'd5
+`define subPLAYDRUMNOTE 4'd6
+`define subCLEARMEMORY 4'd7
+
 
 `define subWRITEENDOFNOTE 4'd4
 

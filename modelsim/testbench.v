@@ -34,21 +34,38 @@ module testbench ( );
 	force U1.inputStateStorage[`keySpacebar] = 1'b1;
 	force U1.mainStateDrumsController.nextSubState = `subSTARTNOTERECORDING;
 	force U1.inputStateStorage[`keyBackslash] = 1'b0;
-	#10
+	#200
 	force U1.inputStateStorage[`keySpacebar] = 1'b0;
 	force U1.inputStateStorage[`keyF] = 1'b1;
 	release U1.mainStateDrumsController.nextSubState;
-	#50
+	#100
 	force U1.inputStateStorage[`keyF] = 1'b0;
-	#200
+	#400
 	force U1.inputStateStorage[`keyG] = 1'b1;
-	#50
+	#100
 	force U1.inputStateStorage[`keyG] = 1'b0;
-	#50
+	#100
+	force U1.inputStateStorage[`keyEnter] = 1'b1;
+	#100
+	force U1.inputStateStorage[`keyEnter] = 1'b0;
+
+
+	#1500
 	force U1.inputStateStorage[`keySpacebar] = 1'b1;
-	#10
+	#20
 	force U1.inputStateStorage[`keySpacebar] = 1'b0;
-	
+	#200
+	force U1.inputStateStorage[`keyF] = 1'b1;
+	#200
+	force U1.inputStateStorage[`keyF] = 1'b0;
+	#600
+	force U1.inputStateStorage[`keyG] = 1'b1;
+	#100
+	force U1.inputStateStorage[`keyG] = 1'b0;
+	#100
+	force U1.inputStateStorage[`keyEnter] = 1'b1;
+	#100
+	force U1.inputStateStorage[`keyEnter] = 1'b0;
 	
 
 	end // initial

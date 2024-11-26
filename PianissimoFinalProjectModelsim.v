@@ -158,19 +158,22 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 	
 	wire drawScannerDoneDrawing, noteBlocksDoneDrawing;
 	wire [23:0] resetScreenColour;
-	wire [30:0] retrievedNoteData;
 	wire playDrumNote;
-	drawToScreen drawScanner(CLOCK_50, nextAddress, drawScannerDoneDrawing, backgroundX, backgroundY, currentState);
-	resetScreen screenReseter(CLOCK_50, noteBlocksDoneDrawing, currentState, backgroundX, backgroundY, inputStateStorage, retrievedNoteData[30:29], playDrumNote, resetScreenColour);
+	wire [31:0] retrievedNoteData;
+	drawToScreen drawScanner(CLOCK_50, nextAddress, inputStateStorage, drawScannerDoneDrawing, backgroundX, backgroundY, currentState);
+	resetScreen screenReseter(CLOCK_50, noteBlocksDoneDrawing, currentState, backgroundX, backgroundY, inputStateStorage, retrievedNoteData[31:29], playDrumNote, resetScreenColour);
 
 	wire randomTimerEnable;
 	MasterFSM masterFSM(CLOCK_50, resetn, inputStateStorage, currentState, randomTimerEnable);
 
-	wire [23:0] startScreenColour, mainStateColour;
-	startScreenHandler startScreenController(CLOCK_50, nextAddress, startScreenColour);
+	wire [23:0] mainStateColour; // startScreenColour
+	//startScreenHandler startScreenController(CLOCK_50, nextAddress, startScreenColour);
 			
+	
+
 	// wire [7:0] mainStateOutputScreenX, mainStateOutputScreenY;
 	wire [3:0] currentSubState;
+	
 	reg donePlayingDrumNote;
 	
 	// wire [61:0] retrievedNoteData;
@@ -181,19 +184,21 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 	always @* begin
 		if (masterResetAddress) begin
 			rdAddress <= 0;
+			
 		end
 		else begin
 			rdAddress <= nextAddress;
 
 			if (currentState == `STARTSCREEN) begin
-				plotWriteEnable <= 1;
-				colour <= startScreenColour;
-				screenX <= backgroundX;
-				screenY <= backgroundY;
+				plotWriteEnable <= 0;
+				// colour <= startScreenColour;
+				// screenX <= backgroundX;
+				// screenY <= backgroundY;
 			end
 
 			else if (currentState == `RECORD) begin
-				if (noteBlocksDoneDrawing)
+				colour <= resetScreenColour;
+
 				plotWriteEnable <= 1;
 				screenX <= backgroundX;
 				screenY <= backgroundY;
@@ -214,9 +219,32 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 
 	// ------SOUND --------
 
-	wire signed [31:0] squareWaveOutput;
-	squareWaveGenerator gen1(.clk(CLOCK_50), .inputStateStorage(inputStateStorage), .outputSound(squareWaveOutput));
+	reg [11:0] bassAddress = 0;
+	wire [7:0] bassAmplitude;
+	reg [12:0] samplesPerSecondCounter = 0;
+	DrumNoteROM bass(bassAddress, CLOCK_50, bassAmplitude);
+	defparam bass.INITFILE = "../AudioMifs/Bassdrum.mif";
 
+	always @(posedge CLOCK_50) begin
+		if (bassAddress == `DRUMNOTEADDRESSLENGTH) bassAddress <= 0;
+		if (inputStateStorage[`keyF]) begin
+			if (samplesPerSecondCounter == 3) begin 
+				bassAddress <= bassAddress + 1;
+				samplesPerSecondCounter <= 0;
+			end
+			else samplesPerSecondCounter <= samplesPerSecondCounter + 1;
+		end
+	end
+
+	wire [32:0] outputSound = bassAmplitude * 262144;
+
+	/*
+
+	wire signed [31:0] squareWaveOutputPiano, squareWaveOutputDrums;
+	squareWaveGeneratorPiano genP(.clk(CLOCK_50), .inputStateStorage(inputStateStorage), .outputSound(squareWaveOutputPiano));
+	squareWaveGeneratorDrums genD(.clk(CLOCK_50), .currentState(currentState), .retrievedNoteDataNote(retrievedNoteData[31:29]), .inputStateStorage(inputStateStorage), .playDrumNote(playDrumNote), .outputSound(squareWaveOutputDrums));
+
+	
 	wire signed [7:0] bassAmplitude, leftDrumAmplitude, middleDrumAmplitude, cymbelAmplitude;
 	reg signed [7:0] outputAmplitude;
 	reg [11:0] bassAddress = 0, leftDrumAddress = 0, middleDrumAddress = 0, cymbelAddress = 0;
@@ -245,33 +273,30 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 			donePlayingDrumNote <= 0;
 		end
 		else if (playDrumNote || currentState == `RECORD) begin
-			// if (~inputStateStorage[`keyU]) c5address <= 0;
-			// if (~inputStateStorage[`keyY]) b4address <= 0;
-
 			if (samplesPerSecondCounter == 13'd3) begin
 				samplesPerSecondCounter <= 0;
-				if ((retrievedNoteData[30:29] == 2'd0 || inputStateStorage[`keyF]) && leftDrumAddress != `DRUMNOTEADDRESSLENGTH) begin 
+				if ((retrievedNoteData[31:29] == 0 || inputStateStorage[`keyF]) && leftDrumAddress != `DRUMNOTEADDRESSLENGTH) begin 
 					donePlayingDrumNote <= 0;
 					leftDrumAddress <= leftDrumAddress + 1;
 				end
-				else if ((retrievedNoteData[30:29] == 2'd1 || inputStateStorage[`keyG]) && bassAddress != `DRUMNOTEADDRESSLENGTH) begin
+				else if ((retrievedNoteData[31:29] == 1 || inputStateStorage[`keyG]) && bassAddress != `DRUMNOTEADDRESSLENGTH) begin
 					donePlayingDrumNote <= 0;
 					bassAddress <= bassAddress + 1;
 				end
-				else if ((retrievedNoteData[30:29] == 2'd2 || inputStateStorage[`keyH]) && middleDrumAddress != `DRUMNOTEADDRESSLENGTH) begin
+				else if ((retrievedNoteData[31:29] == 2 || inputStateStorage[`keyH]) && middleDrumAddress != `DRUMNOTEADDRESSLENGTH) begin
 					donePlayingDrumNote <= 0;
 					middleDrumAddress <= middleDrumAddress + 1;
 				end
-				else if ((retrievedNoteData[30:29] == 2'd3 || inputStateStorage[`keyJ]) && cymbelAddress != `DRUMNOTEADDRESSLENGTH) begin
+				else if ((retrievedNoteData[31:29] == 3 || inputStateStorage[`keyJ]) && cymbelAddress != `DRUMNOTEADDRESSLENGTH) begin
 					donePlayingDrumNote <= 0;
 					cymbelAddress <= cymbelAddress + 1;
 				end
-				// if (inputStateStorage[`keyU] && c5address != 13'd2555) c5address <= c5address + 1;
-				// if (inputStateStorage[`keyY] && b4address != 13'd2555) b4address <= b4address + 1;
 				
 			end
 			else samplesPerSecondCounter <= samplesPerSecondCounter + 1;
 		end
+
+	
 
 		if (bassAddress == `DRUMNOTEADDRESSLENGTH) donePlayingDrumNote <= 1;
 		if (leftDrumAddress == `DRUMNOTEADDRESSLENGTH) donePlayingDrumNote <= 1;
@@ -280,78 +305,166 @@ module PianissimoFinalProjectModelsim (CLOCK_50, VGA_COLOR, VGA_X, VGA_Y, plot, 
 	end
 
 	always@(*) begin
-		if (retrievedNoteData[30:29] == 2'd0 || inputStateStorage[`keyF]) outputAmplitude <= leftDrumAmplitude;
-		else if (retrievedNoteData[30:29] == 2'd1 || inputStateStorage[`keyG]) outputAmplitude <= bassAmplitude;
-		else if (retrievedNoteData[30:29] == 2'd2 || inputStateStorage[`keyH]) outputAmplitude <= middleDrumAmplitude;
-		else if (retrievedNoteData[30:29] == 2'd3 || inputStateStorage[`keyJ]) outputAmplitude <= cymbelAmplitude;
+		if (retrievedNoteData[31:29] == 0 || inputStateStorage[`keyF]) outputAmplitude <= leftDrumAmplitude;
+		else if (retrievedNoteData[31:29] == 1 || inputStateStorage[`keyG]) outputAmplitude <= bassAmplitude;
+		else if (retrievedNoteData[31:29] == 2 || inputStateStorage[`keyH]) outputAmplitude <= middleDrumAmplitude;
+		else if (retrievedNoteData[31:29] == 3 || inputStateStorage[`keyJ]) outputAmplitude <= cymbelAmplitude;
 		else outputAmplitude <= 0;
 	end
 
+	//FROM FILE
+	wire [31:0] outputSound = (|inputStateStorage[27:0] || (playDrumNote && retrievedNoteData[31:29] != 4) || (|inputStateStorage[`keyJ:`keyF] && currentState == `RECORD)) ? squareWaveOutputPiano + (outputAmplitude * 262144) : 0;
+	*/
+	/*
+	reg [24:0] timerCounter = 0;
+	wire timerReset = 0;
 
-	wire [31:0] outputSound = (|inputStateStorage[`keyJ:`keyF] || playDrumNote) ? (outputAmplitude * 1048576 ) + squareWaveOutput : 0;
+	always @(posedge CLOCK_50) begin
+		if ((currentState == `PLAYBACK && !playDrumNote) || (currentState == `RECORD && ~|inputStateStorage[`keyJ:`keyF])) begin 
+			donePlayingDrumNote <= 0;
+			timerCounter <= 0;
+		end
 
-	// wire signed [7:0] c5amplitude, b4amplitude, g4amplitude;
-	// reg signed [11:0] outputAmplitude;
-	// reg [12:0] samplesPerSecondCounter = 0;
-	// reg [12:0] c5AccessAddress;
-	// reg [12:0] b4AccessAddress;
-	// reg [12:0] g4AccessAddress;
-	// wire [6:0] numberOfKeysBeingPressed;
-	// assign numberOfKeysBeingPressed = inputStateStorage[1] + inputStateStorage[2] + inputStateStorage[4] + inputStateStorage[5] + inputStateStorage[6] + inputStateStorage[8] + inputStateStorage[9] + inputStateStorage[`keyMinus] + inputStateStorage[`keyEquals] + inputStateStorage[`keyBackspace] + inputStateStorage[`keyTab] + inputStateStorage[`keyQ] + inputStateStorage[`keyW] + inputStateStorage[`keyE] + inputStateStorage[`keyR] + inputStateStorage[`keyT] + inputStateStorage[`keyY] + inputStateStorage[`keyU] + inputStateStorage[`keyI] + inputStateStorage[`keyO] + inputStateStorage[`keyP] + inputStateStorage[`keyLSquareBracket] + inputStateStorage[`keyRSquareBracket] + inputStateStorage[`keyBackslash];
+		if ((playDrumNote && !donePlayingDrumNote && currentState == `PLAYBACK) || (|inputStateStorage[`keyJ:`keyF] && currentState == `RECORD && timerCounter != 25'd3)) timerCounter <= timerCounter + 1;
+		if (timerCounter == 25'd3) begin
+			if (currentState == `PLAYBACK) donePlayingDrumNote <= 1;
+		end
 
-	// PianoNoteROM noteC5(c5AccessAddress, CLOCK_50, c5amplitude);
-	// PianoNoteROM noteB4(b4AccessAddress, CLOCK_50, b4amplitude);
-	// PianoNoteROM noteG4(g4AccessAddress, CLOCK_50, g4amplitude);
-	// defparam noteC5.INITFILE = "../AudioMifs/C5.mif";
-	// defparam noteB4.INITFILE = "../AudioMifs/B4.mif";
-	// defparam noteG4.INITFILE = "../AudioMifs/G4.mif";
-	// //voiceROM voiceTest(voiceAccessAddress, CLOCK_50, voiceAmplitude);
+	end
 
+	wire [31:0] outputSound = (|inputStateStorage[27:0] || (playDrumNote && retrievedNoteData[31:29] != 4) || (|inputStateStorage[`keyJ:`keyF] && currentState == `RECORD && timerCounter != 25'd10_000_000)) ? squareWaveOutputPiano + squareWaveOutputDrums : 0;
+	*/
+
+	// wire signed [7:0] voiceAmplitude, C5amplitude, B4amplitude, AS4amplitude, A4amplitude, GS4amplitude, G4amplitude, FS4amplitude;
+	// reg signed [7:0] outputAmplitude;
+	// reg [12:0] C5AccessAddress, B4AccessAddress, AS4AccessAddress, A4AccessAddress, GS4AccessAddress, G4AccessAddress, FS4AccessAddress;
+	// reg [12:0] samplesPerSecondCounter;
+	// reg [14:0] voiceAccessAddress;
+	// reg [31:0] outputSound;
+
+
+	// PianoNoteROM noteC5(C5AccessAddress, CLOCK_50, C5amplitude);
+	// voiceROM voice(voiceAccessAddress, CLOCK_50, voiceAmplitude);
+	// // PianoNoteROM noteB4(B4AccessAddress, CLOCK_50, B4amplitude);
+	// // PianoNoteROM noteAS4(AS4AccessAddress, CLOCK_50, AS4amplitude);
+	// // PianoNoteROM noteA4(A4AccessAddress, CLOCK_50, A4amplitude);
+	// // PianoNoteROM noteGS4(GS4AccessAddress, CLOCK_50, GS4amplitude);
+	// // PianoNoteROM noteG4(G4AccessAddress, CLOCK_50, G4amplitude);
+	// // PianoNoteROM noteFS4(FS4AccessAddress, CLOCK_50, FS4amplitude);
+
+	// // defparam noteAS4.INITFILE = "./AudioMifs/A#4.mif",
+	// // 		noteA4.INITFILE = "./AudioMifs/A4.mif",
+	// // 		noteB4.INITFILE = "./AudioMifs/B4.mif",
+	// // 		noteFS4.INITFILE = "./AudioMifs/F#4.mif",
+	// // 		noteGS4.INITFILE = "./AudioMifs/G#4.mif",
+	// // 		noteG4.INITFILE = "./AudioMifs/G4.mif";
 
 	// always @(posedge CLOCK_50) begin
-	// 	// if (c5AccessAddress == 5222) c5AccessAddress <= 0; //23406
-	// 	// if (b4AccessAddress == 5222) b4AccessAddress <= 0;
-	// 	// if (g4AccessAddress == 5222) g4AccessAddress <= 0;
 
-	// 	// if (~|inputStateStorage[28:0]) begin
-	// 	// 	c5AccessAddress <= 0;
-	// 	// 	b4AccessAddress <= 0;
-	// 	// 	g4AccessAddress <= 0;
-	// 	// 	samplesPerSecondCounter <= 0;
-	// 	// end
-	// 	if (samplesPerSecondCounter == 13'd200) begin //6250 corosponds to 8kHz
+	// 	if (~|inputStateStorage[28:0]) begin
+	// 		C5AccessAddress <= 0;
+	// 		voiceAccessAddress <= 0;
+	// 		// B4AccessAddress <= 0;
+	// 		// AS4AccessAddress <= 0;
+	// 		// A4AccessAddress <= 0;
+	// 		// GS4AccessAddress <= 0;
+	// 		// G4AccessAddress <= 0;
+	// 		// FS4AccessAddress <= 0;
+
 	// 		samplesPerSecondCounter <= 0;
-	// 		if (inputStateStorage[`keyU]) c5AccessAddress <= c5AccessAddress + 1;
-	// 		else c5AccessAddress <= 0;
-	// 		// if (inputStateStorage[`keyY]) b4AccessAddress <= b4AccessAddress + 1;
-	// 		// else b4AccessAddress <= 0;
-	// 		// if (inputStateStorage[`keyT]) g4AccessAddress <= g4AccessAddress + 1;
-	// 		// else g4AccessAddress <= 0;
-			
+	// 	end
+	// 	else if (samplesPerSecondCounter == 13'd6250) begin //6250 corosponds to 8kHz
+	// 		samplesPerSecondCounter <= 0;
+	// 		if (inputStateStorage[`keyU] && C5AccessAddress != 5222) C5AccessAddress <= C5AccessAddress + 1;
+	// 		if (inputStateStorage[`keyTab] && voiceAccessAddress != 23406) voiceAccessAddress <= voiceAccessAddress + 1;
+	// 		else voiceAccessAddress <= 0;
+	// 		// if (inputStateStorage[`keyY] && B4AccessAddress != 5222) B4AccessAddress <= B4AccessAddress + 1;
+	// 		// if (inputStateStorage[`keyT] && AS4AccessAddress != 5222) AS4AccessAddress <= AS4AccessAddress + 1;
+	// 		// if (inputStateStorage[`keyR] && A4AccessAddress != 5222) A4AccessAddress <= A4AccessAddress + 1;
+	// 		// if (inputStateStorage[`keyE] && GS4AccessAddress != 5222) GS4AccessAddress <= GS4AccessAddress + 1;
+	// 		// if (inputStateStorage[`keyW] && G4AccessAddress != 5222) G4AccessAddress <= FS4AccessAddress + 1;
+	// 		// if (inputStateStorage[`keyQ] && FS4AccessAddress != 5222) FS4AccessAddress <= FS4AccessAddress + 1;
 			
 	// 	end
 	// 	else samplesPerSecondCounter <= samplesPerSecondCounter + 1;
 	// end
 
 	// always @(*) begin
-	// 	outputAmplitude <= (c5amplitude + b4amplitude + g4amplitude);
-	// 	case (numberOfKeysBeingPressed)
-	// 	5'd2: outputAmplitude <= (c5amplitude + b4amplitude + g4amplitude);
-	// 	5'd3: outputAmplitude <= (c5amplitude + b4amplitude + g4amplitude);
-	// 	5'd4: outputAmplitude <= (c5amplitude + b4amplitude + g4amplitude);
-	// 	5'd5: outputAmplitude <= (c5amplitude + b4amplitude + g4amplitude);
-	// 	5'd6: outputAmplitude <= (c5amplitude + b4amplitude + g4amplitude);
-	// 	5'd7: outputAmplitude <= (c5amplitude + b4amplitude + g4amplitude);
-	// 	5'd8: outputAmplitude <= (c5amplitude + b4amplitude + g4amplitude);
-	// 	5'd9: outputAmplitude <= (c5amplitude + b4amplitude + g4amplitude);
-	// 	5'd10: outputAmplitude <= (c5amplitude + b4amplitude + g4amplitude);
-	// 	default: outputAmplitude <= c5amplitude + b4amplitude + g4amplitude;
-	// 	endcase		
-		
+	// 	if (inputStateStorage[`keyU]) outputSound <= C5amplitude << 24;
+	// 	if (inputStateStorage[`keyTab]) outputSound <= voiceAmplitude << 24;
+	// 	else outputSound <= 0;
 	// end
 
+
+	//assign outputAmplitude = C5amplitude + voiceAmplitude; //+ B4amplitude + AS4amplitude + A4amplitude + GS4amplitude + G4amplitude + FS4amplitude;
+
 	
-	//wire [31:0] outputSound = (|inputStateStorage[27:0]) ? c5amplitude << 20 : 0; //(snd ? 32'd100000000 : -32'd100000000)
+	//wire [31:0] outputSound = (|inputStateStorage[28:0]) ? outputAmplitude << 24 : 0; //(snd ? 32'd100000000 : -32'd100000000)
+
+
+
+
+	// wire signed [7:0] C5amplitude; //, B4amplitude, AS4amplitude, A4amplitude, GS4amplitude, G4amplitude, FS4amplitude, outputAmplitude;
+	// reg [12:0] C5AccessAddress; //, B4AccessAddress, AS4AccessAddress, A4AccessAddress, GS4AccessAddress, G4AccessAddress, FS4AccessAddress;
+	// reg [12:0] samplesPerSecondCounter;
+
+	// PianoNoteROM noteC5(C5AccessAddress, CLOCK_50, C5amplitude);
+	
+	// // PianoNoteROM noteB4(B4AccessAddress, CLOCK_50, B4amplitude);
+	// // PianoNoteROM noteAS4(AS4AccessAddress, CLOCK_50, AS4amplitude);
+	// // PianoNoteROM noteA4(A4AccessAddress, CLOCK_50, A4amplitude);
+	// // PianoNoteROM noteGS4(GS4AccessAddress, CLOCK_50, GS4amplitude);
+	// // PianoNoteROM noteG4(G4AccessAddress, CLOCK_50, G4amplitude);
+	// // PianoNoteROM noteFS4(FS4AccessAddress, CLOCK_50, FS4amplitude);
+
+	// // defparam noteAS4.INITFILE = "./AudioMifs/A#4.mif",
+	// // 		noteA4.INITFILE = "./AudioMifs/A4.mif",
+	// // 		noteB4.INITFILE = "./AudioMifs/B4.mif",
+	// // 		noteFS4.INITFILE = "./AudioMifs/F#4.mif",
+	// // 		noteGS4.INITFILE = "./AudioMifs/G#4.mif",
+	// // 		noteG4.INITFILE = "./AudioMifs/G4.mif";
+
+	// always @(posedge CLOCK_50) begin
+	// 	if (c5AccessAddress == 5222) c5AccessAddress <= 0;
+
+	// 	if (~|inputStateStorage[27:0]) begin
+	// 		C5AccessAddress <= 0;
+	// // 		// B4AccessAddress <= 0;
+	// // 		// AS4AccessAddress <= 0;
+	// // 		// A4AccessAddress <= 0;
+	// // 		// GS4AccessAddress <= 0;
+	// // 		// G4AccessAddress <= 0;
+	// // 		// FS4AccessAddress <= 0;
+
+	// 		samplesPerSecondCounter <= 0;
+	// 	end
+	// 	else if (samplesPerSecondCounter == 13'd6250) begin //6250 corosponds to 8kHz
+	// 		samplesPerSecondCounter <= 0;
+	// 		if (inputStateStorage[`keyU] && C5AccessAddress != 5222) C5AccessAddress <= C5AccessAddress + 1;
+	// // 		//if (inputStateStorage[`keyTab] && voiceAccessAddress != 23406) voiceAccessAddress <= voiceAccessAddress + 1;
+	// // 		// if (inputStateStorage[`keyY] && B4AccessAddress != 5222) B4AccessAddress <= B4AccessAddress + 1;
+	// // 		// if (inputStateStorage[`keyT] && AS4AccessAddress != 5222) AS4AccessAddress <= AS4AccessAddress + 1;
+	// // 		// if (inputStateStorage[`keyR] && A4AccessAddress != 5222) A4AccessAddress <= A4AccessAddress + 1;
+	// // 		// if (inputStateStorage[`keyE] && GS4AccessAddress != 5222) GS4AccessAddress <= GS4AccessAddress + 1;
+	// // 		// if (inputStateStorage[`keyW] && G4AccessAddress != 5222) G4AccessAddress <= FS4AccessAddress + 1;
+	// // 		// if (inputStateStorage[`keyQ] && FS4AccessAddress != 5222) FS4AccessAddress <= FS4AccessAddress + 1;
+			
+	// 	end
+	// 	else samplesPerSecondCounter <= samplesPerSecondCounter + 1;
+	// end
+
+	// // // always @(*) begin
+	// // // 	if (inputStateStorage[`keyU]) outputAmplitude <= outputAmplitude + C5amplitude;
+	// // // 	if (inputStateStorage[`keyY]) outputAmplitude <= outputAmplitude + B4amplitude;
+	// // // 	if (inputStateStorage[`keyT]) outputAmplitude <= outputAmplitude + AS4amplitude;
+	// // // 	if (inputStateStorage[`keyR]) outputAmplitude <= outputAmplitude + A4amplitude;
+
+	// // // end
+
+	// assign outputAmplitude = C5amplitude; //+ B4amplitude + AS4amplitude + A4amplitude + GS4amplitude + G4amplitude + FS4amplitude;
+
+	
+	// wire [31:0] outputSound = (|inputStateStorage[27:0]) ? (outputAmplitude << 24) : 0; //(snd ? 32'd100000000 : -32'd100000000)
 
 endmodule
 

@@ -6,7 +6,6 @@ module squareWaveGeneratorPiano(clk, inputStateStorage, outputSound);
 	input [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStorage;
 	output reg [31:0] outputSound;
 
-	reg [23:0] keyPlayEnable = 0;
 	wire signed [2:0] c4Wave, d4Wave, e4Wave, f4Wave, g4Wave, a4Wave, b4Wave, c5Wave, d5Wave, e5Wave, f5Wave, g5Wave, a5Wave, b5Wave, cS4Wave, dS4Wave, fS4Wave, gS4Wave, aS4Wave, cS5Wave, dS5Wave, fS5Wave, gS5Wave, aS5Wave;
 	wire signed [6:0] addingWire;
 
@@ -38,38 +37,58 @@ module squareWaveGeneratorPiano(clk, inputStateStorage, outputSound);
 	assign addingWire = c4Wave + d4Wave + e4Wave + f4Wave + g4Wave + a4Wave + b4Wave + c5Wave + d5Wave + e5Wave + f5Wave + g5Wave + a5Wave + b5Wave + cS4Wave + dS4Wave + fS4Wave + gS4Wave + aS4Wave + cS5Wave + dS5Wave + fS5Wave + gS5Wave + aS5Wave;
 	always @(*) begin
 		if (|inputStateStorage[`keyBackslash:0]) begin
-			if (addingWire > 0) outputSound <= 32'd10_000_000;
-			else if (addingWire < 0) outputSound <= -32'd10_000_000;
+			if (addingWire > 0) outputSound <= 32'd100_000_000;
+			else if (addingWire < 0) outputSound <= -32'd100_000_000;
 			else outputSound = 0;
 		end
+		else outputSound = 0;
 	end
 endmodule
 
-module squareWaveGeneratorDrums(clk, retrievedNoteDataNote, inputStateStorage, playDrumNote, outputSound);
+module squareWaveGeneratorDrums(clk, retrievedNoteDataNote, currentState, inputStateStorage, playDrumNote, outputSound);
 	
 	input clk;
 	input playDrumNote;
 	input [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStorage;
-	input [1:0] retrievedNoteDataNote; 
+	input [2:0] retrievedNoteDataNote;
+	input [4:0] currentState;
 	output reg [31:0] outputSound;
 
-	reg [23:0] keyPlayEnable = 0;
 	wire signed [2:0] bassWave, middleDrumWave, topLeftDrumWave, cymbelWave;
 	wire signed [6:0] addingWire;
 
-	delayCounter delayTopLeft(clk, recievedNoteDataNote == 0 || inputStateStorage[`keyF], 17'd75842, topLeftDrumWave);
-	delayCounter delayBass(clk, recievedNoteDataNote == 1 || inputStateStorage[`keyG], 17'd95555, bassWave);
-	delayCounter delayMiddle(clk, recievedNoteDataNote == 2 || inputStateStorage[`keyH], 17'd85132, middleDrumWave);
-	delayCounter delayCymbel(clk, recievedNoteDataNote == 3 || inputStateStorage[`keyJ], 17'd75842, cymbelWave);
+	delayCounterDrums delayTopLeft(clk, (retrievedNoteDataNote == 0 && currentState == `PLAYBACK ) || inputStateStorage[`keyF], 19'd125000, topLeftDrumWave); // (1/f)*(50_000_000/2)
+	delayCounterDrums delayBass(clk, (retrievedNoteDataNote == 1 && currentState == `PLAYBACK ) || inputStateStorage[`keyG], 19'd312500, bassWave);
+	delayCounterDrums delayMiddle(clk, (retrievedNoteDataNote == 2 && currentState == `PLAYBACK ) || inputStateStorage[`keyH], 19'd50_000, middleDrumWave);
+	delayCounterDrums delayCymbel(clk, (retrievedNoteDataNote == 3 && currentState == `PLAYBACK ) || inputStateStorage[`keyJ], 19'd5000, cymbelWave);
 
 	assign addingWire = bassWave + middleDrumWave + topLeftDrumWave + cymbelWave;
 	always @(*) begin
 		if (playDrumNote || inputStateStorage[`keyJ:`keyF]) begin
-			if (addingWire > 0) outputSound <= 32'd10_000_000;
-			else if (addingWire < 0) outputSound <= -32'd10_000_000;
+			if (addingWire > 0) outputSound <= 32'd100_000_000;
+			else if (addingWire < 0) outputSound <= -32'd100_000_000;
 			else outputSound = 0;
 		end
+		else outputSound = 0;
 	end
+endmodule
+
+module delayCounterDrums(clk, enable, maxDelay, highOrLow);
+	input clk, enable;
+	input [18:0] maxDelay;
+	output signed [2:0] highOrLow;
+
+	reg [18:0] delay_cnt = 0;
+	reg snd = 0;
+
+	always @(posedge clk) begin
+		if(delay_cnt == maxDelay) begin
+			delay_cnt <= 0;
+			snd <= !snd;
+		end else delay_cnt <= delay_cnt + 1;
+	end
+
+	assign highOrLow = enable ? (snd ? 1'b1 : -1'b1) : 0;
 endmodule
 
 module delayCounter(clk, enable, maxDelay, highOrLow);

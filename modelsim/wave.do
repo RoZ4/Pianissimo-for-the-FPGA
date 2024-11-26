@@ -19,6 +19,7 @@ add wave -noupdate -label resetTimer -unsigned /testbench/U1/mainStateDrumsContr
 add wave -noupdate -label microSecondCounter -unsigned /testbench/U1/mainStateDrumsController/microSecondCounter
 add wave -noupdate -label currentNoteDataNote -unsigned {/testbench/U1/mainStateDrumsController/currentNoteData[30:29]}
 add wave -noupdate -label currentNoteDataTime -unsigned {/testbench/U1/mainStateDrumsController/currentNoteData[28:0]}
+add wave -noupdate -label memoryWriteEnable -unsigned {/testbench/U1/mainStateDrumsController/memoryWriteEnable}
 add wave -noupdate -label noteReadAddress -unsigned /testbench/U1/mainStateDrumsController/noteReadAddress
 add wave -noupdate -label noteWriteAddress -unsigned /testbench/U1/mainStateDrumsController/noteWriteAddress
 add wave -noupdate -label retrievedNoteDataNote -unsigned {/testbench/U1/mainStateDrumsController/retrievedNoteData[30:29]}
@@ -27,9 +28,12 @@ add wave -noupdate -label retrievedNoteDataTime -unsigned {/testbench/U1/mainSta
 #add wave -noupdate -label leftDrumAmp -unsigned /testbench/U1/leftDrumAmplitude
 #add wave -noupdate -label leftDrumAdd -radix decimal /testbench/U1/leftDrumAddress
 #add wave -noupdate -label outputAmplitude -radix decimal /testbench/U1/outputAmplitude
-add wave -noupdate -label outputSound -radix decimal {/testbench/U1/outputSound[27:20]}
+add wave -noupdate -label outputSound -radix decimal {/testbench/U1/outputSound}
+add wave -noupdate -label bassAddress -unsigned {/testbench/U1/bassAddress}
 add wave -noupdate -label donePlayingDrumNote -radix binary {/testbench/U1/donePlayingDrumNote}
-#add wave -noupdate -label samplesPerSecondCounter -radix decimal /testbench/U1/samplesPerSecondCounter
+add wave -noupdate -divider DrumTimer
+#add wave -noupdate -label DrumTimer -unsigned {/testbench/U1/timerCounter}
+add wave -noupdate -label samplesPerSecondCounter -radix decimal /testbench/U1/samplesPerSecondCounter
 
 #add wave -noupdate -divider ScreenReseter
 #add wave -noupdate -label BassdrumColour -unsigned /testbench/U1/screenReseter/bassDrumColour

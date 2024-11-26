@@ -3,7 +3,7 @@
 module drawToScreen (clk, nextAddress, inputStateStorage, doneDrawing, outputDrawScreenPosX, outputDrawScreenPosY, currentState);
 	input clk;
 	input [4:0] currentState;
-	input [`NUMBEROFKEYBOARDINPUTS:0] inputStateStorage;
+	input [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStorage;
 	output reg doneDrawing;
 	output reg [14:0] nextAddress;
 	output reg [7:0] outputDrawScreenPosX = 0, outputDrawScreenPosY = 0;
@@ -41,7 +41,7 @@ module resetScreen (clk, noteBlocksDoneDrawing, currentState, inputDrawScreenPos
 	input clk, noteBlocksDoneDrawing;
 	input [`NUMBEROFKEYBOARDINPUTS-1:0] inputStateStorage;
 	input [7:0] inputDrawScreenPosX, inputDrawScreenPosY;
-	input [1:0] retrievedNoteDataNote;
+	input [2:0] retrievedNoteDataNote;
 	input playDrumNote;
 	input [4:0] currentState;
 	output reg [23:0] outputColour;
@@ -107,14 +107,14 @@ module resetScreen (clk, noteBlocksDoneDrawing, currentState, inputDrawScreenPos
 		if (currentState == `RECORD || currentState == `PLAYBACK) begin
 			if ((inputDrawScreenPosX > 21 && inputDrawScreenPosX < 140 && inputDrawScreenPosY > 10 && inputDrawScreenPosY < 72) && (currentState == `RECORD || currentState == `PLAYBACK)) begin
 				outputColour <= dkbkColour;
-				if (topLeftDrumColour && inputDrawScreenPosX > 22 && inputDrawScreenPosX < 44 && inputDrawScreenPosY > 10 && inputDrawScreenPosY < 28) outputColour <= ((inputStateStorage[`keyF] && currentState == `RECORD) || (retrievedNoteDataNote == 2'd0 && playDrumNote)) ? 24'b11111111_11011000_00000000 : `COLOURBLACK;
-				else if (bassDrumColour && inputDrawScreenPosX > 46 && inputDrawScreenPosX < 88 && inputDrawScreenPosY > 21 && inputDrawScreenPosY < 64) outputColour <= ((inputStateStorage[`keyG] && currentState == `RECORD) || (retrievedNoteDataNote == 2'd1 && playDrumNote)) ? 24'b11111111_11011000_00000000 : `COLOURBLACK;
-				else if (middleDrumColour && inputDrawScreenPosX > 78 && inputDrawScreenPosX < 101 && inputDrawScreenPosY > 10 && inputDrawScreenPosY < 20) outputColour <= ((inputStateStorage[`keyH] && currentState == `RECORD) || (retrievedNoteDataNote == 2'd2 && playDrumNote)) ? 24'b11111111_11011000_00000000 : `COLOURBLACK;
-				else if (cymbelColour && inputDrawScreenPosX > 100 && inputDrawScreenPosX < 131 && inputDrawScreenPosY > 12 && inputDrawScreenPosY < 32) outputColour <= ((inputStateStorage[`keyJ] && currentState == `RECORD) || (retrievedNoteDataNote == 3'd2 && playDrumNote)) ? 24'b11111111_11011000_00000000 : `COLOURBLACK;
+				if (topLeftDrumColour && inputDrawScreenPosX > 22 && inputDrawScreenPosX < 44 && inputDrawScreenPosY > 10 && inputDrawScreenPosY < 28) outputColour <= ((inputStateStorage[`keyF] && currentState == `RECORD) || (retrievedNoteDataNote == 0 && playDrumNote)) ? 24'b11111111_11011000_00000000 : `COLOURBLACK;
+				else if (bassDrumColour && inputDrawScreenPosX > 46 && inputDrawScreenPosX < 88 && inputDrawScreenPosY > 21 && inputDrawScreenPosY < 64) outputColour <= ((inputStateStorage[`keyG] && currentState == `RECORD) || (retrievedNoteDataNote == 1 && playDrumNote)) ? 24'b11111111_11011000_00000000 : `COLOURBLACK;
+				else if (middleDrumColour && inputDrawScreenPosX > 78 && inputDrawScreenPosX < 101 && inputDrawScreenPosY > 10 && inputDrawScreenPosY < 20) outputColour <= ((inputStateStorage[`keyH] && currentState == `RECORD) || (retrievedNoteDataNote == 2 && playDrumNote)) ? 24'b11111111_11011000_00000000 : `COLOURBLACK;
+				else if (cymbelColour && inputDrawScreenPosX > 100 && inputDrawScreenPosX < 131 && inputDrawScreenPosY > 12 && inputDrawScreenPosY < 32) outputColour <= ((inputStateStorage[`keyJ] && currentState == `RECORD) || (retrievedNoteDataNote == 3 && playDrumNote)) ? 24'b11111111_11011000_00000000 : `COLOURBLACK;
 				
 			end
 			else if (inputDrawScreenPosY < 8'd92) begin
-				outputColour <= 24'b10101010_00000000_01010101;
+				outputColour <= `COLOURWHITE; //24'b10101010_00000000_01010101;
 			end
 			else begin
 				// `ifdef SIMULATION

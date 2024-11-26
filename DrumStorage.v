@@ -46,11 +46,11 @@ module DrumStorage (
 	q);
 
 	input	  clock;
-	input	[30:0]  data;
+	input	[31:0]  data;
 	input	[6:0]  rdaddress;
 	input	[6:0]  wraddress;
 	input	  wren;
-	output	[30:0]  q;
+	output	[31:0]  q;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
@@ -60,8 +60,8 @@ module DrumStorage (
 // synopsys translate_on
 `endif
 
-	wire [30:0] sub_wire0;
-	wire [30:0] q = sub_wire0[30:0];
+	wire [31:0] sub_wire0;
+	wire [31:0] q = sub_wire0[31:0];
 
 	altsyncram	altsyncram_component (
 				.address_a (wraddress),
@@ -81,7 +81,7 @@ module DrumStorage (
 				.clocken1 (1'b1),
 				.clocken2 (1'b1),
 				.clocken3 (1'b1),
-				.data_b ({31{1'b1}}),
+				.data_b ({32{1'b1}}),
 				.eccstatus (),
 				.q_a (),
 				.rden_a (1'b1),
@@ -104,8 +104,8 @@ module DrumStorage (
 		altsyncram_component.read_during_write_mode_mixed_ports = "DONT_CARE",
 		altsyncram_component.widthad_a = 7,
 		altsyncram_component.widthad_b = 7,
-		altsyncram_component.width_a = 31,
-		altsyncram_component.width_b = 31,
+		altsyncram_component.width_a = 32,
+		altsyncram_component.width_b = 32,
 		altsyncram_component.width_byteena_a = 1;
 
 
