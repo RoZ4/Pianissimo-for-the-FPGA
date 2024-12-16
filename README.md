@@ -2,7 +2,7 @@
 <br />
 
 <div align="center">
-    <img src ="images/StartScreen.png" width="80" height = "80">
+    <img src ="images/StartScreen.png" width="160" height = "120">
     <h3 align="center"> Pianissimo for the FPGA </h3>
 
   <p align="center">
@@ -46,8 +46,11 @@ while the the user plays the piano.
 <p align="right">(<a href="#readmeTop">back to top</a>)</p>
 
 ### Built With
-
-* [![Verilog][Verilog]][Verilog-url]
+<a href="https://www.chipverify.com/tutorials/verilog">
+  <svg align="center" width="200" height="200" xmlns="readmeFiles/verilog-logo.png">
+    <rect width="100%" height="100%" fill="aliceblue" />
+  </svg>
+</a>
 
 <p align="right">(<a href="#readmeTop">back to top</a>)</p>
 
@@ -139,5 +142,3 @@ This project was created for the ECE241 course at the University of Toronto in T
 
 [Quartus-url]: https://www.intel.com/content/www/us/en/software-kit/660907/intel-quartus-prime-lite-edition-design-software-version-20-1-1-for-windows.html
 [ModelSim-url]: https://www.intel.com/content/www/us/en/software-kit/750368/modelsim-intel-fpgas-standard-edition-software-version-18-1.html
-[Verilog-url]: https://www.chipverify.com/tutorials/verilog
-[Verilog]: .readmeFiles/verilog-logo.svg
