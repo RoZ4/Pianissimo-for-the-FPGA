@@ -47,9 +47,7 @@ while the the user plays the piano.
 
 ### Built With
 <a href="https://www.chipverify.com/tutorials/verilog">
-  <svg align="center" width="200" height="200" xmlns="readmeFiles/verilog-logo.png">
-    <rect width="100%" height="100%" fill="aliceblue" />
-  </svg>
+    <img src = "readmeFiles/verilog_logo.png" align="center" width="200" height="200">
 </a>
 
 <p align="right">(<a href="#readmeTop">back to top</a>)</p>
