@@ -294,10 +294,10 @@ module PianissimoFinalProject (CLOCK_50,
 
 	wire [32:0] outputSound = inputStateStorage[`keyF] ? bassAmplitude * 262144 : 0;
 	*/
-	/*
+	
 	wire signed [31:0] squareWaveOutputPiano, squareWaveOutputDrums;
 	squareWaveGeneratorPiano genP(.clk(CLOCK_50), .inputStateStorage(inputStateStorage), .outputSound(squareWaveOutputPiano));
-	squareWaveGeneratorDrums genD(.clk(CLOCK_50), .currentState(currentState), .retrievedNoteDataNote(retrievedNoteData[31:29]), .inputStateStorage(inputStateStorage), .playDrumNote(playDrumNote), .outputSound(squareWaveOutputDrums));
+	//squareWaveGeneratorDrums genD(.clk(CLOCK_50), .currentState(currentState), .retrievedNoteDataNote(retrievedNoteData[31:29]), .inputStateStorage(inputStateStorage), .playDrumNote(playDrumNote), .outputSound(squareWaveOutputDrums));
 
 	wire signed [7:0] bassAmplitude, leftDrumAmplitude, middleDrumAmplitude, cymbelAmplitude;
 	reg signed [7:0] outputAmplitude;
@@ -308,7 +308,7 @@ module PianissimoFinalProject (CLOCK_50,
 	DrumNoteROM leftDrum(leftDrumAddress, CLOCK_50, leftDrumAmplitude);
 	DrumNoteROM middleDrum(middleDrumAddress, CLOCK_50, middleDrumAmplitude);
 	DrumNoteROM cymbel(cymbelAddress, CLOCK_50, cymbelAmplitude);
-	defparam leftDrum.INITFILE = "./AudioMifs/topLeftDrum.mif";
+	defparam leftDrum.INITFILE = "./AudioMifs/topLeftDrum.mif",
 			bass.INITFILE = "./AudioMifs/Bassdrum.mif",
 			middleDrum.INITFILE = "./AudioMifs/middleDrum.mif",
 			cymbel.INITFILE = "./AudioMifs/cymbel.mif";
@@ -357,16 +357,16 @@ module PianissimoFinalProject (CLOCK_50,
 
 	always@(*) begin
 		if (retrievedNoteData[31:29] == 0 || inputStateStorage[`keyF]) outputAmplitude <= leftDrumAmplitude;
-		//else if (retrievedNoteData[31:29] == 1 || inputStateStorage[`keyG]) outputAmplitude <= bassAmplitude;
-		//else if (retrievedNoteData[31:29] == 2 || inputStateStorage[`keyH]) outputAmplitude <= middleDrumAmplitude;
-		//else if (retrievedNoteData[31:29] == 3 || inputStateStorage[`keyJ]) outputAmplitude <= cymbelAmplitude;
+		else if (retrievedNoteData[31:29] == 1 || inputStateStorage[`keyG]) outputAmplitude <= bassAmplitude;
+		else if (retrievedNoteData[31:29] == 2 || inputStateStorage[`keyH]) outputAmplitude <= middleDrumAmplitude;
+		else if (retrievedNoteData[31:29] == 3 || inputStateStorage[`keyJ]) outputAmplitude <= cymbelAmplitude;
 		else outputAmplitude <= 0;
 	end
 
 	//FROM FILE
-	wire [31:0] outputSound = (|inputStateStorage[27:0] || (playDrumNote && retrievedNoteData[31:29] != 4) || (|inputStateStorage[`keyJ:`keyF] && currentState == `RECORD)) ? squareWaveOutputPiano + (outputAmplitude * 262144) : 0;
-	*/
+	wire [31:0] outputSound = (|inputStateStorage[27:0] || (playDrumNote && retrievedNoteData[31:29] != 4) || (|inputStateStorage[`keyJ:`keyF] && currentState == `RECORD)) ? squareWaveOutputPiano + (outputAmplitude <<< 20) : 0; //262144
 
+	/*
 	wire signed [31:0] squareWaveOutputPiano, squareWaveOutputDrums;
 	squareWaveGeneratorPiano genP(.clk(CLOCK_50), .inputStateStorage(inputStateStorage), .outputSound(squareWaveOutputPiano));
 	squareWaveGeneratorDrums genD(.clk(CLOCK_50), .currentState(currentState), .retrievedNoteDataNote(retrievedNoteData[31:29]), .inputStateStorage(inputStateStorage), .playDrumNote(playDrumNote), .outputSound(squareWaveOutputDrums));
@@ -389,14 +389,14 @@ module PianissimoFinalProject (CLOCK_50,
 	end
 
 	wire [31:0] outputSound = (|inputStateStorage[27:0] || (playDrumNote && retrievedNoteData[31:29] != 4) || (|inputStateStorage[`keyJ:`keyF] && currentState == `RECORD && timerCounter != 25'd10_000_000)) ? squareWaveOutputPiano + squareWaveOutputDrums : 0;
-	
+	*/
 
 
 
 
 	assign read_audio_in			= audio_in_available & audio_out_allowed;
-	assign left_channel_audio_out	= outputSound;
-	assign right_channel_audio_out	= outputSound;
+	assign left_channel_audio_out	= outputSound >>> 4;
+	assign right_channel_audio_out	= outputSound >>> 4;
 	assign write_audio_out			= audio_in_available & audio_out_allowed;
 
 	Audio_Controller Audio_Controller (

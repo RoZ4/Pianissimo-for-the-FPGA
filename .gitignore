@@ -8,6 +8,7 @@ tb/
 audio/output_files/
 output_files/*
 !output_files/*.sof
+!output_files/*.cdf
 *.bak
 *.out
 *.qdf
