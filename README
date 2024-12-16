@@ -5,8 +5,8 @@
     <img src ="images/StartScreen.png" width="80" height = "80">
     <h3 align="center"> Pianissimo for the FPGA </h3>
 
-    <p align="center">
-        An awesome README template to jumpstart your projects!
+  <p align="center">
+        Play and Record Piano and Drums on an FPGA board!
         <br />
         <a href="#DEMO">View Demo</a>
     </p>
@@ -47,9 +47,9 @@ while the the user plays the piano.
 
 ### Built With
 
-* [![Verilog][Verilog]][Verilog-url]
+* [![Verilog]][Verilog-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readmeTop">back to top</a>)</p>
 
 
 
@@ -91,7 +91,7 @@ _Below is an example of how you can instruct your audience on installing and set
 7. Press "Start" from the main programmer window to program the FPGA board 
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readmeTop">back to top</a>)</p>
 
 
 <!-- USAGE -->
@@ -112,14 +112,14 @@ To record the drum kit, play the drums in the sequence you wish to record and pr
 
 In the playback state, press the spacebar to return to the record state
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readmeTop">back to top</a>)</p>
 
 <!-- LICENSE -->
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readmeTop">back to top</a>)</p>
 
 <!-- CONTACT -->
 ## Contact
@@ -128,14 +128,16 @@ Robert Zupancic - [@LinkedIn](https://ca.linkedin.com/in/robert-zupancic)
 
 Project Link: [https://github.com/RoZ4/Pianissimo241Final.git](https://github.com/RoZ4/Pianissimo241Final.git)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readmeTop">back to top</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
 This project was created for the ECE241 course at the University of Toronto in Toronto, Canada. It was created in conjuction with [SophiaAlexanian](https://github.com/sophia-alexanian).
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readmeTop">back to top</a>)</p>
 
 [Quartus-url]: https://www.intel.com/content/www/us/en/software-kit/660907/intel-quartus-prime-lite-edition-design-software-version-20-1-1-for-windows.html
 [ModelSim-url]: https://www.intel.com/content/www/us/en/software-kit/750368/modelsim-intel-fpgas-standard-edition-software-version-18-1.html
+[Verilog-url]: https://www.chipverify.com/tutorials/verilog
+[Verilog]: radmeFiles/verilog-logo.svg
