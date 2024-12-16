@@ -140,4 +140,4 @@ This project was created for the ECE241 course at the University of Toronto in T
 [Quartus-url]: https://www.intel.com/content/www/us/en/software-kit/660907/intel-quartus-prime-lite-edition-design-software-version-20-1-1-for-windows.html
 [ModelSim-url]: https://www.intel.com/content/www/us/en/software-kit/750368/modelsim-intel-fpgas-standard-edition-software-version-18-1.html
 [Verilog-url]: https://www.chipverify.com/tutorials/verilog
-[Verilog]: radmeFiles/verilog-logo.svg
+[Verilog]: .readmeFiles/verilog-logo.svg
