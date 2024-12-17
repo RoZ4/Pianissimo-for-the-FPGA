@@ -2,7 +2,7 @@
 <br />
 
 <div align="center">
-    <img src ="images/StartScreen.png" width="160" height = "120">
+    <img src ="images/StartScreen.png" width="320" height = "240">
     <h3 align="center"> Pianissimo for the FPGA </h3>
 
   <p align="center">

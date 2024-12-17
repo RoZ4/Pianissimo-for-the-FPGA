@@ -1,0 +1,22 @@
+{
+	"system" : {
+		"platform" : "windows64",
+		"os_name" : "Windows 10",
+		"os_version" : "10.0"
+	},
+	"error" : {
+		"executable" : "quartus_fit",
+		"comment" : "not_applicable",
+		"error_message" : "Access Violation at 0X00007FFF73AC1E99",
+		"source_file" : "unknown",
+		"line" : "0",
+		"stack_trace" : "\t0x7fff73ac1e98: DB_PDB + 0x1e98 (?xfr_ptr@PDB_SEGMENT_WRITER@@UEAAXAEAPEAXPEBVPDB_STATIC_THUNK_INFO@@@Z + 0x18)\n\t0x7fff6248b3cf: DB_HDB + 0xb3cf (?serialize@HDB_SYN_INSTANCE_NAME@@UEAAXAEAVPDB_SEGMENT@@@Z + 0x1af)\n\t0x7fff73ac1e31: DB_PDB + 0x1e31 (?finish_writing_all@PDB_SEGMENT_WRITER@@QEAAXXZ + 0xb1)\n\t0x7fff73ac83bc: DB_PDB + 0x83bc (pdb_write_ptr + 0x12c)\n\t0x7fff624cdf15: DB_HDB + 0x4df15 (??$pdb_write@VPDB_ARCHIVE@@VHDB_NAMESPACE@@@@YA_NPEBVHDB_NAMESPACE@@AEAVPDB_ARCHIVE@@PEBDH@Z + 0x45)\n\t0x7fff624cde70: DB_HDB + 0x4de70 (DBM_PDB&lt;HDB_NAMESPACE&gt;::write_file + 0xa4)\n\t0x7fff6249dced: DB_HDB + 0x1dced (HDB_NAMESPACE::write_pdb + 0x5d)\n\t0x7fff48b2a3b2: comp_qcu + 0xa3b2 (?write_cap_hdb_pdb@QCU_FACADE_IMPL@@UEAA_NW4PDB_FILE_TYPE@HDB_NAMESPACE@@@Z + 0x52)\n\t0x7fff48b2c573: comp_qcu + 0xc573 (?write_named_databases@QCU_FRAMEWORK@@QEAA_N_NW4STAGE@1@@Z + 0x1e3)\n\t0x7fff724f4c27: comp_qfit_legacy_flow + 0x4c27 (QFIT_FRAMEWORK::write_databases + 0x207)\n\t0x7fff724f26b6: comp_qfit_legacy_flow + 0x26b6 (qfit_legacy_flow_run_legacy_fitter_flow + 0x1fe)\n\t 0x6fa54410: tcl86 + 0x14410 (TclInvokeStringCommand + 0xf0)\n\t 0x6fa561e2: tcl86 + 0x161e2 (TclNRRunCallbacks + 0x62)\n\t 0x6fa57a65: tcl86 + 0x17a65 (TclEvalEx + 0xa65)\n\t 0x6fae6f8b: tcl86 + 0xa6f8b (Tcl_FSEvalFileEx + 0x22b)\n\t 0x6fae5646: tcl86 + 0xa5646 (Tcl_EvalFile + 0x36)\n\t0x7fff6b722606: comp_qexe + 0x12606 (?qexe_evaluate_tcl_script@@YA_NAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z + 0x376)\n\t0x7fff6b721864: comp_qexe + 0x11864 (qexe_do_tcl + 0x334)\n\t0x7fff6b726755: comp_qexe + 0x16755 (?qexe_run_tcl_option@@YA_NPEAVQEXE_FRAMEWORK@@PEBDPEAV?$list@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@_N@Z + 0x585)\n\t0x7fff48b580c3: comp_qcu + 0x380c3 (?qcu_run_tcl_option@@YA_NPEAVQCU_FRAMEWORK@@PEBDPEAV?$list@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@V?$allocator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@2@@std@@_N@Z + 0x1003)\n\t0x7fff6b7260aa: comp_qexe + 0x160aa (qexe_run + 0x39a)\n\t0x7fff6b726e51: comp_qexe + 0x16e51 (?qexe_standard_main@@YAHPEAVQEXE_FRAMEWORK@@PEAPEBUQEXE_OPTION_DEFINITION@@HPEAPEBD@Z + 0xc1)\n\t0x7ff6ad052233: quartus_fit + 0x2233 (?qfit2_main@@YAHHPEAPEBD@Z + 0x73)\n\t0x7fff69d72e98: CCL_MSG + 0x12e98 (?msg_main_thread@@YAPEAXPEAX@Z + 0x18)\n\t0x7fff69d7467e: CCL_MSG + 0x1467e (?msg_thread_wrapper@@YAPEAXP6APEAXPEAX@Z0@Z + 0x6e)\n\t0x7fff78426660: ccl_mem + 0x16660 (?mem_thread_wrapper@@YAPEAXP6APEAXPEAX@Z0@Z + 0x70)\n\t0x7fff69d72761: CCL_MSG + 0x12761 (?msg_exe_main@@YAHHPEAPEBDP6AHH0@Z@Z + 0xa1)\n\t0x7ff6ad05287e: quartus_fit + 0x287e (__tmainCRTStartup + 0x10e)\n\t0x7fff988b7373: KERNEL32 + 0x17373 (BaseThreadInitThunk + 0x13)\n\t0x7fff98a7cc90: ntdll + 0x4cc90 (RtlUserThreadStart + 0x20)\n",
+		"subsystem" : "unknown"
+	},
+	"quartus" : {
+		"quartus_bits" : "64",
+		"version" : "18.0.0",
+		"build" : "614",
+		"edition" : "Standard Edition"
+	}
+}
