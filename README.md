@@ -42,6 +42,11 @@
 Pianissimo is a piano and drum kit simulator designed for the DE1_SOC FPGA board. 
 With an acompanying PS2 keyboard and external AUX connected speakers. Pianissimo allows its users to record a series of beats on the drum and have them automatically played back
 while the the user plays the piano.
+
+<iframe width="420" height="315"
+src="https://youtu.be/Ba7wiB6z1n4">
+</iframe>
+
 <div align="center" height=240 width=320>
     [![Pianissimo Video](https://img.youtube.com/vi/Ba7wiB6z1n4/0.jpg)](https://youtu.be/Ba7wiB6z1n4)
 </div>
