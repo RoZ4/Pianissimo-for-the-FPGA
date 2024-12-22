@@ -135,7 +135,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <p align="right">(<a href="#readmeTop">back to top</a>)</p>
 
 <!-- CONTACT -->
-<div id="CONTACT"> </div>
+<div id="CONTACT"> </div>  
 ## Contact
 
 Robert Zupancic - [@LinkedIn](https://ca.linkedin.com/in/robert-zupancic)
