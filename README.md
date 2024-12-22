@@ -39,7 +39,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About Pianissimo
 NOTE THAT THE MAJORITY OF FILES HAVE BEEN REMOVED UPON UNIVERSITY REQUEST
- <p align="center">
+ <p align="left">
         If you wish to see the removed source code, please see
         <br />
         <a href="#CONTACT">Contact</a>
