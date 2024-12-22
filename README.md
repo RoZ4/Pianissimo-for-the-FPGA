@@ -41,7 +41,7 @@
 NOTE THAT THE MAJORITY OF FILES HAVE BEEN REMOVED UPON UNIVERSITY REQUEST
  <p align="left">
         If you wish to see the removed source code, please see
-        [Contact](#contact)
+        <a href="#contact">Contact</a>
 </p>
 
 
