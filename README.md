@@ -38,6 +38,9 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About Pianissimo
+NOTE THAT THE MAJORITY OF FILES HAVE BEEN REMOVED UPON UNIVERSITY REQUEST
+If you wish to view the removed files, see <a href="#CONTACT> contact </a>
+
 
 Pianissimo is a piano and drum kit simulator designed for the DE1_SOC FPGA board. 
 With an acompanying PS2 keyboard and external AUX connected speakers. Pianissimo allows its users to record a series of beats on the drum and have them automatically played back
@@ -129,6 +132,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <p align="right">(<a href="#readmeTop">back to top</a>)</p>
 
 <!-- CONTACT -->
+<div id="CONTACT> </div>
 ## Contact
 
 Robert Zupancic - [@LinkedIn](https://ca.linkedin.com/in/robert-zupancic)
