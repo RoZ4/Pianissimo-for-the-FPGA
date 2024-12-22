@@ -39,8 +39,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About Pianissimo
 NOTE THAT THE MAJORITY OF FILES HAVE BEEN REMOVED UPON UNIVERSITY REQUEST
-If you wish to view the removed files, see 
-<a href="#CONTACT> contact </a>
+<p> If you wish to view the removed files, see <a href="#CONTACT> contact </a> </p>
 
 
 Pianissimo is a piano and drum kit simulator designed for the DE1_SOC FPGA board. 
