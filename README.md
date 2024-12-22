@@ -140,6 +140,8 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Robert Zupancic - [@LinkedIn](https://ca.linkedin.com/in/robert-zupancic)
 
+Sophia Alexanian - [@LinkedIn](https://www.linkedin.com/in/sophia-alexanian/)
+
 Project Link: [https://github.com/RoZ4/Pianissimo241Final.git](https://github.com/RoZ4/Pianissimo241Final.git)
 
 <p align="right">(<a href="#readmeTop">back to top</a>)</p>
@@ -147,7 +149,7 @@ Project Link: [https://github.com/RoZ4/Pianissimo241Final.git](https://github.co
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-This project was created for the ECE241 course at the University of Toronto in Toronto, Canada. It was created in conjuction with [SophiaAlexanian](https://github.com/sophia-alexanian).
+This project was created for the ECE241 course at the University of Toronto in Toronto, Canada. It was created in conjuction with [Sophia Alexanian](https://github.com/sophia-alexanian).
 
 <p align="right">(<a href="#readmeTop">back to top</a>)</p>
 
